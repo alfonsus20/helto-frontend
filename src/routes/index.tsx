@@ -4,6 +4,7 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import DiseaseDetection from "./DiseaseDetection";
 import Home from "./Home";
 import Login from "./Login";
+import NotFound from "./NotFound";
 
 const RouteList = () => {
   return (
@@ -16,6 +17,7 @@ const RouteList = () => {
         <Route element={<ProtectedRoute />}>
           <Route path="/deteksi-penyakit" element={<DiseaseDetection />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
