@@ -1,17 +1,32 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import Button from "../Button";
 
 const Navbar = () => {
   return (
-    <nav className="flex justify-between py-8">
-      <div>Logo</div>
-      <dl>
-        <dd>Konsultasi</dd>
-        <dd>Pelajari Tanamanmu</dd>
-        <dd>Komunitas</dd>
+    <nav className="flex justify-between py-6 items-center max-w-7xl mx-auto">
+      <div className="px-6 py-3 bg-brown-200">
+        <Link to="/">Logo</Link>
+      </div>
+      <dl className="flex gap-x-5 text-brown-600">
+        <Link to="/" className="px-2">
+          Beranda
+        </Link>
+        <Link to="/" className="px-2">
+          Konsultasi
+        </Link>
+        <Link to="/" className="px-2">
+          Pelajari Tanamanmu
+        </Link>
+        <Link to="/" className="px-2">
+          Komunitas
+        </Link>
       </dl>
-      <div>
-          <button>Masuk</button>
-          <button>Daftar</button>
+      <div className="flex gap-x-4 items-center text-brown-600">
+        <Link to="/login" className="px-6">
+          Masuk
+        </Link>
+        <Button shape="pill">Daftar</Button>
       </div>
     </nav>
   );

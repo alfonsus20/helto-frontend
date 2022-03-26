@@ -1,0 +1,23 @@
+@tailwind components;
+
+@layer components {
+  .btn {
+    @apply transition-colors ease-linear;
+
+    &-primary {
+      @apply bg-brown-500 text-white hover:bg-brown-550;
+    }
+
+    &-secondary {
+      @apply bg-white border-brown-500 border-2 text-brown-500 hover:bg-brown-500 hover:text-white;
+    }
+
+    &.is-box {
+      @apply px-8 py-2;
+    }
+
+    &.is-pill {
+      @apply px-10 py-2 rounded-full;
+    }
+  }
+}
