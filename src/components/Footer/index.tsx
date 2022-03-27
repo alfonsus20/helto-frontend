@@ -9,7 +9,7 @@ import Button from "../Button";
 
 const Footer = () => {
   return (
-    <div>
+    <div className="mt-auto">
       <div className="grid grid-cols-12 mx-auto max-w-6xl py-10 gap-6">
         <div className="col-span-3">
           <Link to="/" className="px-6 py-3 bg-brown-200 w-max">

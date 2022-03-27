@@ -7,9 +7,11 @@ import RouteList from "./routes";
 function App() {
   return (
     <BrowserRouter>
-      <Navbar />
-      <RouteList />
-      <Footer />
+      <main className="min-h-screen flex flex-col">
+        <Navbar />
+        <RouteList />
+        <Footer />
+      </main>
     </BrowserRouter>
   );
 }
