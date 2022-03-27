@@ -1,6 +1,8 @@
 import React from "react";
 import classNames from "classnames";
 import type { CommonSize } from "../../theme";
+import { useNavigate } from "react-router-dom";
+
 import "./style.scss";
 
 type ButtonAppearance = "primary" | "secondary" | "tertiary";
@@ -14,6 +16,7 @@ type ButtonProps = {
   size?: CommonSize;
   type?: "submit" | "button";
   width?: "auto" | "full";
+  pathname?: string;
 };
 
 const Button = ({
@@ -22,10 +25,16 @@ const Button = ({
   size = "md",
   shape = "box",
   width = "auto",
+  pathname,
+  onClick,
   ...rest
 }: ButtonProps) => {
+  const navigate = useNavigate();
+  const navigateTo = () => navigate(`/${pathname}`);
+
   return (
     <button
+      onClick={pathname ? navigateTo : onClick}
       className={classNames("btn", {
         "btn-primary": appearance === "primary",
         "btn-secondary": appearance === "secondary",

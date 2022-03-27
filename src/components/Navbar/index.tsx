@@ -26,7 +26,9 @@ const Navbar = () => {
         <Link to="/login" className="px-6">
           Masuk
         </Link>
-        <Button shape="pill">Daftar</Button>
+        <Button shape="pill" pathname="register">
+          Daftar
+        </Button>
       </div>
     </nav>
   );

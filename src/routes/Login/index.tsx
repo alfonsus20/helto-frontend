@@ -7,7 +7,7 @@ import Button from "../../components/Button";
 const Login = () => {
   return (
     <div className="min-h-screen bg-pink-300 flex justify-center">
-      <div className="py-40 flex justify-center flex-col items-center max-w-xs w-full">
+      <div className="py-32 flex justify-center flex-col items-center max-w-xs w-full">
         <img src={CartImage} alt="logo" className="w-32 h-auto mb-4" />
         <Input
           appearance="secondary"
