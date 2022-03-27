@@ -13,6 +13,7 @@ type ButtonProps = {
   shape?: ButtonShape;
   size?: CommonSize;
   type?: "submit" | "button";
+  width?: "auto" | "full";
 };
 
 const Button = ({
@@ -20,6 +21,7 @@ const Button = ({
   appearance = "primary",
   size = "md",
   shape = "box",
+  width = "auto",
   ...rest
 }: ButtonProps) => {
   return (
@@ -27,8 +29,11 @@ const Button = ({
       className={classNames("btn", {
         "btn-primary": appearance === "primary",
         "btn-secondary": appearance === "secondary",
+        "btn-tertiary": appearance === "tertiary",
         "is-box": shape === "box",
         "is-pill": shape === "pill",
+        "w-auto": width === "auto",
+        "w-full": width === "full",
       })}
       {...rest}
     >

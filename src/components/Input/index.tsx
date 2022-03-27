@@ -2,19 +2,29 @@ import React from "react";
 import classNames from "classnames";
 import type { InputProps } from "../../theme";
 
+import "./style.scss";
+
 const Input = ({
-  appearance,
+  appearance = "primary",
   className,
+  icon,
   ...rest
 }: InputProps & React.InputHTMLAttributes<HTMLElement>) => {
   return (
-    <input
-      className={classNames(
-        "px-4 py-2 w-full outline-0 focus:outline-1 outline-gray-400 rounded-lg",
-        className
-      )}
-      {...rest}
-    />
+    <div
+      className={classNames("flex w-full items-center", className, {
+        "border-2 border-white": appearance === "secondary",
+      })}
+    >
+      {icon && <span className="flex-shrink-0">{icon}</span>}
+      <input
+        className={classNames("input", {
+          "input-primary": appearance === "primary",
+          "input-secondary": appearance === "secondary",
+        })}
+        {...rest}
+      />
+    </div>
   );
 };
 
