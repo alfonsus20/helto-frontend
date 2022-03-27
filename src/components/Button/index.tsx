@@ -12,6 +12,7 @@ type ButtonProps = {
   onClick?: (event: React.MouseEvent) => void;
   shape?: ButtonShape;
   size?: CommonSize;
+  type?: "submit" | "button";
 };
 
 const Button = ({
@@ -19,6 +20,7 @@ const Button = ({
   appearance = "primary",
   size = "md",
   shape = "box",
+  ...rest
 }: ButtonProps) => {
   return (
     <button
@@ -28,6 +30,7 @@ const Button = ({
         "is-box": shape === "box",
         "is-pill": shape === "pill",
       })}
+      {...rest}
     >
       {children}
     </button>
