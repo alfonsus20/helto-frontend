@@ -2,10 +2,9 @@ import React from "react";
 import Header from "../../components/Header";
 import LandingPageBg from "../../images/landing-page.png";
 import { UserGroupIcon, ViewGridIcon } from "@heroicons/react/solid";
-import { PROGRAMS } from "../../utils/constants";
-import ProgramCard from "./components/ProgramCard";
 import NewsCard from "./components/NewsCard";
 import Carousel from "./components/Carousel";
+import ProgramCarousel from "./components/ProgramCarousel";
 
 const Home = () => {
   return (
@@ -74,11 +73,7 @@ const Home = () => {
       </section>
       <section className="py-14 max-w-6xl mx-auto">
         <Header brownText="Program" blackText="Kami" />
-        <div className="mt-12 grid grid-cols-3 gap-4 place-items-center">
-          {PROGRAMS.map((program) => (
-            <ProgramCard {...program} />
-          ))}
-        </div>
+        <ProgramCarousel />
       </section>
       <section className="py-14 max-w-6xl mx-auto">
         <Header brownText="Berita" blackText="Terkini" />
