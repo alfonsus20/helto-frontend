@@ -6,10 +6,12 @@ import {
   PhoneIcon,
 } from "@heroicons/react/outline";
 import Button from "../Button";
+import Input from "../Input";
+import TextArea from "../TextArea";
 
 const Footer = () => {
   return (
-    <div className="mt-auto">
+    <div className="mt-auto bg-[#F3F0E9]">
       <div className="grid grid-cols-12 mx-auto max-w-6xl py-10 gap-6">
         <div className="col-span-3">
           <Link to="/" className="px-6 py-3 bg-brown-200 w-max">
@@ -63,6 +65,12 @@ const Footer = () => {
             Tanya dan Beri Masukan Kami
           </h5>
           <form>
+            <Input placeholder="Nama Kamu" className="mb-4" />
+            <Input placeholder="Email Kamu" type="email" className="mb-4" />
+            <TextArea
+              placeholder="Pesan atau pertanyaan kamu"
+              className="mb-4"
+            />
             <Button type="submit" shape="pill">
               Kirim
             </Button>
