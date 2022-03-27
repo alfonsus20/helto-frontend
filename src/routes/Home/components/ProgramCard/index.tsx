@@ -15,9 +15,9 @@ const ProgramCard = ({
   iconBgColor,
 }: ProgramCardProps) => {
   return (
-    <div className="text-center shadow-lg px-6 py-4 flex flex-col items-center max-w-[18rem] relative pt-16">
+    <div className="text-center shadow-lg px-6 py-4 flex flex-col items-center max-w-[18rem] relative pt-24">
       <div
-        className={classNames("mb-6 rounded-full p-4 absolute -top-4", {
+        className={classNames("mb-6 rounded-full p-4 absolute -top-4 shadow-md", {
           "bg-pink-500": iconBgColor === "pink",
           "bg-yellow-500": iconBgColor === "yellow",
           "bg-brown-500": iconBgColor === "brown",

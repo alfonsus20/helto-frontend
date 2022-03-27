@@ -1,15 +1,16 @@
 import React from "react";
 import Header from "../../components/Header";
 import LandingPageBg from "../../images/landing-page.png";
-import { ViewGridIcon } from "@heroicons/react/solid";
+import { UserGroupIcon, ViewGridIcon } from "@heroicons/react/solid";
 import { PROGRAMS } from "../../utils/constants";
 import ProgramCard from "./components/ProgramCard";
+import NewsCard from "./components/NewsCard";
 
 const Home = () => {
   return (
     <div>
       <section
-        className={`bg-green-500 bg-cover bg-center min-h-screen flex items-center`}
+        className={`bg-cover bg-center min-h-screen flex items-center`}
         style={{ backgroundImage: `url("${LandingPageBg}")` }}
       >
         <div className="flex gap-x-6 py-32 max-w-7xl mx-auto w-full">
@@ -51,7 +52,7 @@ const Home = () => {
             </div>
             <div className="flex gap-x-4 items-start mb-4">
               <span className="p-3 rounded-full shadow-lg">
-                <ViewGridIcon className="w-5 h-5 text-brown-600" />
+                <UserGroupIcon className="w-5 h-5 text-brown-600" />
               </span>
               <p className="text-gray">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -72,7 +73,12 @@ const Home = () => {
       </section>
       <section className="py-14 max-w-7xl mx-auto">
         <Header brownText="Berita" blackText="Terkini" />
-        <div className="mt-4">CAROUSEL</div>
+        <div className="mt-4 flex">
+          <div className="w-1/2">adas</div>
+          <div className="w-1/2">
+            <NewsCard />
+          </div>
+        </div>
       </section>
     </div>
   );
