@@ -27,15 +27,21 @@ const Home = () => {
           <div className="w-2/3">CAROUSEL LATER</div>
         </div>
       </section>
-      <section className="py-14 max-w-7xl mx-auto">
+      <section className="py-14 max-w-5xl mx-auto">
         <Header brownText="Tips &amp;" blackText="Trik" />
         <h4 className="text-center my-4 max-w-md mx-auto">
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry.
         </h4>
-        <div className="flex">
-          <div className="w-[70%]">IMAGE</div>
-          <div className="w-[30%]">
+        <div className="flex items-center">
+          <div className="w-[60%]">
+            <img
+              src="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/tips-trik.webp"
+              alt="tips n trik"
+              className="w-[90%]"
+            />
+          </div>
+          <div className="w-[40%]">
             <h4 className="text-xl font-bold mb-4">
               Lorem <span className="text-brown-700">Ipsum lala lili </span>{" "}
               abcdefg hijklmn
@@ -71,12 +77,45 @@ const Home = () => {
           ))}
         </div>
       </section>
-      <section className="py-14 max-w-7xl mx-auto">
+      <section className="py-14 max-w-6xl mx-auto">
         <Header brownText="Berita" blackText="Terkini" />
-        <div className="mt-4 flex">
-          <div className="w-1/2">adas</div>
-          <div className="w-1/2">
-            <NewsCard />
+        <div className="mt-6 flex gap-x-10">
+          <div className="w-1/2 px-12">
+            <img
+              src="https://tmqbylesuwxzdqaxmdlm.supabase.co/storage/v1/object/public/images/02c3bb65-27e5-41d1-906e-326cc339c2cc.jpg"
+              alt="berita"
+              className="rounded-lg w-full h-60 object-cover mb-2"
+            />
+            <div className="bg-yellow-500 text-xs rounded-full px-3 py-1 mb-2 max-w-min text-white">
+              Terbaru
+            </div>
+            <h5 className="font-bold text-brown-700 mb-2 text-lg">
+              Dampak Suhu Dingin bagi Petani Kentang di Bandung
+            </h5>
+            <p className="line-clamp-3">
+              Suhu dingin membuat kabut tebal masih menyelimuti sejumlah wilayah
+              di Kabupaten Bandung, Jawa Barat. Suhu dingin, ...
+            </p>
+          </div>
+          <div className="w-1/2 flex flex-col gap-4">
+            <NewsCard
+              imageUrl="https://tmqbylesuwxzdqaxmdlm.supabase.co/storage/v1/object/public/images/87d0bade-11bc-4235-a9ca-967faaf9177e.webp"
+              title="Lorem ipsum?"
+              content="Lorem Ipsum is not simply random text. It has roots in a piece of
+              classical Latin literature from 45 BC, making it over 2000 years old."
+            />
+            <NewsCard
+              imageUrl="https://tmqbylesuwxzdqaxmdlm.supabase.co/storage/v1/object/public/images/87d0bade-11bc-4235-a9ca-967faaf9177e.webp"
+              title="Lorem ipsum?"
+              content="Lorem Ipsum is not simply random text. It has roots in a piece of
+              classical Latin literature from 45 BC, making it over 2000 years old."
+            />
+            <NewsCard
+              imageUrl="https://tmqbylesuwxzdqaxmdlm.supabase.co/storage/v1/object/public/images/87d0bade-11bc-4235-a9ca-967faaf9177e.webp"
+              title="Lorem ipsum?"
+              content="Lorem Ipsum is not simply random text. It has roots in a piece of
+              classical Latin literature from 45 BC, making it over 2000 years old."
+            />
           </div>
         </div>
       </section>
