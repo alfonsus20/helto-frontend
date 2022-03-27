@@ -5,15 +5,16 @@ import { UserGroupIcon, ViewGridIcon } from "@heroicons/react/solid";
 import { PROGRAMS } from "../../utils/constants";
 import ProgramCard from "./components/ProgramCard";
 import NewsCard from "./components/NewsCard";
+import Carousel from "./components/Carousel";
 
 const Home = () => {
   return (
     <div>
       <section
-        className={`bg-cover bg-center min-h-screen flex items-center`}
+        className={`bg-cover bg-center min-h-screen flex`}
         style={{ backgroundImage: `url("${LandingPageBg}")` }}
       >
-        <div className="flex gap-x-6 py-32 max-w-7xl mx-auto w-full">
+        <div className="flex gap-x-6 py-32 max-w-7xl mx-auto w-full items-center">
           <div className="text-brown-600 w-1/3">
             <h1 className="text-4xl font-bold leading-snug mb-4">
               Majunya petani Indonesia, Jayalah Indonesia
@@ -24,7 +25,9 @@ const Home = () => {
               ahlinya.
             </h2>
           </div>
-          <div className="w-2/3">CAROUSEL LATER</div>
+          <div className="w-2/3">
+            <Carousel />
+          </div>
         </div>
       </section>
       <section className="py-14 max-w-5xl mx-auto">
