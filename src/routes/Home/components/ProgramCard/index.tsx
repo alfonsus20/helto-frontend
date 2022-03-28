@@ -15,7 +15,7 @@ const ProgramCard = ({
   iconBgColor,
 }: ProgramCardProps) => {
   return (
-    <div className="relative pt-6">
+    <div className="relative pt-6 pb-3">
       <div className="text-center shadow-lg px-6 py-4 flex flex-col items-center max-w-[18rem] mx-auto relative pt-24">
         <div
           className={classNames(
