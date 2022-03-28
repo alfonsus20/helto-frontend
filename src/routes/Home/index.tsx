@@ -1,10 +1,10 @@
 import React from "react";
 import Header from "../../components/Header";
-import LandingPageBg from "../../images/landing-page.png";
 import { UserGroupIcon, ViewGridIcon } from "@heroicons/react/solid";
 import NewsCard from "./components/NewsCard";
 import Carousel from "./components/Carousel";
 import ProgramCarousel from "./components/ProgramCarousel";
+import LandingPageBg from "../../images/landing-page.webp";
 
 const Home = () => {
   return (

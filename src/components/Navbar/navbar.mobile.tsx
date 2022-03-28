@@ -1,11 +1,11 @@
-import classNames from "classnames";
 import React from "react";
+import classNames from "classnames";
 import { Link } from "react-router-dom";
 import { useSidebarContext } from "../../contexts/SidebarContext";
 import Button from "../Button";
 
 const MobileNavbar = () => {
-  const { isOpened } = useSidebarContext();
+  const { isOpened, toogleIsOpened } = useSidebarContext();
 
   return (
     <div
@@ -14,29 +14,34 @@ const MobileNavbar = () => {
         { "-right-full": !isOpened, "-right-0": isOpened }
       )}
     >
-      <Link className="px-6 py-4" to="/">
+      <Link className="px-6 py-4" to="/" onClick={toogleIsOpened}>
         Beranda
       </Link>
-      <Link className="px-6 py-4" to="/">
+      <Link className="px-6 py-4" to="/" onClick={toogleIsOpened}>
         Konsultasi
       </Link>
-      <Link className="px-6 py-4" to="/">
+      <Link className="px-6 py-4" to="/" onClick={toogleIsOpened}>
         Informasi Terkini
       </Link>
-      <Link className="px-6 py-4" to="/">
+      <Link className="px-6 py-4" to="/" onClick={toogleIsOpened}>
         Tips dan Trik
       </Link>
-      <Link className="px-6 py-4" to="/">
+      <Link className="px-6 py-4" to="/" onClick={toogleIsOpened}>
         Ketahui Penyakit
       </Link>
-      <Link className="px-6 py-4" to="/">
+      <Link className="px-6 py-4" to="/" onClick={toogleIsOpened}>
         Komunitas
       </Link>
-      <Link className="px-6 py-4" to="/">
+      <Link className="px-6 py-4" to="/login" onClick={toogleIsOpened}>
         Masuk
       </Link>
       <div className="px-6 py-4">
-        <Button shape="pill" pathname="register" width="auto">
+        <Button
+          shape="pill"
+          pathname="register"
+          width="auto"
+          onClick={toogleIsOpened}
+        >
           Daftar
         </Button>
       </div>

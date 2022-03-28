@@ -3,10 +3,14 @@ import CartImage from "../../images/cart.png";
 import Input from "../../components/Input";
 import { LockClosedIcon, UserIcon } from "@heroicons/react/outline";
 import Button from "../../components/Button";
+import Background from "../../images/bg-masuk.webp";
 
 const Login = () => {
   return (
-    <div className="min-h-screen bg-pink-300 flex justify-center">
+    <div
+      className="min-h-screen flex justify-center"
+      style={{ backgroundImage: `url("${Background}")` }}
+    >
       <div className="py-32 flex justify-center flex-col items-center max-w-xs w-full">
         <img src={CartImage} alt="logo" className="w-32 h-auto mb-4" />
         <Input

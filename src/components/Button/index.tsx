@@ -33,7 +33,14 @@ const Button = ({
 
   return (
     <button
-      onClick={pathname ? navigateTo : onClick}
+      onClick={
+        pathname
+          ? (event) => {
+              navigateTo();
+              onClick && onClick(event);
+            }
+          : onClick
+      }
       className={classNames("btn", {
         "btn-primary": appearance === "primary",
         "btn-secondary": appearance === "secondary",
