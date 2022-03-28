@@ -16,6 +16,7 @@ type ButtonProps = {
   type?: "submit" | "button";
   width?: "auto" | "full";
   pathname?: string;
+  disabled?: boolean;
 };
 
 const Button = ({
@@ -25,6 +26,7 @@ const Button = ({
   shape = "box",
   width = "auto",
   pathname,
+  disabled,
   onClick,
   ...rest
 }: ButtonProps) => {
@@ -47,6 +49,7 @@ const Button = ({
         "btn-tertiary": appearance === "tertiary",
         "is-box": shape === "box",
         "is-pill": shape === "pill",
+        "is-disabled": disabled,
         "w-auto": width === "auto",
         "w-full": width === "full",
       })}

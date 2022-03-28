@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Button from "../Button";
 import HamburgerMenu from "react-hamburger-menu";
-import { useSidebarContext } from "../../contexts/SidebarContext";
+import { useSidebarContext } from "../../context/SidebarContext";
 
 const Navbar = () => {
   const [isColored, setIsColored] = useState<boolean>(false);

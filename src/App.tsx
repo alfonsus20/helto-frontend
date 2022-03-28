@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import MobileNavbar from "./components/Navbar/navbar.mobile";
-import { SidebarWrapper } from "./contexts/SidebarContext";
+import { SidebarWrapper } from "./context/SidebarContext";
 import RouteList from "./routes";
 
 function App() {

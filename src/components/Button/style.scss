@@ -23,5 +23,9 @@
     &.is-pill {
       @apply px-10 py-2 rounded-full;
     }
+
+    &.is-disabled {
+      @apply opacity-50 cursor-not-allowed;
+    }
   }
 }

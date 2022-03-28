@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
-import { useSidebarContext } from "../../contexts/SidebarContext";
+import { useSidebarContext } from "../../context/SidebarContext";
 import Button from "../Button";
 
 const MobileNavbar = () => {
