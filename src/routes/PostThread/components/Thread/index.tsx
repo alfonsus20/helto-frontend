@@ -18,7 +18,7 @@ const Thread = ({ className }: { className?: string }) => {
   return (
     <div
       className={classNames(
-        "py-6 px-8 flex gap-x-2 mx-auto max-w-3xl",
+        "py-6 lg:px-8 flex gap-x-4 lg:gap-x-2 mx-auto max-w-3xl",
         className
       )}
     >

@@ -1,4 +1,3 @@
-import { AxiosPromise } from "axios";
 
 export type SuccessResponse<TData> = {
   code: string;
@@ -12,6 +11,4 @@ export type ErrorResponse = {
   data: null;
 };
 
-export type APIResponse<TData> = AxiosPromise<
-  SuccessResponse<TData> | ErrorResponse
->;
+export type APIResponse<TData> = SuccessResponse<TData> | ErrorResponse;

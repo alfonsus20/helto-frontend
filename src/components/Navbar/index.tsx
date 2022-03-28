@@ -11,7 +11,7 @@ const Navbar = () => {
   const [isColored, setIsColored] = useState<boolean>(false);
 
   const { pathname } = useLocation();
-  const { toogleIsOpened } = useSidebarContext();
+  const { isOpened, toogleIsOpened } = useSidebarContext();
 
   useEffect(() => {
     if (pathname === "/") {
@@ -109,7 +109,7 @@ const Navbar = () => {
         </div>
         <div className="block lg:hidden">
           <HamburgerMenu
-            isOpen={false}
+            isOpen={isOpened}
             menuClicked={toogleIsOpened}
             width={18}
             height={15}
