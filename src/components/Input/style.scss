@@ -10,4 +10,8 @@
   &-secondary {
     @apply bg-pink-300 outline-none rounded-md  text-white placeholder:uppercase placeholder:text-white;
   }
+
+  &-tertiary {
+    @apply bg-gray-200 outline-none rounded-md  text-black placeholder:text-black;
+  }
 }

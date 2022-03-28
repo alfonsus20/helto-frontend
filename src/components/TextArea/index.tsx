@@ -1,13 +1,13 @@
 import React from "react";
 import classNames from "classnames";
-import type { InputProps } from "../../theme";
+import type { CommonInputProps } from "../../theme";
 
 const TextArea = ({
   appearance,
   className,
   rows = 3,
   ...rest
-}: InputProps & React.TextareaHTMLAttributes<HTMLElement>) => {
+}: CommonInputProps & React.TextareaHTMLAttributes<HTMLElement>) => {
   return (
     <textarea
       className={classNames(

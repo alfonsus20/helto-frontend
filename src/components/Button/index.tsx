@@ -1,18 +1,17 @@
 import React from "react";
 import classNames from "classnames";
-import type { CommonSize } from "../../theme";
+import type { CommonSize, CommonShape } from "../../theme";
 import { useNavigate } from "react-router-dom";
 
 import "./style.scss";
 
 type ButtonAppearance = "primary" | "secondary" | "tertiary";
-type ButtonShape = "box" | "pill";
 
 type ButtonProps = {
   children: React.ReactNode;
   appearance?: ButtonAppearance;
   onClick?: (event: React.MouseEvent) => void;
-  shape?: ButtonShape;
+  shape?: CommonShape;
   size?: CommonSize;
   type?: "submit" | "button";
   width?: "auto" | "full";
