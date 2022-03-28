@@ -1,0 +1,17 @@
+@tailwind components;
+
+.card-collapse {
+  @apply px-4 py-2 rounded-lg border-2 border-transparent shadow-md;
+
+  &__title {
+    @apply flex py-2 justify-between items-center cursor-pointer;
+  }
+
+  &__body {
+    @apply transition-all duration-500 max-h-[500px] overflow-hidden;
+
+    &.is-collapsed {
+      @apply transition-all duration-500 max-h-0;
+    }
+  }
+}
