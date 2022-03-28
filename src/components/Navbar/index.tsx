@@ -5,10 +5,13 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Button from "../Button";
 import HamburgerMenu from "react-hamburger-menu";
+import { useSidebarContext } from "../../contexts/SidebarContext";
 
 const Navbar = () => {
   const [isColored, setIsColored] = useState<boolean>(false);
+
   const { pathname } = useLocation();
+  const { toogleIsOpened } = useSidebarContext();
 
   useEffect(() => {
     if (pathname === "/") {
@@ -35,7 +38,7 @@ const Navbar = () => {
   return (
     <nav
       className={classNames(
-        "px-8 py-5 fixed left-0 right-0 w-full z-10 transition-colors duration-300 ease-in-out",
+        "px-8 py-5 fixed left-0 right-0 w-full z-20 transition-colors duration-300 ease-in-out",
         { "bg-transparent": !isColored, "bg-white shadow-md": isColored }
       )}
     >
@@ -107,7 +110,7 @@ const Navbar = () => {
         <div className="block lg:hidden">
           <HamburgerMenu
             isOpen={false}
-            menuClicked={() => {}}
+            menuClicked={toogleIsOpened}
             width={18}
             height={15}
             strokeWidth={2}

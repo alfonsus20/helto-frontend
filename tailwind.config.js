@@ -25,6 +25,9 @@ module.exports = {
           300: "#CEAB93",
         },
       },
+      screens: {
+        "2xs": "480px",
+      },
     },
   },
   plugins: [require("@tailwindcss/line-clamp")],
