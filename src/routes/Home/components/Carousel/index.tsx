@@ -18,6 +18,27 @@ const Carousel = () => {
     nextArrow: <></>,
     prevArrow: <></>,
     beforeChange: (_: number, next: number) => setActiveSlide(next),
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+    ],
   };
 
   return (
@@ -33,14 +54,14 @@ const Carousel = () => {
             <img
               src={image}
               alt="item"
-              className={`transition duration-1000 ${
-                activeSlide === idx ? "scale-100" : "scale-[0.6]"
+              className={`mx-auto w-[90%] md:w-full transition duration-1000 ${
+                activeSlide === idx ? "lg:scale-100" : "lg:scale-[0.6]"
               }`}
             />
           </div>
         ))}
       </Slider>
-      <div className="flex gap-x-4 absolute right-40 top-10">
+      <div className="hidden lg:flex gap-x-4 absolute right-40 top-10">
         <button
           className="p-2 flex border-brown-500 border-2 rounded-full"
           onClick={() => slider?.slickPrev()}

@@ -12,7 +12,7 @@ const NewsCard = ({ imageUrl, title, content }: NewsCardProps) => {
       <img
         src={imageUrl}
         alt="berita"
-        className="flex-shrink-0 w-44 h-32 rounded-md"
+        className="flex-shrink-0 w-40 md:w-44 h-28 md:h-32 rounded-md"
       />
       <div>
         <h5 className="font-bold text-brown-700 mb-2">{title}</h5>

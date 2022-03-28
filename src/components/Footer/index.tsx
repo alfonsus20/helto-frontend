@@ -12,8 +12,8 @@ import TextArea from "../TextArea";
 const Footer = () => {
   return (
     <div className="mt-auto bg-[#F3F0E9]">
-      <div className="grid grid-cols-12 mx-auto max-w-6xl py-10 gap-6">
-        <div className="col-span-3">
+      <div className="grid grid-cols-12 mx-auto max-w-6xl py-10 gap-6 px-8">
+        <div className="col-span-12 sm:col-span-6 md:col-span-3">
           <Link to="/" className="px-6 py-3 bg-brown-200 w-max">
             Logo
           </Link>
@@ -43,7 +43,7 @@ const Footer = () => {
             </svg>
           </div>
         </div>
-        <div className="col-span-3">
+        <div className="col-span-12 sm:col-span-6 md:col-span-3">
           <h5 className="font-bold text-lg mb-4">Contact info</h5>
           <dl>
             <dd className="flex gap-x-2 mb-2">
@@ -60,7 +60,7 @@ const Footer = () => {
             </dd>
           </dl>
         </div>
-        <div className="col-span-6">
+        <div className="col-span-12 md:col-span-6">
           <h5 className="font-bold text-lg mb-4">
             Tanya dan Beri Masukan Kami
           </h5>

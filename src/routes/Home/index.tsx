@@ -10,11 +10,11 @@ const Home = () => {
   return (
     <div>
       <section
-        className={`bg-cover bg-center min-h-screen flex`}
+        className="bg-cover bg-center min-h-screen flex px-8 overflow-x-hidden"
         style={{ backgroundImage: `url("${LandingPageBg}")` }}
       >
-        <div className="flex gap-x-6 py-32 max-w-7xl mx-auto w-full items-center">
-          <div className="text-brown-600 w-1/3">
+        <div className="flex flex-col md:flex-row gap-x-6 py-32 max-w-7xl mx-auto w-full items-center">
+          <div className="text-brown-600 w-full md:w-1/2 lg:w-1/3">
             <h1 className="text-4xl font-bold leading-snug mb-4">
               Majunya petani Indonesia, Jayalah Indonesia
             </h1>
@@ -24,26 +24,26 @@ const Home = () => {
               ahlinya.
             </h2>
           </div>
-          <div className="w-2/3">
+          <div className="w-full md:w-1/2 lg:w-2/3">
             <Carousel />
           </div>
         </div>
       </section>
-      <section className="py-14 max-w-5xl mx-auto">
+      <section className="px-8 py-14 max-w-5xl mx-auto">
         <Header brownText="Tips &amp;" blackText="Trik" />
         <h4 className="text-center my-4 max-w-md mx-auto">
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry.
         </h4>
-        <div className="flex items-center">
-          <div className="w-[60%]">
+        <div className="flex flex-col sm:flex-row items-center">
+          <div className="sm:w-[60%]">
             <img
               src="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/tips-trik.webp"
               alt="tips n trik"
-              className="w-[90%]"
+              className="w-[80%] sm:w-[90%] mx-auto"
             />
           </div>
-          <div className="w-[40%]">
+          <div className="sm:w-[40%]">
             <h4 className="text-xl font-bold mb-4">
               Lorem <span className="text-brown-700">Ipsum lala lili </span>{" "}
               abcdefg hijklmn
@@ -75,10 +75,10 @@ const Home = () => {
         <Header brownText="Program" blackText="Kami" />
         <ProgramCarousel />
       </section>
-      <section className="py-14 max-w-6xl mx-auto">
+      <section className="px-8 py-14 max-w-5xl mx-auto">
         <Header brownText="Berita" blackText="Terkini" />
         <div className="mt-6 flex gap-x-10">
-          <div className="w-1/2 px-12">
+          <div className="w-1/2 hidden md:block">
             <img
               src="https://tmqbylesuwxzdqaxmdlm.supabase.co/storage/v1/object/public/images/02c3bb65-27e5-41d1-906e-326cc339c2cc.jpg"
               alt="berita"
@@ -95,7 +95,7 @@ const Home = () => {
               di Kabupaten Bandung, Jawa Barat. Suhu dingin, ...
             </p>
           </div>
-          <div className="w-1/2 flex flex-col gap-4">
+          <div className="w-full md:w-1/2 flex flex-col gap-4">
             <NewsCard
               imageUrl="https://tmqbylesuwxzdqaxmdlm.supabase.co/storage/v1/object/public/images/87d0bade-11bc-4235-a9ca-967faaf9177e.webp"
               title="Lorem ipsum?"

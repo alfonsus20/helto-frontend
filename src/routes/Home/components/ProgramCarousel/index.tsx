@@ -13,10 +13,31 @@ const ProgramCarousel = () => {
     autoplay: true,
     autoplaySpeed: 2000,
     pauseOnHover: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+    ],
   };
 
   return (
-    <div className="mt-8">
+    <div className="mt-8 overflow-x-hidden">
       <Slider {...settings}>
         {PROGRAMS.map((program, idx) => (
           <ProgramCard {...program} key={idx} />
