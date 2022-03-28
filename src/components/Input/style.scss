@@ -4,7 +4,7 @@
   @apply w-full px-4 py-2;
 
   &-primary {
-    @apply rounded-lg outline-0 focus:outline-1 outline-gray-400;
+    @apply border-2 rounded-lg outline-0 focus:outline-1 outline-gray-400;
   }
 
   &-secondary {

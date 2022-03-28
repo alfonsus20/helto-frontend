@@ -23,8 +23,8 @@ const PostThread = () => {
           />
         </div>
       </div>
-      <div className="flex-1 lg:shadow-lg">
-        <div className="flex gap-x-2 items-center my-2">
+      <div className="flex-1 xl:shadow-lg">
+        <div className="flex gap-x-2 items-center my-2 xl:hidden">
           <div className="flex-shrink-0">
             <img
               src="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/shawn_mendes-rev1.jpg"
@@ -33,7 +33,7 @@ const PostThread = () => {
             />
           </div>
           <Input
-            appearance="tertiary"
+            appearance="primary"
             className="flex-1"
             placeholder="Apa yang Anda pikirkan, Alfons?"
             fontSize="xs"
