@@ -8,7 +8,7 @@ import Background from "../../images/bg-masuk.webp";
 const Login = () => {
   return (
     <div
-      className="min-h-screen flex justify-center"
+      className="min-h-screen flex justify-center bg-pink-300"
       style={{ backgroundImage: `url("${Background}")` }}
     >
       <div className="py-32 flex justify-center flex-col items-center max-w-xs w-full">

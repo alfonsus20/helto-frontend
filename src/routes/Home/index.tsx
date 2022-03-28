@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <div>
       <section
-        className="bg-cover bg-center min-h-screen flex px-8 overflow-x-hidden"
+        className="bg-cover bg-center min-h-screen flex px-8 overflow-x-hidden bg-pink-300"
         style={{ backgroundImage: `url("${LandingPageBg}")` }}
       >
         <div className="flex flex-col md:flex-row gap-x-6 py-32 max-w-7xl mx-auto w-full items-center">
