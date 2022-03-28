@@ -20,8 +20,8 @@ const Navbar = () => {
         <Link to="/" className="px-2 flex items-center gap-x-1 group relative">
           Pelajari Tanamanmu <ChevronDownIcon className="w-3 h-3" />
           <div
-            className="hidden group-hover:block absolute top-[150%] -left-1/2 -right-1/2 mx-auto max-w-[18rem] bg-white px-4 py-2 rounded-md before:content-[''] 
-            before:absolute before:border-[12px] before:border-b-white before:border-t-transparent before:border-l-transparent 
+            className="hidden group-hover:block absolute top-[115%] -left-1/2 -right-1/2 mx-auto max-w-[18rem] bg-white px-4 py-2 rounded-md before:content-[''] 
+            before:absolute before:border-[10px] before:border-b-white before:border-t-transparent before:border-l-transparent 
             before:border-r-transparent before:w-5 before:h-5 before:bottom-full before:left-0 before:right-0 before:mx-auto"
           >
             <Link to="/">
