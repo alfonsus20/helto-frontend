@@ -18,8 +18,8 @@ const ProgramCarousel = () => {
   return (
     <div className="mt-8">
       <Slider {...settings}>
-        {PROGRAMS.map((program) => (
-          <ProgramCard {...program} />
+        {PROGRAMS.map((program, idx) => (
+          <ProgramCard {...program} key={idx} />
         ))}
       </Slider>
     </div>
