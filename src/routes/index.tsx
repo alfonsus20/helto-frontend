@@ -5,6 +5,7 @@ import DiseaseDetection from "./DiseaseDetection";
 import Home from "./Home";
 import Login from "./Login";
 import NotFound from "./NotFound";
+import PostThread from "./PostThread";
 import Register from "./Register";
 
 const RouteList = () => {
@@ -17,6 +18,7 @@ const RouteList = () => {
       </Route>
       <Route element={<ProtectedRoute />}>
         <Route path="/deteksi-penyakit" element={<DiseaseDetection />} />
+        <Route path="/post-thread" element={<PostThread />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>
