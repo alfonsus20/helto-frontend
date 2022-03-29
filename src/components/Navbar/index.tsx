@@ -38,7 +38,7 @@ const Navbar = () => {
   return (
     <nav
       className={classNames(
-        "px-8 py-5 fixed left-0 right-0 w-full z-20 transition-colors duration-300 ease-in-out",
+        "px-8 py-5 fixed left-0 right-0 w-full z-20 transition-colors duration-300",
         { "bg-transparent": !isColored, "bg-white shadow-md": isColored }
       )}
     >
