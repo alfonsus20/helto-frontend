@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import AuthRoute from "../components/AuthRoute";
 import ProtectedRoute from "../components/ProtectedRoute";
+import AgendaList from "./AgendaList";
 import DiseaseDetection from "./DiseaseDetection";
 import Home from "./Home";
 import Login from "./Login";
@@ -19,6 +20,7 @@ const RouteList = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/berita" element={<News />} />
         <Route path="/berita/daftar-berita" element={<NewsList />} />
+        <Route path="/berita/agenda" element={<AgendaList />} />
       </Route>
       <Route element={<ProtectedRoute />}>
         <Route path="/deteksi-penyakit" element={<DiseaseDetection />} />
