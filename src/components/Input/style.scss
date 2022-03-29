@@ -1,14 +1,16 @@
 @tailwind components;
 
 .input {
-  @apply w-full px-4 py-2;
+  @apply w-full pr-4 py-2;
 
   &-primary {
     @apply border-2 rounded-lg outline-0 focus:outline-1 outline-gray-400;
   }
 
   &-secondary {
-    @apply bg-pink-300 outline-none rounded-md  text-white placeholder:uppercase placeholder:text-white;
+    @apply bg-pink-300 outline-none rounded-md  text-white 
+    placeholder:uppercase placeholder:text-white
+    border-2 border-white;
   }
 
   &-tertiary {

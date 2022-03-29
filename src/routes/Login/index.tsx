@@ -16,13 +16,13 @@ const Login = () => {
         <Input
           appearance="secondary"
           placeholder="Email"
-          className="mb-4 px-2 rounded-md"
+          className="mb-4 rounded-md"
           icon={<UserIcon className="w-5 h-5 text-white" />}
         />
         <Input
           appearance="secondary"
           placeholder="Kata sandi"
-          className="mb-8 px-2 rounded-md"
+          className="mb-8 rounded-md"
           type="password"
           icon={<LockClosedIcon className="w-5 h-5 text-white" />}
         />

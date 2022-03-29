@@ -12,12 +12,12 @@ const Input = ({
   ...rest
 }: CommonInputProps & React.InputHTMLAttributes<HTMLElement>) => {
   return (
-    <div
-      className={classNames("flex w-full items-center", className, {
-        "border-2 border-white": appearance === "secondary",
-      })}
-    >
-      {icon && <span className="flex-shrink-0">{icon}</span>}
+    <div className={classNames("relative w-full", className)}>
+      {icon && (
+        <span className="flex-shrink-0 absolute transform -translate-y-1/2 top-1/2 left-3">
+          {icon}
+        </span>
+      )}
       <input
         className={classNames("input", {
           "input-primary": appearance === "primary",
@@ -27,6 +27,8 @@ const Input = ({
           "text-sm": fontSize === "sm",
           "text-base": fontSize === "md",
           "text-lg": fontSize === "lg",
+          "pl-4": !icon,
+          "pl-9": !!icon,
         })}
         {...rest}
       />

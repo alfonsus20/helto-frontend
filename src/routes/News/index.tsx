@@ -12,7 +12,7 @@ const News = () => {
         <div className="flex justify-between">
           <Header brownText="Berita" blackText="Terkini" textAlign="left" />
           <Link
-            to="/"
+            to="/berita/daftar-berita"
             className="flex items-center gap-x-4 text-green-600 font-bold"
           >
             <span> Lihat Semua</span> <ChevronRightIcon className="w-5 h-5" />

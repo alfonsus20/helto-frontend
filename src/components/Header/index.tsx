@@ -16,7 +16,7 @@ const Header = ({
 }: HeaderProps) => {
   return (
     <h2
-      className={classNames("text-2xl font-bold", {
+      className={classNames("text-2xl font-bold", className, {
         "text-center": textAlign === "center",
         "text-left": textAlign === "left",
         "text-right": textAlign === "right",

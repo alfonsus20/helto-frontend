@@ -23,6 +23,8 @@ const Navbar = () => {
         }
       };
 
+      setIsColored(false);
+
       window.addEventListener("scroll", checkViewPort);
 
       return () => {
