@@ -4,7 +4,7 @@ import { useDropzone } from "react-dropzone";
 import UploadImage from "../../images/upload.png";
 import useSnackbar from "../../hooks/useSnackbar";
 import { predictImage } from "../../models/predictImage";
-import { Prediction } from "../../types/prediction";
+import { Prediction } from "../../types/entities/prediction";
 
 const DiseaseDetection = () => {
   const [image, setImage] = useState<File>();

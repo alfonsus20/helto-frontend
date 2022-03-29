@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   LocationMarkerIcon,
@@ -8,8 +8,47 @@ import {
 import Button from "../Button";
 import Input from "../Input";
 import TextArea from "../TextArea";
+import useSnackbar from "../../hooks/useSnackbar";
+import { AxiosError } from "axios";
+import { postFeedback } from "../../models/feedback";
+import { Feedback } from "../../types/entities/feedback";
+
+const emptyFormData = {
+  name: "",
+  email: "",
+  feedback: "",
+};
 
 const Footer = () => {
+  const [formData, setFormData] = useState<Feedback>(emptyFormData);
+  const [submitting, setSubmitting] = useState<boolean>(false);
+
+  const snackbar = useSnackbar();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (Object.values(formData).some((entry) => !entry)) {
+      snackbar.error("Periksa inputan Anda");
+      return;
+    }
+
+    try {
+      setSubmitting(true);
+      await postFeedback(formData);
+      snackbar.success("Feedback berhasil dikirim");
+      setFormData(emptyFormData);
+    } catch (e) {
+      snackbar.error((e as AxiosError).message);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
     <div className="mt-auto bg-[#F3F0E9]">
       <div className="grid grid-cols-12 mx-auto max-w-6xl py-10 gap-6 px-8">
@@ -64,14 +103,30 @@ const Footer = () => {
           <h5 className="font-bold text-lg mb-4">
             Tanya dan Beri Masukan Kami
           </h5>
-          <form>
-            <Input placeholder="Nama Kamu" className="mb-4" />
-            <Input placeholder="Email Kamu" type="email" className="mb-4" />
+          <form onSubmit={handleSubmit}>
+            <Input
+              placeholder="Nama Kamu"
+              className="mb-4"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+            />
+            <Input
+              placeholder="Email Kamu"
+              type="email"
+              className="mb-4"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
             <TextArea
               placeholder="Pesan atau pertanyaan kamu"
               className="mb-4"
+              name="feedback"
+              value={formData.feedback}
+              onChange={handleChange}
             />
-            <Button type="submit" shape="pill">
+            <Button type="submit" shape="pill" disabled={submitting}>
               Kirim
             </Button>
           </form>
