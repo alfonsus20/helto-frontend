@@ -13,7 +13,7 @@ const Home = () => {
         className="bg-cover bg-center min-h-screen flex px-8 overflow-x-hidden bg-pink-300"
         style={{ backgroundImage: `url("${LandingPageBg}")` }}
       >
-        <div className="flex flex-col md:flex-row gap-x-6 py-32 max-w-7xl mx-auto w-full items-center">
+        <div className="flex flex-col md:flex-row gap-x-6 py-28 max-w-7xl mx-auto w-full items-center">
           <div className="text-brown-600 w-full md:w-1/2 lg:w-1/3">
             <h1 className="text-4xl font-bold leading-snug mb-4">
               Majunya petani Indonesia, Jayalah Indonesia

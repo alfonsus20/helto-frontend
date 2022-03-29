@@ -5,7 +5,6 @@ import ProgramCard from "../ProgramCard";
 
 const ProgramCarousel = () => {
   const settings = {
-    dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 3,
@@ -20,7 +19,6 @@ const ProgramCarousel = () => {
           slidesToShow: 2,
           slidesToScroll: 1,
           infinite: true,
-          dots: true,
         },
       },
       {
@@ -28,9 +26,7 @@ const ProgramCarousel = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          initialSlide: 1,
           infinite: true,
-          dots: true,
         },
       },
     ],

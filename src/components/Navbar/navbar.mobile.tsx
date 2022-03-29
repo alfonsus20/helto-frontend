@@ -10,7 +10,7 @@ const MobileNavbar = () => {
   return (
     <div
       className={classNames(
-        "fixed top-0 bg-white h-full max-h-screen overflow-y-auto z-10 flex lg:hidden flex-col w-full 2xs:w-80 pt-[88px] transition-all ease-in duration-500",
+        "fixed top-0 bg-white h-full max-h-screen overflow-y-auto z-10 flex lg:hidden flex-col w-full xs:w-80 pt-[88px] transition-all ease-in duration-500",
         { "-right-full": !isOpened, "-right-0": isOpened }
       )}
     >

@@ -11,7 +11,7 @@ const Login = () => {
       className="min-h-screen flex justify-center bg-pink-300"
       style={{ backgroundImage: `url("${Background}")` }}
     >
-      <div className="py-32 flex justify-center flex-col items-center max-w-xs w-full">
+      <div className="py-28 flex justify-center flex-col items-center max-w-xs w-full">
         <img src={CartImage} alt="logo" className="w-32 h-auto mb-4" />
         <Input
           appearance="secondary"
