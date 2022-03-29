@@ -4,6 +4,7 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import DiseaseDetection from "./DiseaseDetection";
 import Home from "./Home";
 import Login from "./Login";
+import News from "./News";
 import NotFound from "./NotFound";
 import PostThread from "./PostThread";
 import Register from "./Register";
@@ -15,6 +16,7 @@ const RouteList = () => {
       <Route element={<AuthRoute />}>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/berita" element={<News />} />
       </Route>
       <Route element={<ProtectedRoute />}>
         <Route path="/deteksi-penyakit" element={<DiseaseDetection />} />

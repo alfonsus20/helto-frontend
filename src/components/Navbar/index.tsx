@@ -15,8 +15,6 @@ const Navbar = () => {
 
   useEffect(() => {
     if (pathname === "/") {
-      setIsColored(false);
-
       const checkViewPort = () => {
         if (window.scrollY > 80) {
           setIsColored(true);
@@ -24,6 +22,8 @@ const Navbar = () => {
           setIsColored(false);
         }
       };
+
+      checkViewPort();
 
       window.addEventListener("scroll", checkViewPort);
 

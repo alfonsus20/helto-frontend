@@ -1,3 +1,5 @@
+const { screens } = require("tailwindcss/defaultTheme");
+
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
@@ -25,9 +27,10 @@ module.exports = {
           300: "#CEAB93",
         },
       },
-      screens: {
-        "xs": "480px",
-      },
+    },
+    screens: {
+      xs: "480px",
+      ...screens,
     },
   },
   plugins: [require("@tailwindcss/line-clamp")],
