@@ -23,8 +23,6 @@ const Navbar = () => {
         }
       };
 
-      checkViewPort();
-
       window.addEventListener("scroll", checkViewPort);
 
       return () => {
