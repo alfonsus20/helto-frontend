@@ -10,6 +10,7 @@ import NewsList from "./NewsList";
 import NotFound from "./NotFound";
 import PostThread from "./PostThread";
 import Register from "./Register";
+import VideoList from "./VideoList";
 
 const RouteList = () => {
   return (
@@ -21,6 +22,7 @@ const RouteList = () => {
         <Route path="/berita" element={<News />} />
         <Route path="/berita/daftar-berita" element={<NewsList />} />
         <Route path="/berita/agenda" element={<AgendaList />} />
+        <Route path="/berita/video" element={<VideoList />} />
       </Route>
       <Route element={<ProtectedRoute />}>
         <Route path="/deteksi-penyakit" element={<DiseaseDetection />} />
