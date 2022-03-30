@@ -1,0 +1,11 @@
+@tailwind components;
+
+.modal {
+  &::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-gray-400 rounded-md;
+  }
+}

@@ -1,14 +1,19 @@
-import { ArrowRightIcon } from "@heroicons/react/outline";
 import React from "react";
-import { Link } from "react-router-dom";
+import { ArrowRightIcon } from "@heroicons/react/outline";
 
 type CardProps = {
   url: string;
   media?: "image" | "video";
   description: string;
+  onViewDetail?: () => void;
 };
 
-const Card = ({ url, media = "image", description }: CardProps) => {
+const Card = ({
+  url,
+  media = "image",
+  description,
+  onViewDetail,
+}: CardProps) => {
   return (
     <div className="col-span-12 xs:col-span-6 sm:col-span-4 lg:col-span-3 shadow-md rounded-sm flex flex-row xs:flex-col">
       <div className="flex-shrink-0 xs:flex-shrink">
@@ -31,13 +36,13 @@ const Card = ({ url, media = "image", description }: CardProps) => {
           {media === "video" ? "Video" : "Berita"}
         </h4>
         <p className="pb-2 line-clamp-3 sm:line-clamp-4">{description}</p>
-        <Link
-          to={`/berita/${media === "video" ? "video" : "terkini"}`}
+        <button
+          onClick={onViewDetail}
           className="flex justify-between text-green-400 text-sm pb-4 items-center"
         >
           <span className="font-semibold">Lihat Detail</span>
           <ArrowRightIcon className="w-4 h-4" />
-        </Link>
+        </button>
       </div>
     </div>
   );

@@ -1,9 +1,10 @@
 import React, { createContext, useContext, useState } from "react";
 import Modal from "../components/Modal";
+import { CommonSize } from "../theme";
 
 type ModalState = {
   isOpen: boolean;
-  openModal: (dom: React.ReactNode) => void;
+  openModal: (dom: React.ReactNode, size?: CommonSize) => void;
   closeModal: () => void;
 };
 
@@ -18,10 +19,12 @@ const ModalContext = createContext(defaultValue);
 export const ModalWrapper = ({ children }: { children: React.ReactNode }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [dom, setDom] = useState<React.ReactNode>();
+  const [size, setSize] = useState<CommonSize | undefined>("md");
 
-  const openModal = (dom: React.ReactNode) => {
+  const openModal = (dom: React.ReactNode, size: CommonSize = "md") => {
     setDom(dom);
     setIsOpen(true);
+    setSize(size);
   };
 
   const closeModal = () => {
@@ -31,7 +34,7 @@ export const ModalWrapper = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <ModalContext.Provider value={{ openModal, closeModal, isOpen }}>
-      <Modal dom={dom} isOpen={isOpen} onClose={closeModal} />
+      <Modal dom={dom} isOpen={isOpen} onClose={closeModal} maxW={size} />
       {children}
     </ModalContext.Provider>
   );
