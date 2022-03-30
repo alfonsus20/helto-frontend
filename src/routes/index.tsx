@@ -11,6 +11,7 @@ import NotFound from "./NotFound";
 import PostThread from "./PostThread";
 import Register from "./Register";
 import TipsAndTrick from "./TipsAndTrick";
+import TipsAndTrickList from "./TipsAndTrickList";
 import VideoList from "./VideoList";
 
 const RouteList = () => {
@@ -22,6 +23,7 @@ const RouteList = () => {
       <Route path="/berita/agenda" element={<AgendaList />} />
       <Route path="/berita/video" element={<VideoList />} />
       <Route path="/tips-dan-trik" element={<TipsAndTrick />} />
+      <Route path="/tips-dan-trik/lengkap" element={<TipsAndTrickList />} />
       <Route element={<AuthRoute />}>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
