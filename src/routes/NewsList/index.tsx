@@ -3,8 +3,13 @@ import { SearchIcon } from "@heroicons/react/outline";
 import Card from "../../components/Card";
 import Header from "../../components/Header";
 import Input from "../../components/Input";
+import { useModalContext } from "../../context/ModalContext";
 
 const NewsList = () => {
+  const { openModal } = useModalContext();
+
+  const modalDOM = <div>WOI</div>;
+
   return (
     <div className="py-28 max-w-7xl mx-auto w-full px-8">
       <Header
@@ -28,6 +33,8 @@ const NewsList = () => {
           />
         ))}
       </div>
+
+      <button onClick={() => openModal(modalDOM)}>CLICK</button>
     </div>
   );
 };
