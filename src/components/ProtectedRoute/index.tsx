@@ -1,10 +1,11 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
+import { useUserContext } from "../../context/UserContext";
 
 const ProtectedRoute = () => {
-  const isAuth = true;
+  const { isAuthenticated } = useUserContext();
 
-  if (isAuth) {
+  if (isAuthenticated) {
     return <Outlet />;
   }
 

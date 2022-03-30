@@ -1,22 +1,14 @@
-import { AxiosError, AxiosPromise } from "axios";
 import React, { ChangeEvent, useState } from "react";
-import { APIResponse } from "../types/apiResponse";
 import { FormTemplate } from "../types/form";
-import useSnackbar from "./useSnackbar";
 
-function useForm<T, U>(
-  formData: FormTemplate<T>,
-  onSubmit: (params: T) => AxiosPromise<APIResponse<U>>
-) {
+function useForm<T>(formData: FormTemplate<T>) {
   const [data, setData] = useState(formData);
   const [errors, setErrors] = useState<{
     [key in keyof FormTemplate<T>]: string;
   }>({} as { [key in keyof FormTemplate<T>]: string });
-  const [submitting, setSubmitting] = useState<boolean>(false);
-
-  const snackbar = useSnackbar();
 
   const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    console.log(evt.target.name);
     setData({
       ...data,
       [evt.target.name]: {
@@ -51,31 +43,18 @@ function useForm<T, U>(
     return dataToSubmit;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const isDataValid = validateData();
-    if (isDataValid) {
-      try {
-        setSubmitting(true);
-        const {
-          data: { message },
-        } = await onSubmit(getDataToSubmit());
-        snackbar.success(message);
-        setData(formData);
-      } catch (e) {
-        snackbar.error((e as AxiosError).message);
-      } finally {
-        setSubmitting(false);
-      }
-    }
+  const resetData = () => {
+    setData(formData);
   };
 
   return {
     handleChange,
     errors,
-    handleSubmit,
     formData: data,
-    isSubmitting: submitting,
+    setFormData: setData,
+    resetData,
+    validateData,
+    getDataToSubmit,
   };
 }
 

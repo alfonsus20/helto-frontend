@@ -1,10 +1,11 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
+import { useUserContext } from "../../context/UserContext";
 
 const AuthRoute = () => {
-  const isAuth = false;
+  const { isAuthenticated } = useUserContext();
 
-  if (isAuth) {
+  if (isAuthenticated) {
     return <Navigate to="/" />;
   }
 

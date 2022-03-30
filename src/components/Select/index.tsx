@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { SelectItem } from "../../types/form";
 
 type SelectProps = {
-  onChange: (evt: ChangeEvent) => void;
+  onChange: (evt: ChangeEvent<HTMLInputElement>) => void;
   defaultText: string;
   items: SelectItem[];
   name: string;
@@ -12,6 +12,7 @@ type SelectProps = {
   className?: string;
   isError?: boolean;
   helperText?: string;
+  value?: string;
 };
 
 const Select = ({
@@ -24,16 +25,17 @@ const Select = ({
   className,
   isError,
   helperText,
+  value,
 }: SelectProps) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
-  const [selectedItem, setSelectedItem] = useState<SelectItem | null>(null);
+  const [_, setSelectedItem] = useState<SelectItem | null>(null);
 
   const handleSelect = (item: SelectItem) => {
     setSelectedItem(item);
     setIsExpanded(false);
     const customEvent = {
       target: { name, value: item.value },
-    } as ChangeEvent<HTMLSelectElement>;
+    } as ChangeEvent<HTMLInputElement>;
     onChange(customEvent);
   };
 
@@ -60,11 +62,7 @@ const Select = ({
               className="cursor-pointer"
               onClick={() => setIsExpanded(!isExpanded)}
             >
-              {loading
-                ? "Loading..."
-                : selectedItem
-                ? selectedItem.label
-                : defaultText}
+              {loading ? "Loading..." : value ? value : defaultText}
             </div>
           </div>
         </div>

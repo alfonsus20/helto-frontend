@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import MobileNavbar from "./components/Navbar/navbar.mobile";
 import { ModalWrapper } from "./context/ModalContext";
 import { SidebarWrapper } from "./context/SidebarContext";
+import { UserWrapper } from "./context/UserContext";
 import RouteList from "./routes";
 
 const ScrollToTop = () => {
@@ -19,19 +20,21 @@ const ScrollToTop = () => {
 
 function App() {
   return (
-    <ModalWrapper>
-      <SidebarWrapper>
-        <BrowserRouter>
-          <ScrollToTop />
-          <main className="min-h-screen flex flex-col">
-            <Navbar />
-            <MobileNavbar />
-            <RouteList />
-            <Footer />
-          </main>
-        </BrowserRouter>
-      </SidebarWrapper>
-    </ModalWrapper>
+    <UserWrapper>
+      <ModalWrapper>
+        <SidebarWrapper>
+          <BrowserRouter>
+            <ScrollToTop />
+            <main className="min-h-screen flex flex-col">
+              <Navbar />
+              <MobileNavbar />
+              <RouteList />
+              <Footer />
+            </main>
+          </BrowserRouter>
+        </SidebarWrapper>
+      </ModalWrapper>
+    </UserWrapper>
   );
 }
 

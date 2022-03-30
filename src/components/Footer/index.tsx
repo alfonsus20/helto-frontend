@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   LocationMarkerIcon,
@@ -12,6 +12,8 @@ import useForm from "../../hooks/useForm";
 import { postFeedback } from "../../models/feedback";
 import { Feedback } from "../../types/entities/feedback";
 import { FormTemplate } from "../../types/form";
+import useSnackbar from "../../hooks/useSnackbar";
+import { AxiosError } from "axios";
 
 const emptyFormData: FormTemplate<Feedback> = {
   name: {
@@ -23,8 +25,36 @@ const emptyFormData: FormTemplate<Feedback> = {
 };
 
 const Footer = () => {
-  const { formData, handleSubmit, handleChange, errors, isSubmitting } =
-    useForm<Feedback, null>(emptyFormData, postFeedback);
+  const {
+    formData,
+    handleChange,
+    errors,
+    validateData,
+    getDataToSubmit,
+    resetData,
+  } = useForm<Feedback>(emptyFormData);
+  const [submitting, setSubmitting] = useState<boolean>(false);
+
+  const snackbar = useSnackbar();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const isDataValid = validateData();
+    if (isDataValid) {
+      try {
+        setSubmitting(true);
+        const {
+          data: { message },
+        } = await postFeedback(getDataToSubmit());
+        snackbar.success(message);
+        resetData();
+      } catch (e) {
+        snackbar.error((e as AxiosError).response?.data.message);
+      } finally {
+        setSubmitting(false);
+      }
+    }
+  };
 
   return (
     <div className="mt-auto bg-[#F3F0E9]">
@@ -109,7 +139,7 @@ const Footer = () => {
               isError={!!errors.feedback}
               helperText={errors.feedback}
             />
-            <Button type="submit" shape="pill" disabled={isSubmitting}>
+            <Button type="submit" shape="pill" disabled={submitting}>
               Kirim
             </Button>
           </form>
