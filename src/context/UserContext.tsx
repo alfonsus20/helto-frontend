@@ -21,7 +21,7 @@ export const UserWrapper = ({ children }: { children: React.ReactNode }) => {
   const loginUser = (token: string) => {
     setIsAuthenticated(true);
     localStorage.setItem("token", token);
-    coreAPI.defaults.headers.common["Authorization"] = token;
+    coreAPI.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   };
 
   const logoutUser = () => {

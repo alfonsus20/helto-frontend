@@ -1,32 +1,56 @@
-import React from "react";
+import React, { useState } from "react";
 import { SearchIcon } from "@heroicons/react/outline";
 import Card from "../../components/Card";
 import Header from "../../components/Header";
 import Input from "../../components/Input";
 import { useModalContext } from "../../context/ModalContext";
 import NewsModal from "../../components/NewsModal";
+import useEffectOnce from "../../hooks/useEffectOnce";
+import { getNewsList } from "../../models/news";
+import { useLocation } from "react-router-dom";
+import qs from "query-string";
+import { NewsSingle } from "../../types/entities/news";
+import { AxiosError } from "axios";
+import useSnackbar from "../../hooks/useSnackbar";
+import { IMAGE_URL } from "../../utils/constants";
 
 const NewsList = () => {
+  const [newsList, setNewsList] = useState<NewsSingle[]>([]);
+  const [isFetchingNews, setIsFetchingNews] = useState<boolean>(false);
+
   const { openModal } = useModalContext();
+  const { search } = useLocation();
+  const snackbar = useSnackbar();
 
   const handleViewNewsDetail = (newsId: number) => {
+    const foundNews = newsList.find((news) => news.id === newsId)!;
     const modalDOM = (
       <NewsModal
-        title="Judul Berita"
-        content="Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text
-          ever since the 1500s, when an unknown printer took a galley of type
-          and scrambled it to make a type specimen book. It has survived not
-          only five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s
-          with the release of Letraset sheets containing Lorem Ipsum passages,
-          and more recently with desktop publishing software like Aldus
-          PageMaker including versions of Lorem Ipsum."
-        imageURL="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/wp3229647.jpg"
+        title={foundNews.title}
+        content={foundNews.content}
+        imageURL={`${IMAGE_URL}/${foundNews.image}`}
       />
     );
     openModal(modalDOM, "2xl");
   };
+
+  const fetchNewsList = async () => {
+    try {
+      setIsFetchingNews(true);
+      const { data } = await getNewsList(search);
+      if (data.data) {
+        setNewsList(data.data.news);
+      }
+    } catch (error) {
+      snackbar.error((error as AxiosError).response?.data.message);
+    } finally {
+      setIsFetchingNews(false);
+    }
+  };
+
+  useEffectOnce(() => {
+    fetchNewsList();
+  });
 
   return (
     <div className="py-28 max-w-7xl mx-auto w-full px-8">
@@ -43,12 +67,12 @@ const NewsList = () => {
       />
 
       <div className="mt-4 grid grid-cols-12 gap-5">
-        {[...Array(4)].map((_, idx) => (
+        {newsList.map((news) => (
           <Card
-            description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been "
-            url="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/wp3229647.jpg"
-            key={idx}
-            onViewDetail={() => handleViewNewsDetail(idx)}
+            description={news.content}
+            url={`${IMAGE_URL}/${news.image}`}
+            key={news.id}
+            onViewDetail={() => handleViewNewsDetail(news.id)}
           />
         ))}
       </div>

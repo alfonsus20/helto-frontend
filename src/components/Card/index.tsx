@@ -25,7 +25,7 @@ const Card = ({
           ></iframe>
         ) : (
           <img
-            src="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/wp3229647.jpg"
+            src={url}
             alt="berita"
             className="w-40 xs:w-full h-40 xs:h-44 object-cover rounded-t-sm"
           />

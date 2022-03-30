@@ -30,3 +30,5 @@ export const PROGRAMS: Program[] = [
       "Lorem ipsum dolor sit amet, consect adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa",
   },
 ];
+
+export const IMAGE_URL = "http://helto-be-feminovialina.vercel.app/public";
