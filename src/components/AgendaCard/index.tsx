@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 const AgendaCard = () => {
   return (
@@ -16,9 +15,6 @@ const AgendaCard = () => {
         <p className="mb-2 font-semibold line-clamp-3">
           Hari Nasional Kentang Goreng (National French Fry Day)
         </p>
-        <Link to="/" className="text-sm text-gray-400">
-          Baca lebih lanjut
-        </Link>
       </div>
     </div>
   );

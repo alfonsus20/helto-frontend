@@ -25,7 +25,7 @@ const NewsList = () => {
         imageURL="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/wp3229647.jpg"
       />
     );
-    openModal(modalDOM, "lg");
+    openModal(modalDOM, "2xl");
   };
 
   return (

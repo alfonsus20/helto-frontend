@@ -1,13 +1,14 @@
 import { XIcon } from "@heroicons/react/outline";
 import classNames from "classnames";
 import React from "react";
+import { CommonSize } from "../../theme";
 
 import "./style.scss";
 
 type ModalProps = {
   isOpen: boolean;
   dom: React.ReactNode;
-  maxW?: "sm" | "md" | "lg";
+  maxW?: CommonSize;
   onClose?: () => void;
 };
 
@@ -29,6 +30,8 @@ const Modal = ({ isOpen, dom, maxW = "md", onClose }: ModalProps) => {
             "max-w-sm": maxW === "sm",
             "max-w-md": maxW === "md",
             "max-w-lg": maxW === "lg",
+            "max-w-xl": maxW === "xl",
+            "max-w-2xl": maxW === "2xl",
             "opacity-0 translate-y-8": !isOpen,
             "opacity-1 translate-y-0": isOpen,
           }
