@@ -24,7 +24,7 @@ const Modal = ({ isOpen, dom, maxW = "md", onClose }: ModalProps) => {
     >
       <div
         className={classNames(
-          "w-full min-h-[16rem] bg-white rounded-md max-h-[80%] overflow-y-auto p-4 relative transition-all ease-out transform duration-500 mx-8 modal",
+          "w-full min-h-[16rem] bg-white rounded-md max-h-[80%] overflow-y-auto p-6 relative transition-all ease-out transform duration-500 mx-8 modal",
           {
             "max-w-sm": maxW === "sm",
             "max-w-md": maxW === "md",

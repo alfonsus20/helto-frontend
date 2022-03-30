@@ -11,7 +11,7 @@ const NewsModal = ({ imageURL, title, content }: NewsModalProps) => {
     <div>
       <h4 className="mb-2 font-bold text-lg">{title}</h4>
       <img src={imageURL} alt="berita" className="w-full rounded-md" />
-      <div className="mt-2">{content}</div>
+      <div className="mt-2 text-[1.075rem]">{content}</div>
     </div>
   );
 };
