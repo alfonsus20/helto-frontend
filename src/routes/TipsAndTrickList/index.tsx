@@ -24,7 +24,7 @@ const TipsAndTrickList = () => {
             title="Lorem ipsum"
             shadow="md"
             key={idx}
-            className="mb-2 col-span-4"
+            className="mb-2 col-span-12 xs:col-span-6 lg:col-span-4"
             content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
             imageUrl="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/unsplash_FV_PxCqgtwc.png"
           />
