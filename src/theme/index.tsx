@@ -10,4 +10,6 @@ export type CommonInputProps = {
   appearance?: "primary" | "secondary" | "tertiary";
   icon?: React.ReactNode;
   fontSize?: CommonFontSize;
+  helperText?: string;
+  isError?: boolean;
 };

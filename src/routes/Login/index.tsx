@@ -25,6 +25,8 @@ const Login = () => {
           className="mb-8 rounded-md"
           type="password"
           icon={<LockClosedIcon className="w-5 h-5 text-white" />}
+          isError
+          helperText="Masukan email"
         />
         <Button appearance="tertiary" width="full">
           MASUK

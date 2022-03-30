@@ -1,19 +1,31 @@
 @tailwind components;
 
 .input {
-  @apply w-full pr-4 py-2;
+  @apply w-full pr-4 py-2 outline-none border-2;
 
   &-primary {
-    @apply border-2 rounded-lg outline-0 focus:outline-1 outline-gray-400;
+    @apply border-2 rounded-lg focus:border-gray-400;
   }
 
   &-secondary {
-    @apply bg-pink-300 outline-none rounded-md  text-white 
+    @apply bg-pink-300 rounded-md  text-white 
     placeholder:uppercase placeholder:text-white
     border-2 border-white;
   }
 
   &-tertiary {
-    @apply bg-gray-200 outline-none rounded-md  text-black placeholder:text-black;
+    @apply bg-gray-200 rounded-md  text-black placeholder:text-black;
+  }
+
+  &.is-error {
+    @apply border-red-600 text-red-600 placeholder:text-red-600;
+  }
+}
+
+.icon-wrapper {
+  &.is-error {
+    svg {
+      @apply text-red-600;
+    }
   }
 }
