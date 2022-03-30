@@ -18,7 +18,7 @@
   }
 
   &.is-error {
-    @apply border-red-600 text-red-600 placeholder:text-red-600;
+    @apply border-red-600 focus:border-red-600 text-red-600 placeholder:text-red-600;
   }
 }
 
