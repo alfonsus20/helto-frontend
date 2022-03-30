@@ -10,6 +10,8 @@ type SelectProps = {
   loading?: boolean;
   icon?: React.ReactNode;
   className?: string;
+  isError?: boolean;
+  helperText?: string;
 };
 
 const Select = ({
@@ -20,6 +22,8 @@ const Select = ({
   loading,
   icon,
   className,
+  isError,
+  helperText,
 }: SelectProps) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<SelectItem | null>(null);
@@ -35,11 +39,21 @@ const Select = ({
 
   return (
     <div className={classNames("px-2 w-full", className)}>
-      <div className="bg-pink-300 rounded-md border-2 border-white p-2 relative">
+      <div
+        className={classNames("bg-pink-300 rounded-md border-2 p-2 relative", {
+          "border-white": !isError,
+          "border-red-600": isError,
+        })}
+      >
         {loading && (
           <div className="absolute top-0 left-0 right-0 bottom-0 bg-white opacity-30 cursor-not-allowed"></div>
         )}
-        <div className="text-white flex items-center gap-x-2">
+        <div
+          className={classNames(" flex items-center gap-x-2", {
+            "text-white": !isError,
+            "text-red-600": isError,
+          })}
+        >
           {icon && <div className="flex-shrink-0 pl-[2px]">{icon} </div>}
           <div className="flex-auto">
             <div
@@ -74,6 +88,16 @@ const Select = ({
           ))}
         </div>
       </div>
+      {helperText && (
+        <span
+          className={classNames("text-xs", {
+            "text-red-600": isError,
+            "text-white": !isError,
+          })}
+        >
+          {helperText}
+        </span>
+      )}
     </div>
   );
 };

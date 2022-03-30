@@ -67,9 +67,11 @@ const Register = () => {
             { label: "MAKASSAR", value: "makassar" },
             { label: "asdas", value: "adas" },
           ]}
-          icon={<LocationMarkerIcon className="w-5 h-5 text-white" />}
+          icon={<LocationMarkerIcon className="w-5 h-5" />}
           onChange={handleChange}
           className="mb-6"
+          isError
+          helperText="kurang"
         />
         <Button appearance="tertiary" width="full">
           DAFTAR
