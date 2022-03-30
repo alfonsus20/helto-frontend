@@ -1,14 +1,28 @@
+import classNames from "classnames";
 import React from "react";
 
-type NewsCardProps = {
+type WideCardProps = {
   imageUrl: string;
   title: string;
   content: string;
+  className?: string;
+  shadow?: "none" | "md";
 };
 
-const NewsCard = ({ imageUrl, title, content }: NewsCardProps) => {
+const WideCard = ({
+  imageUrl,
+  title,
+  content,
+  className,
+  shadow = "none",
+}: WideCardProps) => {
   return (
-    <div className="flex gap-2 xs:gap-4 items-center">
+    <div
+      className={classNames("flex gap-2 xs:gap-4 items-center", className, {
+        "shadow-none": shadow === "none",
+        "shadow-md": shadow === "md",
+      })}
+    >
       <img
         src={imageUrl}
         alt="berita"
@@ -22,4 +36,4 @@ const NewsCard = ({ imageUrl, title, content }: NewsCardProps) => {
   );
 };
 
-export default NewsCard;
+export default WideCard;

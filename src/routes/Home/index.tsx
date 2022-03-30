@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../../components/Header";
 import { UserGroupIcon, ViewGridIcon } from "@heroicons/react/solid";
-import NewsCard from "./components/NewsCard";
+import NewsCard from "../../components/WideCard";
 import Carousel from "./components/Carousel";
 import ProgramCarousel from "./components/ProgramCarousel";
 import LandingPageBg from "../../images/landing-page.webp";
