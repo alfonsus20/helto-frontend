@@ -1,8 +1,7 @@
-import qs from "query-string";
 import { AxiosPromise } from "axios";
 import { coreAPI } from "../api";
 import { APIResponse } from "../types/apiResponse";
-import { GetNewsParams, GetNewsResponse } from "../types/entities/news";
+import { GetNewsResponse } from "../types/entities/news";
 
 export const getNewsList = (
   params: string

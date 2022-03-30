@@ -69,7 +69,7 @@ const NewsList = () => {
       <div className="mt-4 grid grid-cols-12 gap-5">
         {newsList.map((news) => (
           <Card
-            description={news.content}
+            description={news.title}
             url={`${IMAGE_URL}/${news.image}`}
             key={news.id}
             onViewDetail={() => handleViewNewsDetail(news.id)}

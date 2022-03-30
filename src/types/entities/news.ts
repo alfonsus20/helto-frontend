@@ -9,8 +9,3 @@ export type NewsSingle = {
 export type GetNewsResponse = {
   news: NewsSingle[];
 };
-
-export type GetNewsParams = {
-  offset: number;
-  limit: number;
-};
