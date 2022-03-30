@@ -14,13 +14,12 @@ import Background from "../../images/bg-daftar.webp";
 import Select from "../../components/Select";
 import useForm from "../../hooks/useForm";
 import { FormTemplate, SelectItem } from "../../types/form";
-import { RegisterParams, RegisterResponse } from "../../types/entities/auth";
+import { RegisterParams } from "../../types/entities/auth";
 import { register } from "../../models/auth";
 import useEffectOnce from "../../hooks/useEffectOnce";
 import { getCities, getProvinces } from "../../models/location";
 import useSnackbar from "../../hooks/useSnackbar";
 import { AxiosError } from "axios";
-import { coreAPI } from "../../api";
 import { useUserContext } from "../../context/UserContext";
 
 const emptyFormData: FormTemplate<RegisterParams> = {
@@ -75,12 +74,10 @@ const Register = () => {
     try {
       setLoading(true);
       const { data } = await getProvinces();
-
       const provinceData = data.provinsi.map((prov) => ({
         label: prov.nama,
         value: prov.id.toString(),
       }));
-
       setProvinces(provinceData);
     } catch (err) {
     } finally {
@@ -92,12 +89,10 @@ const Register = () => {
     try {
       setLoading(true);
       const { data } = await getCities(selectedProvince.value);
-
       const provinceData = data.kota_kabupaten.map((prov) => ({
         label: prov.nama,
         value: prov.nama,
       }));
-
       setCities(provinceData);
     } catch (err) {
     } finally {
