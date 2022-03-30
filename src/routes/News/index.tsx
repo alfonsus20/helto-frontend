@@ -40,7 +40,7 @@ const News = () => {
         </div>
         <div className="mt-4 grid grid-cols-12 gap-5">
           {[...Array(4)].map((_, idx) => (
-            <AgendaCard />
+            <AgendaCard title="" datetime="" />
           ))}
         </div>
       </section>

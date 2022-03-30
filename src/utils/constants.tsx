@@ -32,3 +32,27 @@ export const PROGRAMS: Program[] = [
 ];
 
 export const IMAGE_URL = "http://helto-be-feminovialina.vercel.app/public";
+
+export const DAYS_OF_THE_WEEK = [
+  "Senin",
+  "Selasa",
+  "Rabu",
+  "Kamis",
+  "Jumat",
+  "Sabtu",
+  "Minggu",
+];
+
+export const MONTHS = [
+  "Januari",
+  "Februari",
+  "Maret",
+  "April",
+  "Mei",
+  "Juni",
+  "Juli",
+  "Agustus",
+  "September",
+  "November",
+  "Desember",
+];

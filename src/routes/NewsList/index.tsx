@@ -8,7 +8,6 @@ import NewsModal from "../../components/NewsModal";
 import useEffectOnce from "../../hooks/useEffectOnce";
 import { getNewsList } from "../../models/news";
 import { useLocation } from "react-router-dom";
-import qs from "query-string";
 import { NewsSingle } from "../../types/entities/news";
 import { AxiosError } from "axios";
 import useSnackbar from "../../hooks/useSnackbar";
