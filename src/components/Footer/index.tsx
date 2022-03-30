@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import {
   LocationMarkerIcon,
@@ -6,48 +6,25 @@ import {
   PhoneIcon,
 } from "@heroicons/react/outline";
 import Button from "../Button";
-import Input from "../Input";
 import TextArea from "../TextArea";
-import useSnackbar from "../../hooks/useSnackbar";
-import { AxiosError } from "axios";
+import Input from "../Input";
+import useForm from "../../hooks/useForm";
 import { postFeedback } from "../../models/feedback";
 import { Feedback } from "../../types/entities/feedback";
+import { FormTemplate } from "../../types/form";
 
-const emptyFormData = {
-  name: "",
-  email: "",
-  feedback: "",
+const emptyFormData: FormTemplate<Feedback> = {
+  name: {
+    value: "",
+    required: false,
+  },
+  email: { value: "", required: true },
+  feedback: { value: "", required: true },
 };
 
 const Footer = () => {
-  const [formData, setFormData] = useState<Feedback>(emptyFormData);
-  const [submitting, setSubmitting] = useState<boolean>(false);
-
-  const snackbar = useSnackbar();
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (Object.values(formData).some((entry) => !entry)) {
-      snackbar.error("Periksa inputan Anda");
-      return;
-    }
-
-    try {
-      setSubmitting(true);
-      await postFeedback(formData);
-      snackbar.success("Feedback berhasil dikirim");
-      setFormData(emptyFormData);
-    } catch (e) {
-      snackbar.error((e as AxiosError).message);
-    } finally {
-      setSubmitting(false);
-    }
-  };
+  const { formData, handleSubmit, handleChange, errors, isSubmitting } =
+    useForm<Feedback, null>(emptyFormData, postFeedback);
 
   return (
     <div className="mt-auto bg-[#F3F0E9]">
@@ -108,25 +85,31 @@ const Footer = () => {
               placeholder="Nama Kamu"
               className="mb-4"
               name="name"
-              value={formData.name}
+              value={formData.name.value}
               onChange={handleChange}
+              isError={!!errors.name}
+              helperText={errors.name}
             />
             <Input
               placeholder="Email Kamu"
               type="email"
               className="mb-4"
               name="email"
-              value={formData.email}
+              value={formData.email.value}
               onChange={handleChange}
+              isError={!!errors.email}
+              helperText={errors.email}
             />
             <TextArea
               placeholder="Pesan atau pertanyaan kamu"
               className="mb-4"
               name="feedback"
-              value={formData.feedback}
+              value={formData.feedback.value}
               onChange={handleChange}
+              isError={!!errors.feedback}
+              helperText={errors.feedback}
             />
-            <Button type="submit" shape="pill" disabled={submitting}>
+            <Button type="submit" shape="pill" disabled={isSubmitting}>
               Kirim
             </Button>
           </form>
