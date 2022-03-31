@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import {
-  LocationMarkerIcon,
-  MailIcon,
-  PhoneIcon,
-} from "@heroicons/react/outline";
+import { MailIcon, PhoneIcon } from "@heroicons/react/outline";
 import Button from "../Button";
 import TextArea from "../TextArea";
 import Input from "../Input";
@@ -14,6 +10,7 @@ import { Feedback } from "../../types/entities/feedback";
 import { FormTemplate } from "../../types/form";
 import useSnackbar from "../../hooks/useSnackbar";
 import { AxiosError } from "axios";
+import Logo from "../../images/logo.png";
 
 const emptyFormData: FormTemplate<Feedback> = {
   name: {
@@ -65,10 +62,10 @@ const Footer = () => {
     >
       <div className="grid grid-cols-12 mx-auto max-w-6xl py-10 gap-6 px-8">
         <div className="col-span-12 sm:col-span-6 md:col-span-3">
-          <Link to="/" className="px-6 py-3 bg-brown-200 w-max">
-            Logo
+          <Link to="/" className="px-6 w-max">
+            <img src={Logo} alt="logo" className="w-24 h-20" />
           </Link>
-          <p className="mt-4 mb-2">Lorem Ipsum lala lili haha</p>
+          <p className="mb-2">Rawat Kentangmu bersama Healtho</p>
           <div className="flex gap-x-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -98,16 +95,12 @@ const Footer = () => {
           <h5 className="font-bold text-lg mb-4">Contact info</h5>
           <dl>
             <dd className="flex gap-x-2 mb-2">
-              <LocationMarkerIcon className="w-5 h-5 flex-shrink-0" />
-              <p>Lorem Ipsum is simply dummy text of the.</p>
-            </dd>
-            <dd className="flex gap-x-2 mb-2">
               <PhoneIcon className="w-5 h-5 flex-shrink-0" />
-              <p>1234567890</p>
+              <p>08113552304</p>
             </dd>
             <dd className="flex gap-x-2 mb-2">
               <MailIcon className="w-5 h-5 flex-shrink-0" />
-              <p>info@gmail.com</p>
+              <p>Healtho_id@gmail.com</p>
             </dd>
           </dl>
         </div>

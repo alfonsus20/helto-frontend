@@ -1,4 +1,13 @@
-import { GlobeIcon, StarIcon, ThumbUpIcon } from "@heroicons/react/solid";
+import { DuplicateIcon } from "@heroicons/react/outline";
+import {
+  DocumentIcon,
+  GlobeIcon,
+  HandIcon,
+  SearchIcon,
+  StarIcon,
+  ThumbUpIcon,
+  UserGroupIcon,
+} from "@heroicons/react/solid";
 
 type Program = {
   icon: React.ReactNode;
@@ -9,25 +18,39 @@ type Program = {
 
 export const PROGRAMS: Program[] = [
   {
-    icon: <StarIcon className="w-8 h-8 text-white" />,
+    icon: <HandIcon className="w-8 h-8 text-white" />,
     iconBgColor: "pink",
-    title: "Lorem ipsum",
+    title: "Konsultasi",
     content:
-      "Lorem ipsum dolor sit amet, consect adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa",
+      "Konsultasikan tanaman kentang Anda dengan orang yang ahli dibidangnya untuk menjawab pertanyaan Anda.",
   },
   {
-    icon: <GlobeIcon className="w-8 h-8 text-white" />,
+    icon: <UserGroupIcon className="w-8 h-8 text-white" />,
     iconBgColor: "yellow",
-    title: "Lorem Ipsum",
+    title: "Komunitas",
     content:
-      "Lorem ipsum dolor sit amet, consect adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa",
+      "Gabung dalam komunitas tanaman kentang untuk mendapatkan dan saling bertukar informasi. ",
   },
   {
-    icon: <ThumbUpIcon className="w-8 h-8 text-white" />,
+    icon: <SearchIcon className="w-8 h-8 text-white" />,
     iconBgColor: "brown",
-    title: "Lorem Ipsum",
+    title: "Tips dan Trik",
     content:
-      "Lorem ipsum dolor sit amet, consect adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa",
+      "Dapatkan Tips dan Trik untuk menjaga dan merawat tanaman kentang Anda agar mendapat hasil yang terbaik.",
+  },
+  {
+    icon: <DocumentIcon className="w-8 h-8 text-white" />,
+    iconBgColor: "pink",
+    title: "Berita Terkini",
+    content:
+      "Dapatkan berita terkini seputar kentang untuk membantu Anda mengoptimalkan produksi kentang Anda",
+  },
+  {
+    icon: <DuplicateIcon className="w-8 h-8 text-white" />,
+    iconBgColor: "yellow",
+    title: "Ketahui Penyakit",
+    content:
+      "Ketahui penyakit pada tanaman kentang Anda, serta cara menyembuhkan dan membasmi penyakit yang ada.",
   },
 ];
 

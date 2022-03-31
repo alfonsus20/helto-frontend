@@ -32,7 +32,7 @@ const MobileNavbar = () => {
       <Link className="px-6 py-4" to="/" onClick={toogleIsOpened}>
         Beranda
       </Link>
-      <Link className="px-6 py-4" to="/" onClick={toogleIsOpened}>
+      <Link className="px-6 py-4" to="/komunitas" onClick={toogleIsOpened}>
         Konsultasi
       </Link>
       <Link className="px-6 py-4" to="/berita" onClick={toogleIsOpened}>

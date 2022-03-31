@@ -11,6 +11,7 @@ import Button from "../Button";
 import HamburgerMenu from "react-hamburger-menu";
 import { useSidebarContext } from "../../context/SidebarContext";
 import { useUserContext } from "../../context/UserContext";
+import Logo from "../../images/logo.png";
 
 const Navbar = () => {
   const [isColored, setIsColored] = useState<boolean>(false);
@@ -44,7 +45,7 @@ const Navbar = () => {
   return (
     <nav
       className={classNames(
-        "px-8 py-5 fixed left-0 right-0 w-full z-20 transition-colors duration-300",
+        "px-8 py-2 fixed left-0 right-0 w-full z-20 transition-colors duration-300",
         {
           "bg-transparent": !isColored,
           "bg-white shadow-md": isColored,
@@ -53,14 +54,16 @@ const Navbar = () => {
       )}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <div className="px-6 py-3 bg-brown-200">
-          <Link to="/">Logo</Link>
+        <div className="px-6">
+          <Link to="/">
+            <img src={Logo} alt="logo" className="w-24 h-20" />
+          </Link>
         </div>
         <div className="gap-x-5 text-brown-600 hidden lg:flex">
           <Link to="/" className="px-2">
             Beranda
           </Link>
-          <Link to="/" className="px-2">
+          <Link to="/komunitas" className="px-2">
             Konsultasi
           </Link>
           <div className="px-2 flex items-center gap-x-1 group relative">

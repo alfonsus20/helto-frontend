@@ -5,7 +5,7 @@ import Thread from "./components/Thread";
 
 const PostThread = () => {
   return (
-    <div className="py-24 px-8 flex gap-x-6 max-w-screen-2xl mx-auto w-full">
+    <div className="py-28 px-8 flex gap-x-6 max-w-screen-2xl mx-auto w-full">
       <div className="flex-none w-80 hidden xl:block">
         <div className="flex gap-x-2 items-center">
           <div className="flex-shrink-0">

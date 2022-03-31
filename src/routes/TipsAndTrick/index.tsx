@@ -23,7 +23,7 @@ const TipsAndTrick = () => {
   const fetchTipsAndTrickList = async () => {
     try {
       setIsFetchingTipsAndTrick(true);
-      const { data } = await getTipsAndTrickList("offset=0&limit=9");
+      const { data } = await getTipsAndTrickList("?offset=0&limit=9");
       if (data.data) {
         setTipsAndTrickList(data.data);
       }

@@ -28,7 +28,7 @@ const News = () => {
   const fetchNews = async () => {
     try {
       setIsFetchingNews(true);
-      const query = "offset=0&limit=8";
+      const query = "?offset=0&limit=8";
       const promises = Promise.all<
         [
           AxiosPromise<APIResponse<GetNewsResponse>>,

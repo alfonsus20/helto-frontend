@@ -31,9 +31,10 @@ const Home = () => {
       </section>
       <section className="px-8 py-14 max-w-5xl mx-auto">
         <Header brownText="Tips &amp;" blackText="Trik" />
-        <h4 className="text-center my-4 max-w-md mx-auto">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry.
+        <h4 className="text-center my-4 max-w-xl mx-auto">
+          Banyaknya fungsi kentang membuat bahan ini selalu diproduksi setiap
+          waktu, sehingga mengetahui cara tanam kentang yang baik menjadi
+          penting
         </h4>
         <div className="flex flex-col sm:flex-row items-center">
           <div className="sm:w-[60%]">
@@ -45,17 +46,19 @@ const Home = () => {
           </div>
           <div className="sm:w-[40%]">
             <h4 className="text-xl font-bold mb-4">
-              Lorem <span className="text-brown-700">Ipsum lala lili </span>{" "}
-              abcdefg hijklmn
+              Teknik &amp;{" "}
+              <span className="text-brown-700"> Cara Menanam </span>Kentang
+              Untuk Hasil Berkualitas
             </h4>
             <div className="flex gap-x-4 items-start mb-4">
               <span className="p-3 rounded-full shadow-lg">
                 <ViewGridIcon className="w-5 h-5 text-brown-600" />
               </span>
               <p className="text-gray">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s,
+                Bibit kentang yang sudah ditanam harus mendapatkan perawatan.
+                Perawatan akan menghindarkan tanaman kentang dari masalah hama.
+                Perawatan dilakukan dengan pemupukan dan penyiraman secara
+                teratur.
               </p>
             </div>
             <div className="flex gap-x-4 items-start mb-4">
@@ -63,9 +66,9 @@ const Home = () => {
                 <UserGroupIcon className="w-5 h-5 text-brown-600" />
               </span>
               <p className="text-gray">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s,
+                Pilih kentang yang paling besar untuk dipanen. Setelah itu,
+                perbaiki lahan agar umbi kentang yang masih kecil bisa tumbuh
+                dengan baik.
               </p>
             </div>
           </div>
@@ -80,7 +83,7 @@ const Home = () => {
         <div className="mt-6 flex gap-x-10">
           <div className="w-1/2 hidden md:block">
             <img
-              src="https://tmqbylesuwxzdqaxmdlm.supabase.co/storage/v1/object/public/images/02c3bb65-27e5-41d1-906e-326cc339c2cc.jpg"
+              src="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/Mask group (3).png"
               alt="berita"
               className="rounded-lg w-full h-60 object-cover mb-2"
             />
@@ -97,22 +100,19 @@ const Home = () => {
           </div>
           <div className="w-full md:w-1/2 flex flex-col gap-4">
             <NewsCard
-              imageUrl="https://tmqbylesuwxzdqaxmdlm.supabase.co/storage/v1/object/public/images/87d0bade-11bc-4235-a9ca-967faaf9177e.webp"
-              title="Lorem ipsum?"
-              content="Lorem Ipsum is not simply random text. It has roots in a piece of
-              classical Latin literature from 45 BC, making it over 2000 years old."
+              imageUrl="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/Mask group.png"
+              title="McDonald’s Setop Jual Kentang Large Mulai Hari Ini"
+              content="Hal ini menyusul gelombang krisis kentang goreng McDonald's sampai di Indonesia..."
             />
             <NewsCard
-              imageUrl="https://tmqbylesuwxzdqaxmdlm.supabase.co/storage/v1/object/public/images/87d0bade-11bc-4235-a9ca-967faaf9177e.webp"
-              title="Lorem ipsum?"
-              content="Lorem Ipsum is not simply random text. It has roots in a piece of
-              classical Latin literature from 45 BC, making it over 2000 years old."
+              imageUrl="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/Mask group (1).png"
+              title="Penemuan Kentang Raksasa di Selandia Baru, Hasil DNA Bikin Sedih"
+              content="Kentang berukuran raksasa ini ditemukan pasangan suami istri petani asal Selandia Baru..."
             />
             <NewsCard
-              imageUrl="https://tmqbylesuwxzdqaxmdlm.supabase.co/storage/v1/object/public/images/87d0bade-11bc-4235-a9ca-967faaf9177e.webp"
-              title="Lorem ipsum?"
-              content="Lorem Ipsum is not simply random text. It has roots in a piece of
-              classical Latin literature from 45 BC, making it over 2000 years old."
+              imageUrl="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/Mask group (2).png"
+              title="Keripik Kulit Kentang di Padang Panjang yang Renyah dan Kaya Manfaat"
+              content="Pengusaha bidang olahan kentang berhasil membuat keripik kulit kentang. Pengusaha itu berada di Padang Panjang, Sumatera Barat."
             />
           </div>
         </div>
