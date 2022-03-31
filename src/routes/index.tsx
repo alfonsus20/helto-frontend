@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import AdminRoute from "../components/AdminRoute";
 import AuthRoute from "../components/AuthRoute";
 import ProtectedRoute from "../components/ProtectedRoute";
@@ -45,6 +45,10 @@ const RouteList = () => {
         <Route path="/komunitas" element={<PostThread />} />
       </Route>
       <Route element={<AdminRoute />}>
+        <Route
+          path="/admin"
+          element={<Navigate to="/admin/tips-dan-trik" />}
+        />
         <Route path="/admin/tips-dan-trik" element={<AdminTipsAndTrick />} />
         <Route
           path="/admin/tips-dan-trik/tambah"

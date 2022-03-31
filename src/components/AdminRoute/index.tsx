@@ -6,10 +6,10 @@ import HamburgerMenu from "react-hamburger-menu";
 import { useSidebarContext } from "../../context/SidebarContext";
 
 const AdminRoute = () => {
-  const { isAuthenticated } = useUserContext();
+  const { userInfo } = useUserContext();
   const { isOpened, toogleIsOpened } = useSidebarContext();
 
-  if (isAuthenticated) {
+  if (userInfo.isAdmin) {
     return (
       <div className="flex max-w-screen relative">
         <SidebarAdmin />
@@ -27,7 +27,16 @@ const AdminRoute = () => {
           />
         </div>
         <div className="flex-auto px-8 py-10 bg-[#F5F5F5] overflow-hidden min-h-screen">
-          <nav className="flex justify-end mb-4">Shawn Mendes</nav>
+          <nav className="flex justify-end mb-4 items-center gap-x-2">
+            <div>
+              <img
+                src="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/shawn_mendes-rev1.jpg"
+                alt="avatar"
+                className="w-12 h-12 rounded-full"
+              />
+            </div>
+            <div className="font-bold">{userInfo.name}</div>
+          </nav>
           <Outlet />
         </div>
       </div>

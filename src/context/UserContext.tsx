@@ -4,6 +4,7 @@ import { coreAPI } from "../api";
 import useSnackbar from "../hooks/useSnackbar";
 import { getUserInfo } from "../models/auth";
 import { UserInfo } from "../types/entities/auth";
+import { useNavigate } from "react-router-dom";
 
 type UserState = {
   isAuthenticated: boolean;
@@ -30,6 +31,7 @@ export const UserWrapper = ({ children }: { children: React.ReactNode }) => {
   const [userInfo, setUserInfo] = useState<UserInfo>(defaultValue.userInfo);
 
   const snackbar = useSnackbar();
+  const navigate = useNavigate();
 
   const loginUser = (token: string, userId: number) => {
     coreAPI.interceptors.request.use((config) => {
@@ -43,6 +45,7 @@ export const UserWrapper = ({ children }: { children: React.ReactNode }) => {
 
   const logoutUser = () => {
     setIsAuthenticated(false);
+    setUserInfo({} as UserInfo);
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
     coreAPI.defaults.headers.common["Authorization"] = "";
@@ -64,6 +67,12 @@ export const UserWrapper = ({ children }: { children: React.ReactNode }) => {
       fetchUserInfo();
     }
   }, [isAuthenticated]);
+
+  useEffect(() => {
+    if (userInfo.isAdmin) {
+      navigate("/admin");
+    }
+  }, [userInfo]);
 
   return (
     <UserContext.Provider
