@@ -4,7 +4,7 @@ import { APIResponse } from "../types/apiResponse";
 import { GetMediaResponse } from "../types/entities/media";
 
 export const getMediaList = (
-  params: string
+  params?: string
 ): AxiosPromise<APIResponse<GetMediaResponse>> => {
   return coreAPI.get(`/media?${params}`);
 };

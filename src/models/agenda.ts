@@ -4,7 +4,7 @@ import { APIResponse } from "../types/apiResponse";
 import { Agenda } from "../types/entities/agenda";
 
 export const getAgendaList = (
-  params: string
+  params?: string
 ): AxiosPromise<APIResponse<Agenda[]>> => {
   return coreAPI.get(`/agenda?${params}`);
 };
