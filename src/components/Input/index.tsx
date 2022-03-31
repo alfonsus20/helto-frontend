@@ -12,7 +12,7 @@ const Input = ({
   isError,
   helperText,
   ...rest
-}: CommonInputProps & React.InputHTMLAttributes<HTMLElement>) => {
+}: CommonInputProps & React.InputHTMLAttributes<HTMLInputElement>) => {
   return (
     <div className={classNames("w-full input-wrapper", className)}>
       <div className="relative">

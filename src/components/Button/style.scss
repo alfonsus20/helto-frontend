@@ -16,8 +16,24 @@
       @apply bg-white text-pink-300 shadow-lg hover:bg-[#faeded] font-semibold;
     }
 
+    &-edit {
+      @apply bg-blue-500 text-white;
+    }
+
+    &-delete {
+      @apply bg-red-500 text-white;
+    }
+
+    &-default {
+      @apply bg-gray-300;
+    }
+
     &.is-box {
       @apply px-8 py-2;
+    }
+
+    &.is-rounded {
+      @apply px-8 py-2 rounded-md;
     }
 
     &.is-pill {

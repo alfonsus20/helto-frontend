@@ -5,7 +5,13 @@ import { useNavigate } from "react-router-dom";
 
 import "./style.scss";
 
-type ButtonAppearance = "primary" | "secondary" | "tertiary";
+type ButtonAppearance =
+  | "primary"
+  | "secondary"
+  | "tertiary"
+  | "edit"
+  | "delete"
+  | "default";
 
 type ButtonProps = {
   children: React.ReactNode;
@@ -47,8 +53,12 @@ const Button = ({
         "btn-primary": appearance === "primary",
         "btn-secondary": appearance === "secondary",
         "btn-tertiary": appearance === "tertiary",
+        "btn-edit": appearance === "edit",
+        "btn-delete": appearance === "delete",
+        "btn-default": appearance === "default",
         "is-box": shape === "box",
         "is-pill": shape === "pill",
+        "is-rounded": shape === "rounded",
         "is-disabled": disabled,
         "w-auto": width === "auto",
         "w-full": width === "full",

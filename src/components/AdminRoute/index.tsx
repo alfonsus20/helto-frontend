@@ -8,9 +8,9 @@ const AdminRoute = () => {
 
   if (isAuthenticated) {
     return (
-      <div className="flex min-h-screen">
+      <div className="flex min-h-screen max-w-screen">
         <SidebarAdmin />
-        <div className="flex-auto p-8 bg-[#F5F5F5]">
+        <div className="flex-auto p-8 bg-[#F5F5F5] overflow-hidden">
           <nav className="flex justify-end mb-4">Shawn Mendes</nav>
           <Outlet />
         </div>

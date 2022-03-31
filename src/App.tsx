@@ -20,10 +20,10 @@ const ScrollToTop = () => {
 
 function App() {
   return (
-    <UserWrapper>
-      <ModalWrapper>
-        <SidebarWrapper>
-          <BrowserRouter>
+    <BrowserRouter>
+      <UserWrapper>
+        <ModalWrapper>
+          <SidebarWrapper>
             <ScrollToTop />
             <main className="min-h-screen flex flex-col">
               <Navbar />
@@ -31,10 +31,10 @@ function App() {
               <RouteList />
               <Footer />
             </main>
-          </BrowserRouter>
-        </SidebarWrapper>
-      </ModalWrapper>
-    </UserWrapper>
+          </SidebarWrapper>
+        </ModalWrapper>
+      </UserWrapper>
+    </BrowserRouter>
   );
 }
 
