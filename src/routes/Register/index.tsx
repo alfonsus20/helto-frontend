@@ -108,7 +108,7 @@ const Register = () => {
         setSubmitting(true);
         const { data } = await register(getDataToSubmit());
         snackbar.success(data.message);
-        loginUser(data.data?.token!);
+        loginUser(data.data?.token!, data.data?.user.id!);
       } catch (e) {
         snackbar.error((e as AxiosError).response?.data.message);
       } finally {

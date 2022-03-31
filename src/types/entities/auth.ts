@@ -12,15 +12,18 @@ export type RegisterParams = {
   province: string;
 };
 
+export type UserInfo = {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+  phone: string;
+  region: string;
+  isAdmin: boolean;
+};
+
 export type RegisterResponse = {
-  user: {
-    id: number;
-    name: string;
-    username: string;
-    email: string;
-    phone: string;
-    region: string;
-  };
+  user: UserInfo;
   token: string;
 };
 

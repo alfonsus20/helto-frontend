@@ -18,7 +18,7 @@ import { AxiosError } from "axios";
 const emptyFormData: FormTemplate<Feedback> = {
   name: {
     value: "",
-    required: false,
+    required: true,
   },
   email: { value: "", required: true },
   feedback: { value: "", required: true },

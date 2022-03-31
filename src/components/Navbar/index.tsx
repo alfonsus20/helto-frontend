@@ -10,12 +10,14 @@ import { Link, useLocation } from "react-router-dom";
 import Button from "../Button";
 import HamburgerMenu from "react-hamburger-menu";
 import { useSidebarContext } from "../../context/SidebarContext";
+import { useUserContext } from "../../context/UserContext";
 
 const Navbar = () => {
   const [isColored, setIsColored] = useState<boolean>(false);
 
   const { pathname } = useLocation();
   const { isOpened, toogleIsOpened } = useSidebarContext();
+  const { userInfo, isAuthenticated, logoutUser } = useUserContext();
 
   useEffect(() => {
     if (pathname === "/") {
@@ -107,14 +109,23 @@ const Navbar = () => {
             Komunitas
           </Link>
         </div>
-        <div className="gap-x-4 items-center text-brown-600 hidden lg:flex">
-          <Link to="/login" className="px-6">
-            Masuk
-          </Link>
-          <Button shape="pill" pathname="register">
-            Daftar
-          </Button>
-        </div>
+        {isAuthenticated ? (
+          <div className="hidden lg:flex gap-x-4 items-center">
+            <div className="font-bold">{userInfo.name}</div>
+            <Button shape="pill" appearance="delete" onClick={logoutUser}>
+              Logout
+            </Button>
+          </div>
+        ) : (
+          <div className="gap-x-4 items-center text-brown-600 hidden lg:flex">
+            <Link to="/login" className="px-6">
+              Masuk
+            </Link>
+            <Button shape="pill" pathname="register">
+              Daftar
+            </Button>
+          </div>
+        )}
         <div className="block lg:hidden">
           <HamburgerMenu
             isOpen={isOpened}
