@@ -1,4 +1,8 @@
-import { ChevronDownIcon, DocumentDuplicateIcon, NewspaperIcon } from "@heroicons/react/outline";
+import {
+  ChevronDownIcon,
+  DocumentDuplicateIcon,
+  NewspaperIcon,
+} from "@heroicons/react/outline";
 import { SearchIcon } from "@heroicons/react/solid";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
@@ -39,7 +43,11 @@ const Navbar = () => {
     <nav
       className={classNames(
         "px-8 py-5 fixed left-0 right-0 w-full z-20 transition-colors duration-300",
-        { "bg-transparent": !isColored, "bg-white shadow-md": isColored }
+        {
+          "bg-transparent": !isColored,
+          "bg-white shadow-md": isColored,
+          hidden: pathname.includes("admin"),
+        }
       )}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center">

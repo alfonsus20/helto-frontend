@@ -16,7 +16,9 @@ const defaultValue: UserState = {
 const UserContext = createContext(defaultValue);
 
 export const UserWrapper = ({ children }: { children: React.ReactNode }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
+    defaultValue.isAuthenticated
+  );
 
   const loginUser = (token: string) => {
     setIsAuthenticated(true);

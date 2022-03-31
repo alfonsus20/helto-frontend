@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   LocationMarkerIcon,
   MailIcon,
@@ -36,6 +36,7 @@ const Footer = () => {
   const [submitting, setSubmitting] = useState<boolean>(false);
 
   const snackbar = useSnackbar();
+  const { pathname } = useLocation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,7 +58,11 @@ const Footer = () => {
   };
 
   return (
-    <div className="mt-auto bg-[#F3F0E9]">
+    <div
+      className={`mt-auto bg-[#F3F0E9] ${
+        pathname.includes("admin") ? "hidden" : "block"
+      }`}
+    >
       <div className="grid grid-cols-12 mx-auto max-w-6xl py-10 gap-6 px-8">
         <div className="col-span-12 sm:col-span-6 md:col-span-3">
           <Link to="/" className="px-6 py-3 bg-brown-200 w-max">
