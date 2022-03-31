@@ -7,10 +7,33 @@ import {
 } from "@heroicons/react/outline";
 import { Link } from "react-router-dom";
 import Logo from "../../images/logo.png";
+import HamburgerMenu from "react-hamburger-menu";
+import { useSidebarContext } from "../../context/SidebarContext";
+import classNames from "classnames";
 
 const SidebarAdmin = () => {
+  const { isOpened, toogleIsOpened } = useSidebarContext();
+
   return (
-    <div className="flex-none w-80 h-full max-h-screen overflow-y-auto sticky top-0">
+    <div
+      className={classNames(
+        "flex-none w-80 h-full bg-white z-10 max-h-screen overflow-y-auto fixed md:sticky top-0 transition-all ease-in duration-500",
+        { "-left-full": !isOpened, "left-0": isOpened }
+      )}
+    >
+      <div className="block md:hidden absolute right-4 top-4">
+        <HamburgerMenu
+          isOpen={isOpened}
+          menuClicked={toogleIsOpened}
+          width={18}
+          height={15}
+          strokeWidth={2}
+          rotate={0}
+          color="black"
+          borderRadius={2}
+          animationDuration={0.5}
+        />
+      </div>
       <div className="flex justify-center p-4">
         <img src={Logo} alt="logo" className="w-24 h-20" />
       </div>
