@@ -9,6 +9,7 @@ import { AxiosError, AxiosPromise } from "axios";
 import useSnackbar from "../../hooks/useSnackbar";
 import { useModalContext } from "../../context/ModalContext";
 import dayjs from "dayjs";
+import { getImageURL } from "../../utils/helper";
 type TableData<T extends Object> = {
   [key in keyof T]: {
     type: "text" | "image" | "date";
@@ -138,17 +139,16 @@ const Table = <T extends Object>({
                   if (title) {
                     return (
                       <td
-                        className={`px-3  ${
-                          wrapped
-                            ? "whitespace-normal min-w-[400px] line-clamp-4 my-4"
-                            : "whitespace-nowrap py-4"
-                        }`}
+                        className={`px-3  ${wrapped
+                          ? "whitespace-normal min-w-[400px] line-clamp-4 my-4"
+                          : "whitespace-nowrap py-4"
+                          }`}
                       >
                         {type === "date"
                           ? dayjs(`${entryData[key as keyof T]}`)
-                              .format("DD MMM YYYY")
-                              .toString()
-                          : entryData[key as keyof T]}
+                            .format("DD MMM YYYY")
+                            .toString()
+                          : type === 'image' ? <img src={getImageURL(`${entryData[key as keyof T]}`)} className='w-40 h-40 object-cover object-center' alt='table-img' /> : entryData[key as keyof T]}
                       </td>
                     );
                   }
