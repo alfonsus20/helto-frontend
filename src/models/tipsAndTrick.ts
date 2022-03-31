@@ -20,3 +20,9 @@ export const getTipsAndTrickById = (
 ): AxiosPromise<APIResponse<TipsAndTrick>> => {
   return coreAPI.get(`/tips-and-trick/${id}`);
 };
+
+export const deleteTipsAndTrick = (
+  id: number
+): AxiosPromise<APIResponse<null>> => {
+  return coreAPI.delete(`/tips-and-trick/${id}`);
+};

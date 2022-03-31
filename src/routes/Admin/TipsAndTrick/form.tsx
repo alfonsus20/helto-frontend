@@ -114,7 +114,6 @@ const FormTipsAndTrik = () => {
       <form
         onSubmit={handleSubmit}
         className="bg-white p-5 rounded-md"
-        action=""
       >
         <div className="flex gap-x-6 w-full mb-4">
           <div className="flex-none w-24">Judul</div>

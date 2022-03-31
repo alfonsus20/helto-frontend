@@ -20,3 +20,7 @@ export const createAgenda = (
 ): AxiosPromise<APIResponse<null>> => {
   return coreAPI.post("/agenda", params);
 };
+
+export const deleteAgenda = (id: number): AxiosPromise<APIResponse<null>> => {
+  return coreAPI.delete(`/agenda/${id}`);
+};

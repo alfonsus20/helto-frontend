@@ -8,3 +8,7 @@ export const getMediaList = (
 ): AxiosPromise<APIResponse<GetMediaResponse>> => {
   return coreAPI.get(`/media?${params}`);
 };
+
+export const deleteMedia = (id: number): AxiosPromise<APIResponse<null>> => {
+  return coreAPI.delete(`/media/${id}`);
+};

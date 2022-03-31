@@ -8,6 +8,7 @@ import AdminAgenda from "./Admin/Agenda";
 import FormAgenda from "./Admin/Agenda/form";
 import AdminMedia from "./Admin/Media";
 import AdminNews from "./Admin/News";
+import FormNews from "./Admin/News/form";
 import AdminTipsAndTrick from "./Admin/TipsAndTrick";
 import FormTipsAndTrik from "./Admin/TipsAndTrick/form";
 import AgendaList from "./AgendaList";
@@ -56,6 +57,8 @@ const RouteList = () => {
           element={<FormTipsAndTrik />}
         />
         <Route path="/admin/berita" element={<AdminNews />} />
+        <Route path="/admin/berita/tambah" element={<FormNews />} />
+        <Route path="/admin/berita/:id/edit" element={<FormNews />} />
         <Route path="/admin/agenda" element={<AdminAgenda />} />
         <Route path="/admin/agenda/tambah" element={<FormAgenda />} />
         <Route path="/admin/agenda/:id/edit" element={<FormAgenda />} />

@@ -19,18 +19,18 @@ type TableData<T extends Object> = {
 
 type TableProps<T> = {
   body: TableData<T>;
-  editURL: string;
   deleteFunc: (id: number) => AxiosPromise;
   data: (T & {
     id: number;
   })[];
   searchPlaceholder?: string;
+  fetchFunc: () => void;
 };
 
 const Table = <T extends Object>({
   body,
-  editURL,
   deleteFunc,
+  fetchFunc,
   data,
   searchPlaceholder,
 }: TableProps<T>) => {
@@ -51,6 +51,8 @@ const Table = <T extends Object>({
     try {
       setLoading(true);
       await deleteFunc(id);
+      snackbar.success("Data berhasil dihapus");
+      fetchFunc();
     } catch (error) {
       snackbar.error((error as AxiosError).response?.data.message);
     } finally {

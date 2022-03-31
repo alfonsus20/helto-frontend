@@ -3,11 +3,9 @@ import Table from "../../../components/Table";
 import useSnackbar from "../../../hooks/useSnackbar";
 import { AxiosError } from "axios";
 import { useLocation } from "react-router-dom";
-import { getAgendaList } from "../../../models/agenda";
 import { deleteNews } from "../../../models/news";
-import { Agenda } from "../../../types/entities/agenda";
 import { Media } from "../../../types/entities/media";
-import { getMediaList } from "../../../models/media";
+import { deleteMedia, getMediaList } from "../../../models/media";
 
 const AdminNews = () => {
   const [newsList, setMediaList] = useState<Array<Media>>([]);
@@ -39,8 +37,8 @@ const AdminNews = () => {
       <h1 className="font-bold text-2xl mb-4">Media Terkini</h1>
       <div className="bg-white p-5">
         <Table
-          editURL=""
-          deleteFunc={deleteNews}
+          fetchFunc={fetchAgendaList}
+          deleteFunc={deleteMedia}
           body={{
             id: { type: "text" },
             link: { type: "text", title: "Judul" },

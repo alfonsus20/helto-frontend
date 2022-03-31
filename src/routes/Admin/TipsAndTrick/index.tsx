@@ -3,12 +3,16 @@ import { AxiosError } from "axios";
 import { useLocation } from "react-router-dom";
 import Table from "../../../components/Table";
 import useSnackbar from "../../../hooks/useSnackbar";
-import { deleteNews } from "../../../models/news";
-import { getTipsAndTrickList } from "../../../models/tipsAndTrick";
+import {
+  deleteTipsAndTrick,
+  getTipsAndTrickList,
+} from "../../../models/tipsAndTrick";
 import { TipsAndTrick } from "../../../types/entities/tipsAndTrick";
 
 const AdminTipsAndTrick = () => {
-  const [tipsAndTrickList, setTipsAndTrickList] = useState<Array<TipsAndTrick>>([]);
+  const [tipsAndTrickList, setTipsAndTrickList] = useState<Array<TipsAndTrick>>(
+    []
+  );
   const [isFetchingTipsAndTrick, setIsFetchingTipsAndTrick] =
     useState<boolean>(false);
 
@@ -38,8 +42,8 @@ const AdminTipsAndTrick = () => {
       <h1 className="font-bold text-2xl mb-4">Tips And Trik</h1>
       <div className="bg-white p-5">
         <Table
-          editURL=""
-          deleteFunc={deleteNews}
+          fetchFunc={fetchTipsAndTrickList}
+          deleteFunc={deleteTipsAndTrick}
           body={{
             id: { type: "text" },
             title: { type: "text", title: "Judul" },

@@ -36,7 +36,7 @@ const AdminNews = () => {
       <h1 className="font-bold text-2xl mb-4">Daftar Berita Terkini</h1>
       <div className="bg-white p-5">
         <Table
-          editURL=""
+          fetchFunc={fetchNewsList}
           deleteFunc={deleteNews}
           body={{
             id: { type: "text" },
