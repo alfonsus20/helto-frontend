@@ -5,6 +5,7 @@ import useSnackbar from "../hooks/useSnackbar";
 import { getUserInfo } from "../models/auth";
 import { UserInfo } from "../types/entities/auth";
 import { useNavigate } from "react-router-dom";
+import useEffectOnce from "../hooks/useEffectOnce";
 
 type UserState = {
   isAuthenticated: boolean;
@@ -15,7 +16,7 @@ type UserState = {
 };
 
 const defaultValue: UserState = {
-  isAuthenticated: !!localStorage.getItem("token"),
+  isAuthenticated: false,
   loginUser: () => { },
   logoutUser: () => { },
   fetchUserInfo: () => { },
@@ -58,6 +59,18 @@ export const UserWrapper = ({ children }: { children: React.ReactNode }) => {
       snackbar.error((e as AxiosError).response?.data.message);
     }
   };
+
+
+
+  useEffectOnce(() => {
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId');
+    if (token && userId) {
+      coreAPI.defaults.headers.common['Authorization'] = token;
+      setIsAuthenticated(true)
+      fetchUserInfo();
+    }
+  })
 
   useEffect(() => {
     if (isAuthenticated) {
