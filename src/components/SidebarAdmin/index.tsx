@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const SidebarAdmin = () => {
   return (
-    <div className="flex-none w-80">
+    <div className="flex-none w-80 h-full max-h-screen overflow-y-auto sticky top-0">
       <div className="h-20">LOGO</div>
       <div className="px-4">
         <Link
