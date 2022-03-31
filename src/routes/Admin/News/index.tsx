@@ -53,11 +53,4 @@ const AdminNews = () => {
     </div>
   );
 };
-
-// id: number;
-// title: string;
-// content: string;
-// image: string;
-// UpdatedAt: string;
-
 export default AdminNews;

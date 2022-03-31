@@ -1,11 +1,14 @@
-import { HomeIcon, NewspaperIcon, SearchIcon } from "@heroicons/react/outline";
 import React from "react";
+import { HomeIcon, NewspaperIcon, SearchIcon } from "@heroicons/react/outline";
 import { Link } from "react-router-dom";
+import Logo from "../../images/logo.png";
 
 const SidebarAdmin = () => {
   return (
     <div className="flex-none w-80 h-full max-h-screen overflow-y-auto sticky top-0">
-      <div className="h-20">LOGO</div>
+      <div className="flex justify-center p-4">
+        <img src={Logo} alt="logo" className="w-24 h-20" />
+      </div>
       <div className="px-4">
         <Link
           to="/admin"
