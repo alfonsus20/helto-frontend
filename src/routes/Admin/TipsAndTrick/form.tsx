@@ -63,7 +63,7 @@ const FormTipsAndTrik = () => {
   const handleFetches = async () => {
     try {
       setIsFetching(true);
-      const { data } = await getTipsAndTrickById(+id!);
+      const { data } = await getTipsAndTrickById(Number(id));
       if (data.data) {
         setFormData({
           ...formData,
@@ -111,10 +111,7 @@ const FormTipsAndTrik = () => {
       <h1 className="font-bold text-2xl mb-4">
         {id ? "Edit" : "Tambah"} Tips dan Trik
       </h1>
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-5 rounded-md"
-      >
+      <form onSubmit={handleSubmit} className="bg-white p-5 rounded-md">
         <div className="flex gap-x-6 w-full mb-4">
           <div className="flex-none w-24">Judul</div>
           <div className="flex-auto max-w-xl">

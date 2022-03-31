@@ -6,7 +6,7 @@ import { GetNewsResponse } from "../types/entities/news";
 export const getNewsList = (
   params?: string
 ): AxiosPromise<APIResponse<GetNewsResponse>> => {
-  return coreAPI.get(`/news?${params}`);
+  return coreAPI.get(`/news${params}`);
 };
 
 export const createNews = (

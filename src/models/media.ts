@@ -6,7 +6,7 @@ import { GetMediaResponse } from "../types/entities/media";
 export const getMediaList = (
   params?: string
 ): AxiosPromise<APIResponse<GetMediaResponse>> => {
-  return coreAPI.get(`/media?${params}`);
+  return coreAPI.get(`/media${params}`);
 };
 
 export const deleteMedia = (id: number): AxiosPromise<APIResponse<null>> => {

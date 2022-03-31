@@ -6,7 +6,7 @@ import { Agenda, AgendaParams } from "../types/entities/agenda";
 export const getAgendaList = (
   params?: string
 ): AxiosPromise<APIResponse<Agenda[]>> => {
-  return coreAPI.get(`/agenda?${params}`);
+  return coreAPI.get(`/agenda${params}`);
 };
 
 export const getAgendaById = (

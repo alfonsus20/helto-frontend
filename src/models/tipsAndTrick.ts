@@ -6,7 +6,7 @@ import { TipsAndTrick } from "../types/entities/tipsAndTrick";
 export const getTipsAndTrickList = (
   params?: string
 ): AxiosPromise<APIResponse<Array<TipsAndTrick>>> => {
-  return coreAPI.get(`/tips-and-trick?${params}`);
+  return coreAPI.get(`/tips-and-trick${params}`);
 };
 
 export const createTipsAndTrick = (
@@ -18,6 +18,7 @@ export const createTipsAndTrick = (
 export const getTipsAndTrickById = (
   id: number
 ): AxiosPromise<APIResponse<TipsAndTrick>> => {
+  console.log(id)
   return coreAPI.get(`/tips-and-trick/${id}`);
 };
 
