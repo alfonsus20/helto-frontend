@@ -6,6 +6,7 @@ export type SelectItem = {
 export type FormTemplateItem<T> = {
   required?: boolean;
   value: T;
+  type?: "date" | "text";
 };
 
 export type FormTemplate<T extends Object> = {

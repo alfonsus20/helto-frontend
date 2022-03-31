@@ -5,3 +5,8 @@ export type Agenda = {
   createdAt: string;
   UpdatedAt: string;
 };
+
+export type AgendaParams = {
+  name: string;
+  date: string;
+};

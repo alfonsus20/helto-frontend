@@ -1,5 +1,11 @@
 import React from "react";
-import { HomeIcon, NewspaperIcon, SearchIcon } from "@heroicons/react/outline";
+import {
+  CalendarIcon,
+  HomeIcon,
+  NewspaperIcon,
+  SearchIcon,
+  VideoCameraIcon,
+} from "@heroicons/react/outline";
 import { Link } from "react-router-dom";
 import Logo from "../../images/logo.png";
 
@@ -42,7 +48,7 @@ const SidebarAdmin = () => {
           className="flex p-4 gap-x-4 items-center  rounded-lg hover:bg-brown-500 hover:text-white "
         >
           <div className="flex-none">
-            <NewspaperIcon className="w-5 h-5" />
+            <CalendarIcon className="w-5 h-5" />
           </div>
           <div className="flex-auto">Agenda</div>
         </Link>
@@ -51,7 +57,7 @@ const SidebarAdmin = () => {
           className="flex p-4 gap-x-4 items-center  rounded-lg hover:bg-brown-500 hover:text-white "
         >
           <div className="flex-none">
-            <NewspaperIcon className="w-5 h-5" />
+            <VideoCameraIcon className="w-5 h-5" />
           </div>
           <div className="flex-auto">Media</div>
         </Link>

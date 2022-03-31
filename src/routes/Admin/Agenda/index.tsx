@@ -8,7 +8,7 @@ import { deleteNews } from "../../../models/news";
 import { Agenda } from "../../../types/entities/agenda";
 
 const AdminNews = () => {
-  const [newsList, setAgendaList] = useState<Array<Agenda>>([]);
+  const [agendaList, setAgendaList] = useState<Array<Agenda>>([]);
   const [isFetchingAgenda, setIsFetchingAgenda] = useState<boolean>(false);
 
   const { search } = useLocation();
@@ -42,11 +42,12 @@ const AdminNews = () => {
           body={{
             id: { type: "text" },
             name: { type: "text", title: "Judul" },
-            date: { type: "image", title: "Image" },
-            UpdatedAt: { type: "date", title: "Tanggal" },
+            date: { type: "date", title: "Tanggal" },
+            UpdatedAt: { type: "date" },
             createdAt: { type: "date" },
           }}
-          data={newsList}
+          data={agendaList}
+          searchPlaceholder="Cari Agenda Terkini"
         />
       </div>
     </div>

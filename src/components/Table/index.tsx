@@ -8,6 +8,7 @@ import Button from "../Button";
 import { AxiosError, AxiosPromise } from "axios";
 import useSnackbar from "../../hooks/useSnackbar";
 import { useModalContext } from "../../context/ModalContext";
+import dayjs from "dayjs";
 type TableData<T extends Object> = {
   [key in keyof T]: {
     type: "text" | "image" | "date";
@@ -23,6 +24,7 @@ type TableProps<T> = {
   data: (T & {
     id: number;
   })[];
+  searchPlaceholder?: string;
 };
 
 const Table = <T extends Object>({
@@ -30,6 +32,7 @@ const Table = <T extends Object>({
   editURL,
   deleteFunc,
   data,
+  searchPlaceholder,
 }: TableProps<T>) => {
   const [keyword, setKeyword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -92,16 +95,19 @@ const Table = <T extends Object>({
 
   return (
     <div className="w-full">
-      <div className="flex justify-end mb-4">
+      <div className="flex justify-between my-2 mb-6">
         <form onSubmit={handleSubmit}>
           <Input
-            placeholder="Cari Tips dan Trik"
+            placeholder={searchPlaceholder}
             className="max-w-xs"
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
             icon={<SearchIcon className="w-5 h-5" />}
           />
         </form>
+        <Button shape="rounded" onClick={() => navigate(`${pathname}/tambah`)}>
+          Tambah
+        </Button>
       </div>
       <div className="w-full overflow-x-auto">
         <table className="w-full">
@@ -126,7 +132,7 @@ const Table = <T extends Object>({
               <tr key={entryData.id}>
                 <td className="px-3 py-4">{index + 1}</td>
                 {Object.keys(body).map((key) => {
-                  const { title, wrapped } = body[key as keyof T];
+                  const { title, wrapped, type } = body[key as keyof T];
                   if (title) {
                     return (
                       <td
@@ -136,7 +142,11 @@ const Table = <T extends Object>({
                             : "whitespace-nowrap py-4"
                         }`}
                       >
-                        {entryData[key as keyof T]}
+                        {type === "date"
+                          ? dayjs(`${entryData[key as keyof T]}`)
+                              .format("DD MMM YYYY")
+                              .toString()
+                          : entryData[key as keyof T]}
                       </td>
                     );
                   }
@@ -145,7 +155,7 @@ const Table = <T extends Object>({
                   <Button
                     appearance="edit"
                     shape="rounded"
-                    onClick={() => navigate(`${pathname}/${entryData.id}`)}
+                    onClick={() => navigate(`${pathname}/${entryData.id}/edit`)}
                   >
                     Edit
                   </Button>

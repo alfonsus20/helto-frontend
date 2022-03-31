@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import React, { ChangeEvent, useState } from "react";
 import { FormTemplate } from "../types/form";
 
@@ -8,7 +9,6 @@ function useForm<T>(formData: FormTemplate<T>) {
   }>({} as { [key in keyof FormTemplate<T>]: string });
 
   const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    console.log(evt.target.name);
     setData({
       ...data,
       [evt.target.name]: {
@@ -38,7 +38,13 @@ function useForm<T>(formData: FormTemplate<T>) {
   const getDataToSubmit = () => {
     const dataToSubmit = Object.keys(data).reduce((prev, key) => {
       const currentData = data[key as keyof FormTemplate<T>];
-      return { ...prev, [key]: currentData.value };
+      return {
+        ...prev,
+        [key]:
+          currentData.type === "date"
+            ? dayjs(`${currentData.value}`).format("DD-MM-YYYY")
+            : currentData.value,
+      };
     }, {} as T);
     return dataToSubmit;
   };

@@ -22,7 +22,7 @@ export const UserWrapper = ({ children }: { children: React.ReactNode }) => {
 
   const loginUser = (token: string) => {
     setIsAuthenticated(true);
-    localStorage.setItem("token", token);
+    localStorage.setItem("token", `Bearer ${token}`);
     coreAPI.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   };
 

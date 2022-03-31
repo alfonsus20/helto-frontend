@@ -5,6 +5,7 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import SidebarAdmin from "../components/SidebarAdmin";
 import Admin from "./Admin";
 import AdminAgenda from "./Admin/Agenda";
+import FormAgenda from "./Admin/Agenda/form";
 import AdminMedia from "./Admin/Media";
 import AdminNews from "./Admin/News";
 import AdminTipsAndTrick from "./Admin/TipsAndTrick";
@@ -47,6 +48,8 @@ const RouteList = () => {
         <Route path="/admin/tips-dan-trik" element={<AdminTipsAndTrick />} />
         <Route path="/admin/berita" element={<AdminNews />} />
         <Route path="/admin/agenda" element={<AdminAgenda />} />
+        <Route path="/admin/agenda/tambah" element={<FormAgenda />} />
+        <Route path="/admin/agenda/:id/edit" element={<FormAgenda />} />
         <Route path="/admin/media" element={<AdminMedia />} />
       </Route>
       <Route path="*" element={<NotFound />} />
