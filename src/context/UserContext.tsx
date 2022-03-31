@@ -16,9 +16,9 @@ type UserState = {
 
 const defaultValue: UserState = {
   isAuthenticated: !!localStorage.getItem("token"),
-  loginUser: () => {},
-  logoutUser: () => {},
-  fetchUserInfo: () => {},
+  loginUser: () => { },
+  logoutUser: () => { },
+  fetchUserInfo: () => { },
   userInfo: {} as UserInfo,
 };
 
@@ -34,10 +34,7 @@ export const UserWrapper = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
 
   const loginUser = (token: string, userId: number) => {
-    coreAPI.interceptors.request.use((config) => {
-      config.headers!.Authorization = `Bearer ${token}`;
-      return config;
-    });
+    coreAPI.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     localStorage.setItem("userId", userId.toString());
     localStorage.setItem("token", `Bearer ${token}`);
     setIsAuthenticated(true);
@@ -48,7 +45,7 @@ export const UserWrapper = ({ children }: { children: React.ReactNode }) => {
     setUserInfo({} as UserInfo);
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
-    coreAPI.defaults.headers.common["Authorization"] = "";
+    delete coreAPI.defaults.headers.common['Authorization'];
   };
 
   const fetchUserInfo = async () => {
