@@ -32,16 +32,16 @@ const AdminNews = () => {
   }, [search]);
 
   return (
-    <div className="w-full overflow-x-hidden">
+    <div>
       <h1 className="font-bold text-2xl mb-4">Daftar Berita Terkini</h1>
-      <div className="bg-white p-5 max-w-full overflow-x-hidden">
+      <div className="bg-white p-5">
         <Table
           editURL=""
           deleteFunc={deleteNews}
           body={{
             id: { type: "text" },
             title: { type: "text", title: "Judul" },
-            content: { type: "text", title: "Konten" },
+            content: { type: "text", title: "Konten", wrapped: true },
             image: { type: "image", title: "Image" },
             UpdatedAt: { type: "date", title: "Tanggal" },
             createdAt: { type: "date" },

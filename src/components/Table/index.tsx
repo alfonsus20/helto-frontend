@@ -12,7 +12,7 @@ type TableData<T extends Object> = {
   [key in keyof T]: {
     type: "text" | "image" | "date";
     title?: string;
-    minW?: number;
+    wrapped?: boolean;
   };
 };
 
@@ -104,36 +104,38 @@ const Table = <T extends Object>({
         </form>
       </div>
       <div className="w-full overflow-x-auto">
-        <table className="w-full whitespace-nowrap">
+        <table className="w-full">
           <thead className="bg-[#F3F6F9]">
             <tr className="font-bold">
-              <td className="px-3 py-3">No.</td>
+              <td className="px-3 py-4">No.</td>
               {Object.keys(body).map((keyBody, idx) => {
-                const { title, minW } = body[keyBody as keyof T];
+                const { title } = body[keyBody as keyof T];
                 if (title) {
                   return (
-                    <td
-                      className="px-3 py-3"
-                      key={idx}
-                      style={{ minWidth: minW }}
-                    >
+                    <td className="px-3 py-4" key={idx}>
                       {title}
                     </td>
                   );
                 }
               })}
-              <td className="px-3 py-3">Aksi</td>
+              <td className="px-3 py-4">Aksi</td>
             </tr>
           </thead>
           <tbody>
             {data.map((entryData, index) => (
               <tr key={entryData.id}>
-                <td className="px-3 py-2">{index + 1}</td>
+                <td className="px-3 py-4">{index + 1}</td>
                 {Object.keys(body).map((key) => {
-                  const { title, minW } = body[key as keyof T];
+                  const { title, wrapped } = body[key as keyof T];
                   if (title) {
                     return (
-                      <td className="px-3 py-2" style={{ minWidth: minW }}>
+                      <td
+                        className={`px-3  ${
+                          wrapped
+                            ? "whitespace-normal min-w-[400px] line-clamp-4 my-4"
+                            : "whitespace-nowrap py-4"
+                        }`}
+                      >
                         {entryData[key as keyof T]}
                       </td>
                     );
