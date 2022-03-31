@@ -23,7 +23,7 @@ const RouteList = () => {
       <Route path="/berita/agenda" element={<AgendaList />} />
       <Route path="/berita/media" element={<VideoList />} />
       <Route path="/tips-dan-trik" element={<TipsAndTrick />} />
-      <Route path="/tips-dan-trik/lengkap" element={<TipsAndTrickList />} />
+      <Route path="/tips-dan-trik/selengkapnya" element={<TipsAndTrickList />} />
       <Route element={<AuthRoute />}>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

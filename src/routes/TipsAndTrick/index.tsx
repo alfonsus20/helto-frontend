@@ -1,17 +1,50 @@
+import React, { useState } from "react";
 import { ChevronRightIcon } from "@heroicons/react/outline";
-import React from "react";
-import { Link } from "react-router-dom";
+import { AxiosError } from "axios";
+import { Link, useLocation } from "react-router-dom";
 import Header from "../../components/Header";
 import WideCard from "../../components/WideCard";
+import useEffectOnce from "../../hooks/useEffectOnce";
+import useSnackbar from "../../hooks/useSnackbar";
+import { getTipsAndTrickList } from "../../models/tipsAndTrick";
+import { TipsAndTrick as TipsAndTrickEntity } from "../../types/entities/tipsAndTrick";
+import { getImageURL } from "../../utils/helper";
 
 const TipsAndTrick = () => {
+  const [tipsAndTrickList, setTipsAndTrickList] = useState<
+    Array<TipsAndTrickEntity>
+  >([]);
+  const [isFetchingTipsAndTrick, setIsFetchingTipsAndTrick] =
+    useState<boolean>(false);
+
+  const { search } = useLocation();
+  const snackbar = useSnackbar();
+
+  const fetchTipsAndTrickList = async () => {
+    try {
+      setIsFetchingTipsAndTrick(true);
+      const { data } = await getTipsAndTrickList("offset=0&limit=9");
+      if (data.data) {
+        setTipsAndTrickList(data.data);
+      }
+    } catch (error) {
+      snackbar.error((error as AxiosError).response?.data.message);
+    } finally {
+      setIsFetchingTipsAndTrick(false);
+    }
+  };
+
+  useEffectOnce(() => {
+    fetchTipsAndTrickList();
+  });
+
   return (
     <div className="py-28 max-w-7xl mx-auto w-full">
       <section className="px-8">
         <div className="flex justify-between mb-4">
           <Header brownText="Tips dan" blackText="Trik" textAlign="left" />
           <Link
-            to="/berita/daftar-berita"
+            to="/tips-dan-trik/selengkapnya"
             className="flex items-center gap-x-4 text-green-600 font-bold"
           >
             <span> Lihat Semua</span> <ChevronRightIcon className="w-5 h-5" />
@@ -19,21 +52,24 @@ const TipsAndTrick = () => {
         </div>
         <div className="grid grid-cols-12 mx-auto max-w-7xl gap-4">
           <div className="col-span-12 sm:col-span-5 lg:col-span-4 relative">
-            <img
-              src="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/image 106.jpg"
-              alt="kentang"
-              className="w-full h-80 sm:h-full object-cover object-center"
-            />
-            <div className="bg-black bg-opacity-70 absolute bottom-0 w-full p-4 text-white">
-              <h3 className="text-xl font-bold mb-2">Menanam Kentang</h3>
-              <p>
-                Kentang harus ditanam di tanah yang asam, serta mendapat banyak
-                sinar matahari dan air. - wikiHow
-              </p>
-            </div>
+            {tipsAndTrickList.length > 0 && (
+              <>
+                <img
+                  src={getImageURL(tipsAndTrickList[0].image)}
+                  alt="kentang"
+                  className="w-full h-80 sm:h-full object-cover object-center"
+                />
+                <div className="bg-black bg-opacity-70 absolute bottom-0 w-full p-4 text-white">
+                  <h3 className="text-xl font-bold mb-2">
+                    {tipsAndTrickList[0].title}
+                  </h3>
+                  <p>{tipsAndTrickList[0].content}</p>
+                </div>
+              </>
+            )}
           </div>
           <div className="col-span-12 sm:col-span-7 lg:col-span-4">
-            {[...Array(4)].map((_, idx) => (
+            {tipsAndTrickList.slice(1, 6).map((_, idx) => (
               <WideCard
                 title="Lorem ipsum"
                 shadow="md"
@@ -45,7 +81,7 @@ const TipsAndTrick = () => {
             ))}
           </div>{" "}
           <div className="col-span-12 lg:col-span-4">
-            {[...Array(4)].map((_, idx) => (
+            {tipsAndTrickList.slice(6, 10).map((_, idx) => (
               <WideCard
                 title="Lorem ipsum"
                 shadow="md"

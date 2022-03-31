@@ -1,10 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 import { SearchIcon } from "@heroicons/react/outline";
 import Header from "../../components/Header";
 import Input from "../../components/Input";
 import WideCard from "../../components/WideCard";
+import useEffectOnce from "../../hooks/useEffectOnce";
+import useSnackbar from "../../hooks/useSnackbar";
+import { TipsAndTrick } from "../../types/entities/tipsAndTrick";
+import { AxiosError } from "axios";
+import { getTipsAndTrickList } from "../../models/tipsAndTrick";
+import { getImageURL } from "../../utils/helper";
+import { useModalContext } from "../../context/ModalContext";
+import NewsModal from "../../components/NewsModal";
 
 const TipsAndTrickList = () => {
+  const [tipsAndTrickList, setTipsAndTrickList] = useState<Array<TipsAndTrick>>(
+    []
+  );
+  const [isFetchingTipsAndTrick, setIsFetchingTipsAndTrick] =
+    useState<boolean>(false);
+
+  const snackbar = useSnackbar();
+  const { openModal } = useModalContext();
+
+  const handleViewNewsDetail = (tipsAndTrickId: number) => {
+    const foundTipsAndTrick = tipsAndTrickList.find(
+      (tipsAndTrick) => tipsAndTrick.id === tipsAndTrickId
+    )!;
+    const modalDOM = (
+      <NewsModal
+        title={foundTipsAndTrick.title}
+        content={foundTipsAndTrick.content}
+        imageURL={getImageURL(foundTipsAndTrick.image)}
+      />
+    );
+    openModal(modalDOM, "2xl");
+  };
+
+  const fetchTipsAndTrickList = async () => {
+    try {
+      setIsFetchingTipsAndTrick(true);
+      const { data } = await getTipsAndTrickList("offset=0&limit=9");
+      if (data.data) {
+        setTipsAndTrickList(data.data);
+      }
+    } catch (error) {
+      snackbar.error((error as AxiosError).response?.data.message);
+    } finally {
+      setIsFetchingTipsAndTrick(false);
+    }
+  };
+
+  useEffectOnce(() => {
+    fetchTipsAndTrickList();
+  });
+
   return (
     <div className="py-28 max-w-7xl mx-auto w-full px-8">
       <Header
@@ -19,14 +68,15 @@ const TipsAndTrickList = () => {
         className="mb-6"
       />
       <div className="mt-4 grid grid-cols-12 gap-5">
-        {[...Array(4)].map((_, idx) => (
+        {tipsAndTrickList.map((tipsAndTrick) => (
           <WideCard
-            title="Lorem ipsum"
+            title={tipsAndTrick.title}
             shadow="md"
-            key={idx}
+            key={tipsAndTrick.id}
             className="mb-2 col-span-12 xs:col-span-6 lg:col-span-4"
-            content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-            imageUrl="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/unsplash_FV_PxCqgtwc.png"
+            content={tipsAndTrick.content}
+            imageUrl={getImageURL(tipsAndTrick.image)}
+            onClick={() => handleViewNewsDetail(tipsAndTrick.id)}
           />
         ))}
       </div>

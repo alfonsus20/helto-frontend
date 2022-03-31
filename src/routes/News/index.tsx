@@ -15,6 +15,7 @@ import { Agenda } from "../../types/entities/agenda";
 import { GetMediaResponse, Media } from "../../types/entities/media";
 import useEffectOnce from "../../hooks/useEffectOnce";
 import { getEmbedYoutubeURL } from "../../utils/helper";
+import { IMAGE_URL } from "../../utils/constants";
 
 const News = () => {
   const [isFetchingNews, setIsFetchingNews] = useState<boolean>(false);
@@ -35,9 +36,7 @@ const News = () => {
           AxiosPromise<APIResponse<GetMediaResponse>>
         ]
       >([getNewsList(query), getAgendaList(query), getMediaList(query)]);
-
       const res = await promises;
-
       setNewsList(res[0].data.data?.news!);
       setAgendaList(res[1].data.data!);
       setMediaList(res[2].data.data?.media!);
@@ -66,7 +65,11 @@ const News = () => {
         </div>
         <div className="mt-4 grid grid-cols-12 gap-5">
           {newsList.map((news) => (
-            <Card description={news.content} url={news.image} key={news.id} />
+            <Card
+              description={news.content}
+              url={`${IMAGE_URL}/${news.image}`}
+              key={news.id}
+            />
           ))}
         </div>
       </section>

@@ -7,6 +7,7 @@ type WideCardProps = {
   content: string;
   className?: string;
   shadow?: "none" | "md";
+  onClick?: (event: React.MouseEvent) => void;
 };
 
 const WideCard = ({
@@ -14,14 +15,20 @@ const WideCard = ({
   title,
   content,
   className,
+  onClick,
   shadow = "none",
 }: WideCardProps) => {
   return (
     <div
-      className={classNames("flex gap-2 xs:gap-4 items-center", className, {
-        "shadow-none": shadow === "none",
-        "shadow-md": shadow === "md",
-      })}
+      className={classNames(
+        "flex gap-2 xs:gap-4 items-center cursor-pointer",
+        className,
+        {
+          "shadow-none": shadow === "none",
+          "shadow-md": shadow === "md",
+        }
+      )}
+      onClick={onClick ? onClick : () => {}}
     >
       <img
         src={imageUrl}
