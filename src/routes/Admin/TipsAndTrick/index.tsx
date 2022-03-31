@@ -44,6 +44,7 @@ const AdminTipsAndTrick = () => {
         <Table
           fetchFunc={fetchTipsAndTrickList}
           deleteFunc={deleteTipsAndTrick}
+          searchPlaceholder='Cari Tips dan Trik'
           body={{
             id: { type: "text" },
             title: { type: "text", title: "Judul" },

@@ -11,3 +11,9 @@ export type NewsSingle = {
 export type GetNewsResponse = {
   news: NewsSingle[];
 };
+
+export type NewsParams = {
+  title: string;
+  content: string;
+  image: File;
+};

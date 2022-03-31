@@ -5,6 +5,7 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import AdminAgenda from "./Admin/Agenda";
 import FormAgenda from "./Admin/Agenda/form";
 import AdminMedia from "./Admin/Media";
+import FormMedia from "./Admin/Media/form";
 import AdminNews from "./Admin/News";
 import FormNews from "./Admin/News/form";
 import AdminTipsAndTrick from "./Admin/TipsAndTrick";
@@ -60,6 +61,8 @@ const RouteList = () => {
         <Route path="/admin/agenda/tambah" element={<FormAgenda />} />
         <Route path="/admin/agenda/:id/edit" element={<FormAgenda />} />
         <Route path="/admin/media" element={<AdminMedia />} />
+        <Route path="/admin/media/tambah" element={<FormMedia />} />
+        <Route path="/admin/media/:id/edit" element={<FormMedia />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>

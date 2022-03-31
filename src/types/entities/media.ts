@@ -9,3 +9,8 @@ export type Media = {
 export type GetMediaResponse = {
   media: Media[];
 };
+
+export type MediaParams = {
+  link: string;
+  description: string;
+};

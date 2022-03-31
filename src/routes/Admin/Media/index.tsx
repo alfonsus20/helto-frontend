@@ -39,6 +39,7 @@ const AdminNews = () => {
         <Table
           fetchFunc={fetchAgendaList}
           deleteFunc={deleteMedia}
+          searchPlaceholder="Cari Media Terkini"
           body={{
             id: { type: "text" },
             link: { type: "text", title: "Judul" },
