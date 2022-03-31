@@ -63,7 +63,7 @@ const Navbar = () => {
           <Link to="/" className="px-2">
             Beranda
           </Link>
-          <Link to="/komunitas" className="px-2">
+          <Link to="/konsultasi" className="px-2">
             Konsultasi
           </Link>
           <div className="px-2 flex items-center gap-x-1 group relative">

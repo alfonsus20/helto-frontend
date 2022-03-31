@@ -43,6 +43,7 @@ const RouteList = () => {
       <Route element={<ProtectedRoute />}>
         <Route path="/deteksi-penyakit" element={<DiseaseDetection />} />
         <Route path="/komunitas" element={<PostThread />} />
+        <Route path="/konsultasi" element={<PostThread />} />
       </Route>
       <Route element={<AdminRoute />}>
         <Route
