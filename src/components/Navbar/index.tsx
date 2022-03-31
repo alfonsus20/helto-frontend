@@ -1,4 +1,4 @@
-import { ChevronDownIcon } from "@heroicons/react/outline";
+import { ChevronDownIcon, DocumentDuplicateIcon, NewspaperIcon } from "@heroicons/react/outline";
 import { SearchIcon } from "@heroicons/react/solid";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
@@ -60,42 +60,42 @@ const Navbar = () => {
             before:absolute before:border-[10px] before:border-b-white before:border-t-transparent before:border-l-transparent 
             before:border-r-transparent before:w-5 before:h-5 before:-top-4 before:left-0 before:right-0 before:mx-auto"
             >
-              <Link to="/">
+              <Link to="/tips-dan-trik">
                 <div className="flex gap-x-4 py-2">
                   <div className="flex-shrink-0 p-3 rounded-full bg-[#FFF4F0]">
                     <SearchIcon className="w-5 h-5 text-[#FF784C]" />
                   </div>
                   <div>
-                    <h4 className="font-bold">Informasi Terkini</h4>
+                    <h4 className="font-bold">Tips dan Trik</h4>
+                    <p className="text-sm text-gray-400">Menanam Kentang</p>
+                  </div>
+                </div>
+              </Link>
+              <Link to="/berita">
+                <div className="flex gap-x-4 py-2">
+                  <div className="flex-shrink-0 p-3 rounded-full bg-[#FFF4F0]">
+                    <NewspaperIcon className="w-5 h-5 text-[#FF784C]" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold">Berita Terkini</h4>
                     <p className="text-sm text-gray-400">Tentang Kentang</p>
                   </div>
                 </div>
               </Link>
-              <Link to="/">
+              <Link to="/deteksi-penyakit">
                 <div className="flex gap-x-4 py-2">
                   <div className="flex-shrink-0 p-3 rounded-full bg-[#FFF4F0]">
-                    <SearchIcon className="w-5 h-5 text-[#FF784C]" />
+                    <DocumentDuplicateIcon className="w-5 h-5 text-[#FF784C]" />
                   </div>
                   <div>
-                    <h4 className="font-bold">Informasi Terkini</h4>
-                    <p className="text-sm text-gray-400">Tentang Kentang</p>
-                  </div>
-                </div>
-              </Link>
-              <Link to="/">
-                <div className="flex gap-x-4 py-2">
-                  <div className="flex-shrink-0 p-3 rounded-full bg-[#FFF4F0]">
-                    <SearchIcon className="w-5 h-5 text-[#FF784C]" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold">Informasi Terkini</h4>
-                    <p className="text-sm text-gray-400">Tentang Kentang</p>
+                    <h4 className="font-bold">Ketahui Penyakit</h4>
+                    <p className="text-sm text-gray-400">Pada Kentang</p>
                   </div>
                 </div>
               </Link>
             </div>
           </div>
-          <Link to="/" className="px-2">
+          <Link to="/komunitas" className="px-2">
             Komunitas
           </Link>
         </div>

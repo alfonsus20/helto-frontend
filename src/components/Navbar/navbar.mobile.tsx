@@ -20,16 +20,16 @@ const MobileNavbar = () => {
       <Link className="px-6 py-4" to="/" onClick={toogleIsOpened}>
         Konsultasi
       </Link>
-      <Link className="px-6 py-4" to="/" onClick={toogleIsOpened}>
+      <Link className="px-6 py-4" to="/berita" onClick={toogleIsOpened}>
         Informasi Terkini
       </Link>
-      <Link className="px-6 py-4" to="/" onClick={toogleIsOpened}>
+      <Link className="px-6 py-4" to="/tips-dan-trik" onClick={toogleIsOpened}>
         Tips dan Trik
       </Link>
-      <Link className="px-6 py-4" to="/" onClick={toogleIsOpened}>
+      <Link className="px-6 py-4" to="/deteksi-penyakit" onClick={toogleIsOpened}>
         Ketahui Penyakit
       </Link>
-      <Link className="px-6 py-4" to="/" onClick={toogleIsOpened}>
+      <Link className="px-6 py-4" to="/komunitas" onClick={toogleIsOpened}>
         Komunitas
       </Link>
       <Link className="px-6 py-4" to="/login" onClick={toogleIsOpened}>

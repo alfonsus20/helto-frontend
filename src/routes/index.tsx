@@ -30,7 +30,7 @@ const RouteList = () => {
       </Route>
       <Route element={<ProtectedRoute />}>
         <Route path="/deteksi-penyakit" element={<DiseaseDetection />} />
-        <Route path="/post-thread" element={<PostThread />} />
+        <Route path="/komunitas" element={<PostThread />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>
