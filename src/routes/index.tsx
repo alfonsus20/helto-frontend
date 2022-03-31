@@ -2,8 +2,6 @@ import { Route, Routes } from "react-router-dom";
 import AdminRoute from "../components/AdminRoute";
 import AuthRoute from "../components/AuthRoute";
 import ProtectedRoute from "../components/ProtectedRoute";
-import SidebarAdmin from "../components/SidebarAdmin";
-import Admin from "./Admin";
 import AdminAgenda from "./Admin/Agenda";
 import FormAgenda from "./Admin/Agenda/form";
 import AdminMedia from "./Admin/Media";
@@ -46,7 +44,6 @@ const RouteList = () => {
         <Route path="/komunitas" element={<PostThread />} />
       </Route>
       <Route element={<AdminRoute />}>
-        <Route path="/admin" element={<Admin />} />
         <Route path="/admin/tips-dan-trik" element={<AdminTipsAndTrick />} />
         <Route
           path="/admin/tips-dan-trik/tambah"

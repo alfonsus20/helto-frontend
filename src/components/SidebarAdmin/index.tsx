@@ -1,7 +1,6 @@
 import React from "react";
 import {
   CalendarIcon,
-  HomeIcon,
   NewspaperIcon,
   SearchIcon,
   VideoCameraIcon,
@@ -16,15 +15,6 @@ const SidebarAdmin = () => {
         <img src={Logo} alt="logo" className="w-24 h-20" />
       </div>
       <div className="px-4">
-        <Link
-          to="/admin"
-          className="flex p-4 gap-x-4 items-center  rounded-lg hover:bg-brown-500 hover:text-white "
-        >
-          <div className="flex-none">
-            <HomeIcon className="w-5 h-5" />
-          </div>
-          <div className="flex-auto">Dashboard</div>
-        </Link>
         <Link
           to="/admin/tips-dan-trik"
           className="flex p-4 gap-x-4 items-center  rounded-lg hover:bg-brown-500 hover:text-white "
