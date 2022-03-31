@@ -10,6 +10,7 @@ import useForm from "../../../hooks/useForm";
 import useSnackbar from "../../../hooks/useSnackbar";
 import {
   createTipsAndTrick,
+  editTipsAndTrick,
   getTipsAndTrickById,
 } from "../../../models/tipsAndTrick";
 import { TipsAndTrickParams } from "../../../types/entities/tipsAndTrick";
@@ -79,6 +80,29 @@ const FormTipsAndTrik = () => {
     }
   };
 
+  const handleEdit = async (evt: React.FormEvent) => {
+    evt.preventDefault();
+    if (!errors.title && !errors.content) {
+      try {
+        setIsSubmitting(true);
+        const dataToSubmit = getDataToSubmit();
+        const formDataToSubmit = new FormData();
+        formDataToSubmit.append("title", dataToSubmit.title);
+        formDataToSubmit.append("content", dataToSubmit.content);
+        if (dataToSubmit.image) {
+          formDataToSubmit.append("image", dataToSubmit.image);
+        }
+        await editTipsAndTrick(+id!, formDataToSubmit);
+        snackbar.success("Data berhasil diperbarui");
+        navigate("/admin/tips-dan-trik");
+      } catch (error) {
+        errorHandler(error as AxiosError);
+      } finally {
+        setIsSubmitting(false);
+      }
+    }
+  };
+
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
     if (validateData()) {
@@ -111,7 +135,10 @@ const FormTipsAndTrik = () => {
       <h1 className="font-bold text-2xl mb-4">
         {id ? "Edit" : "Tambah"} Tips dan Trik
       </h1>
-      <form onSubmit={handleSubmit} className="bg-white p-5 rounded-md">
+      <form
+        onSubmit={id ? handleEdit : handleSubmit}
+        className="bg-white p-5 rounded-md"
+      >
         <div className="flex gap-x-6 w-full mb-4">
           <div className="flex-none w-24">Judul</div>
           <div className="flex-auto max-w-xl">
@@ -152,7 +179,7 @@ const FormTipsAndTrik = () => {
             <Button shape="pill" type="button" onClick={uploadImage}>
               Pilih File
             </Button>
-            {errors.image && (
+            {errors.image && !imageURL && (
               <p className="text-red-500 text-xs">{errors.image}</p>
             )}
           </div>

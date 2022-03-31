@@ -7,7 +7,7 @@ import TextArea from "../../../components/TextArea";
 import useEffectOnce from "../../../hooks/useEffectOnce";
 import useForm from "../../../hooks/useForm";
 import useSnackbar from "../../../hooks/useSnackbar";
-import { createMedia, getMediaById } from "../../../models/media";
+import { createMedia, editMedia, getMediaById } from "../../../models/media";
 import { MediaParams } from "../../../types/entities/media";
 import { FormTemplate } from "../../../types/form";
 import { errorHandler } from "../../../utils/helper";
@@ -44,7 +44,6 @@ const FormMedia = () => {
       setIsFetching(true);
       const { data } = await getMediaById(+id!);
       if (data.data) {
-        console.log(data.data);
         setFormData({
           ...formData,
           link: { ...formData.link, value: data.data.link },
@@ -78,6 +77,23 @@ const FormMedia = () => {
     }
   };
 
+  const handleEdit = async (evt: React.FormEvent) => {
+    evt.preventDefault();
+    if (validateData()) {
+      console.log(getDataToSubmit());
+      try {
+        setIsSubmitting(true);
+        await editMedia(+id!, getDataToSubmit());
+        snackbar.success("Data berhasil ditambahkan");
+        navigate("/admin/media");
+      } catch (error) {
+        errorHandler(error as AxiosError);
+      } finally {
+        setIsSubmitting(false);
+      }
+    }
+  };
+
   useEffectOnce(() => {
     if (id) {
       handleFetches();
@@ -89,7 +105,10 @@ const FormMedia = () => {
       <h1 className="font-bold text-2xl mb-4">
         {id ? "Edit" : "Tambah"} Media Terkini
       </h1>
-      <form onSubmit={handleSubmit} className="bg-white p-5 rounded-md">
+      <form
+        onSubmit={id ? handleEdit : handleSubmit}
+        className="bg-white p-5 rounded-md"
+      >
         <div className="flex gap-x-6 w-full mb-4">
           <div className="flex-none w-24">Link</div>
           <div className="flex-auto max-w-xl">

@@ -11,7 +11,7 @@ import useSnackbar from "../../../hooks/useSnackbar";
 import { FormTemplate } from "../../../types/form";
 import { errorHandler, getImageURL } from "../../../utils/helper";
 import { NewsParams } from "../../../types/entities/news";
-import { createNews, getNewsById } from "../../../models/news";
+import { createNews, editNews, getNewsById } from "../../../models/news";
 
 const emptyFormData: FormTemplate<NewsParams> = {
   title: {
@@ -60,15 +60,15 @@ const FormNews = () => {
   const handleFetches = async () => {
     try {
       setIsFetching(true);
-      const { data } = await getNewsById(Number(id));
+      const { data } = await getNewsById(+id!);
       if (data.data) {
         setFormData({
           ...formData,
-          title: { ...formData.title, value: data.data.title },
-          content: { ...formData.content, value: data.data.content },
+          title: { ...formData.title, value: data.data.news.title },
+          content: { ...formData.content, value: data.data.news.content },
         });
       }
-      setImageURL(data.data?.image!);
+      setImageURL(data.data?.news.image!);
     } catch (error) {
       errorHandler(error as AxiosError);
     } finally {
@@ -97,6 +97,29 @@ const FormNews = () => {
     }
   };
 
+  const handleEdit = async (evt: React.FormEvent) => {
+    evt.preventDefault();
+    if (!errors.title && !errors.content) {
+      try {
+        setIsSubmitting(true);
+        const dataToSubmit = getDataToSubmit();
+        const formDataToSubmit = new FormData();
+        formDataToSubmit.append("title", dataToSubmit.title);
+        formDataToSubmit.append("content", dataToSubmit.content);
+        if (dataToSubmit.image) {
+          formDataToSubmit.append("image", dataToSubmit.image);
+        }
+        await editNews(+id!, formDataToSubmit);
+        snackbar.success("Data berhasil diperbarui");
+        navigate("/admin/berita");
+      } catch (error) {
+        errorHandler(error as AxiosError);
+      } finally {
+        setIsSubmitting(false);
+      }
+    }
+  };
+
   useEffectOnce(() => {
     if (id) {
       handleFetches();
@@ -108,7 +131,10 @@ const FormNews = () => {
       <h1 className="font-bold text-2xl mb-4">
         {id ? "Edit" : "Tambah"} Berita Terkini
       </h1>
-      <form onSubmit={handleSubmit} className="bg-white p-5 rounded-md">
+      <form
+        onSubmit={id ? handleEdit : handleSubmit}
+        className="bg-white p-5 rounded-md"
+      >
         <div className="flex gap-x-6 w-full mb-4">
           <div className="flex-none w-24">Judul</div>
           <div className="flex-auto max-w-xl">
@@ -149,7 +175,7 @@ const FormNews = () => {
             <Button shape="pill" type="button" onClick={uploadImage}>
               Pilih File
             </Button>
-            {errors.image && (
+            {errors.image && !imageURL && (
               <p className="text-red-500 text-xs">{errors.image}</p>
             )}
           </div>

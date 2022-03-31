@@ -15,10 +15,17 @@ export const createTipsAndTrick = (
   return coreAPI.post(`/tips-and-trick`, params);
 };
 
+export const editTipsAndTrick = (
+  id: number,
+  params: FormData
+): AxiosPromise<APIResponse<null>> => {
+  return coreAPI.put(`/tips-and-trick/${id}`, params);
+};
+
 export const getTipsAndTrickById = (
   id: number
 ): AxiosPromise<APIResponse<TipsAndTrick>> => {
-  console.log(id)
+  console.log(id);
   return coreAPI.get(`/tips-and-trick/${id}`);
 };
 

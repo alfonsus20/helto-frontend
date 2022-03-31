@@ -7,7 +7,11 @@ import Input from "../../../components/Input";
 import useEffectOnce from "../../../hooks/useEffectOnce";
 import useForm from "../../../hooks/useForm";
 import useSnackbar from "../../../hooks/useSnackbar";
-import { createAgenda, getAgendaById } from "../../../models/agenda";
+import {
+  createAgenda,
+  editAgenda,
+  getAgendaById,
+} from "../../../models/agenda";
 import { AgendaParams } from "../../../types/entities/agenda";
 import { FormTemplate } from "../../../types/form";
 import { errorHandler } from "../../../utils/helper";
@@ -50,7 +54,7 @@ const FormAgenda = () => {
           ...formData,
           name: { ...formData.name, value: data.data.name },
           date: {
-            ...formData.name,
+            ...formData.date,
             value: dayjs(data.data.date).format("YYYY-MM-DD").toString(),
           },
         });
@@ -78,6 +82,22 @@ const FormAgenda = () => {
     }
   };
 
+  const handleEdit = async (evt: React.FormEvent) => {
+    evt.preventDefault();
+    if (validateData()) {
+      try {
+        setIsSubmitting(true);
+        await editAgenda(+id!, getDataToSubmit());
+        snackbar.success("Data berhasil diperbarui");
+        navigate("/admin/agenda");
+      } catch (error) {
+        errorHandler(error as AxiosError);
+      } finally {
+        setIsSubmitting(false);
+      }
+    }
+  };
+
   useEffectOnce(() => {
     if (id) {
       handleFetches();
@@ -90,7 +110,7 @@ const FormAgenda = () => {
         {id ? "Edit" : "Tambah"} Agenda Terkini
       </h1>
       <form
-        onSubmit={handleSubmit}
+        onSubmit={id ? handleEdit : handleSubmit}
         className="bg-white p-5 rounded-md"
         action=""
       >
@@ -107,7 +127,7 @@ const FormAgenda = () => {
           </div>
         </div>
         <div className="flex gap-x-6 w-full mb-4">
-          <div className="flex-none w-24">Keterangan</div>
+          <div className="flex-none w-24">Tanggal</div>
           <div className="flex-auto max-w-xl">
             <Input
               name="date"

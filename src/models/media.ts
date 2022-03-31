@@ -15,6 +15,13 @@ export const createMedia = (
   return coreAPI.post("/media", params);
 };
 
+export const editMedia = (
+  id: number,
+  params: MediaParams
+): AxiosPromise<APIResponse<null>> => {
+  return coreAPI.put(`/media/${id}`, params);
+};
+
 export const getMediaById = (id: number): AxiosPromise<APIResponse<Media>> => {
   return coreAPI.get(`/media/${id}`);
 };

@@ -15,6 +15,13 @@ export const getAgendaById = (
   return coreAPI.get(`/agenda/${id}`);
 };
 
+export const editAgenda = (
+  id: number,
+  params: AgendaParams
+): AxiosPromise<APIResponse<null>> => {
+  return coreAPI.put(`/agenda/${id}`, params);
+};
+
 export const createAgenda = (
   params: AgendaParams
 ): AxiosPromise<APIResponse<null>> => {

@@ -1,7 +1,11 @@
 import { AxiosPromise } from "axios";
 import { coreAPI } from "../api";
 import { APIResponse } from "../types/apiResponse";
-import { GetNewsResponse, NewsSingle } from "../types/entities/news";
+import {
+  GetNewsResponse,
+  GetSingleNewsResponse,
+  NewsSingle,
+} from "../types/entities/news";
 
 export const getNewsList = (
   params?: string
@@ -17,8 +21,15 @@ export const createNews = (
 
 export const getNewsById = (
   id: number
-): AxiosPromise<APIResponse<NewsSingle>> => {
+): AxiosPromise<APIResponse<GetSingleNewsResponse>> => {
   return coreAPI.get(`/news/${id}`);
+};
+
+export const editNews = (
+  id: number,
+  params: FormData
+): AxiosPromise<APIResponse<null>> => {
+  return coreAPI.put(`/news/${id}`, params);
 };
 
 export const deleteNews = (id: number): AxiosPromise<APIResponse<null>> => {
