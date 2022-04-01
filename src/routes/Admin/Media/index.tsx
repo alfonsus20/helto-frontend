@@ -42,7 +42,7 @@ const AdminNews = () => {
           searchPlaceholder="Cari Media Terkini"
           body={{
             id: { type: "text" },
-            link: { type: "text", title: "Judul" },
+            link: { type: "text", title: "Link" },
             description: { type: "text", title: "Deskripsi", wrapped: true },
             updatedAt: { type: "date", title: "Tanggal" },
             createdAt: { type: "date" },

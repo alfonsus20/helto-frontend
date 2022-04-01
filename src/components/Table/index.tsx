@@ -10,6 +10,7 @@ import useSnackbar from "../../hooks/useSnackbar";
 import { useModalContext } from "../../context/ModalContext";
 import dayjs from "dayjs";
 import { getImageURL } from "../../utils/helper";
+import classNames from "classnames";
 
 type TableData<T extends Object> = {
   [key in keyof T]: {
@@ -140,16 +141,17 @@ const Table = <T extends Object>({
                   if (title) {
                     return (
                       <td
-                        className={`px-3  ${wrapped
-                          ? "whitespace-normal min-w-[400px] line-clamp-4 my-4"
-                          : "whitespace-nowrap py-4"
-                          }`}
+                        className={classNames("px-3",
+                          { "whitespace-normal min-w-[400px] line-clamp-4 my-4": wrapped },
+                          { "whitespace-nowrap py-4": !wrapped },
+                          { "min-w-[12rem]": type === 'image' }
+                        )}
                       >
                         {type === "date"
-                          ? dayjs(`${entryData[key as keyof T]}`)
+                          ? dayjs(`${entryData[key as keyof T]} `)
                             .format("DD MMM YYYY")
                             .toString()
-                          : type === 'image' ? <img src={getImageURL(`${entryData[key as keyof T]}`)} className='w-40 h-40 object-cover object-center' alt='table-img' /> : entryData[key as keyof T]}
+                          : type === 'image' ? <img src={getImageURL(`${entryData[key as keyof T]} `)} className='w-40 h-40 object-cover object-center' alt='table-img' /> : entryData[key as keyof T]}
                       </td>
                     );
                   }
