@@ -56,7 +56,7 @@ const TipsAndTrickList = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     navigate(`${pathname}?${qs.stringify({ keyword })}`);
   }
@@ -81,7 +81,7 @@ const TipsAndTrickList = () => {
         textAlign="left"
         className="mb-4"
       />
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSearch}>
         <Input
           placeholder="Cari Tips dan Trik Terbaru Hari Ini"
           icon={<SearchIcon className="w-5 h-5" />}
