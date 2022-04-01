@@ -7,10 +7,10 @@ import { SearchIcon } from "@heroicons/react/outline";
 import Button from "../Button";
 import { AxiosError, AxiosPromise } from "axios";
 import useSnackbar from "../../hooks/useSnackbar";
-import { useModalContext } from "../../context/ModalContext";
 import dayjs from "dayjs";
 import { getImageURL } from "../../utils/helper";
 import classNames from "classnames";
+import Modal from "../Modal";
 
 type TableData<T extends Object> = {
   [key in keyof T]: {
@@ -39,11 +39,12 @@ const Table = <T extends Object>({
 }: TableProps<T>) => {
   const [keyword, setKeyword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const [isModalShown, setIsModalShown] = useState<boolean>(false);
+  const [selectedId, setSelectedId] = useState<number | null>(null);
 
   const navigate = useNavigate();
   const { pathname, search } = useLocation();
   const snackbar = useSnackbar();
-  const { openModal, closeModal } = useModalContext();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,35 +61,18 @@ const Table = <T extends Object>({
       snackbar.error((error as AxiosError).response?.data.message);
     } finally {
       setLoading(false);
-      closeModal();
+      setIsModalShown(false);
     }
   };
 
-  const showDeleteConfirmation = (id: number) => {
-    openModal(
-      <div className="mt-8">
-        <p className="text-lg mb-4">
-          Apakah anda yakin ingin menghapus artikel ini?
-        </p>
-        <div className="flex gap-x-2 justify-center">
-          <Button
-            shape="rounded"
-            onClick={() => handleDelete(id)}
-            disabled={loading}
-          >
-            Hapus
-          </Button>
-          <Button
-            shape="rounded"
-            appearance="default"
-            onClick={closeModal}
-            disabled={loading}
-          >
-            Batal
-          </Button>
-        </div>
-      </div>
-    );
+  const showModal = (id: number) => {
+    setSelectedId(id);
+    setIsModalShown(true);
+  };
+
+  const hideModal = () => {
+    setSelectedId(null);
+    setIsModalShown(false);
   };
 
   useEffectOnce(() => {
@@ -100,6 +84,30 @@ const Table = <T extends Object>({
 
   return (
     <div className="w-full">
+      <Modal isOpen={isModalShown} onClose={hideModal}>
+        <div className="mt-8">
+          <p className="text-lg mb-4">
+            Apakah anda yakin ingin menghapus artikel ini?
+          </p>
+          <div className="flex gap-x-2 justify-center">
+            <Button
+              shape="rounded"
+              onClick={() => handleDelete(selectedId!)}
+              disabled={loading}
+            >
+              Hapus
+            </Button>
+            <Button
+              shape="rounded"
+              appearance="default"
+              onClick={hideModal}
+              disabled={loading}
+            >
+              Batal
+            </Button>
+          </div>
+        </div>
+      </Modal>
       <div className="flex justify-between my-2 mb-6">
         <form onSubmit={handleSubmit}>
           <Input
@@ -119,11 +127,13 @@ const Table = <T extends Object>({
           <thead className="bg-[#F3F6F9]">
             <tr className="font-bold">
               <td className="px-3 py-4">No.</td>
-              {Object.keys(body).filter(keyBody => body[keyBody as keyof T].title).map((keyBody, idx) =>
-                <td className="px-3 py-4" key={idx}>
-                  {body[keyBody as keyof T].title}
-                </td>
-              )}
+              {Object.keys(body)
+                .filter((keyBody) => body[keyBody as keyof T].title)
+                .map((keyBody, idx) => (
+                  <td className="px-3 py-4" key={idx}>
+                    {body[keyBody as keyof T].title}
+                  </td>
+                ))}
               <td className="px-3 py-4">Aksi</td>
             </tr>
           </thead>
@@ -131,25 +141,39 @@ const Table = <T extends Object>({
             {data.map((entryData, index) => (
               <tr key={entryData.id}>
                 <td className="px-3 py-4">{index + 1}</td>
-                {Object.keys(body).filter(keyBody => body[keyBody as keyof T].title).map((key, idx) => {
-                  const { wrapped, type } = body[key as keyof T];
-                  return (
-                    <td
-                      key={idx}
-                      className={classNames("px-3",
-                        { "whitespace-normal min-w-[400px] line-clamp-4 my-4": wrapped },
-                        { "whitespace-nowrap py-4": !wrapped },
-                        { "min-w-[12rem]": type === 'image' }
-                      )}
-                    >
-                      {type === "date"
-                        ? dayjs(`${entryData[key as keyof T]}`)
-                          .format("DD MMM YYYY")
-                          .toString()
-                        : type === 'image' ? <img src={getImageURL(`${entryData[key as keyof T]}`)} className='w-40 h-40 object-cover object-center' alt='table-img' /> : entryData[key as keyof T]}
-                    </td>
-                  );
-                })}
+                {Object.keys(body)
+                  .filter((keyBody) => body[keyBody as keyof T].title)
+                  .map((key, idx) => {
+                    const { wrapped, type } = body[key as keyof T];
+                    return (
+                      <td
+                        key={idx}
+                        className={classNames(
+                          "px-3",
+                          {
+                            "whitespace-normal min-w-[400px] line-clamp-4 my-4":
+                              wrapped,
+                          },
+                          { "whitespace-nowrap py-4": !wrapped },
+                          { "min-w-[12rem]": type === "image" }
+                        )}
+                      >
+                        {type === "date" ? (
+                          dayjs(`${entryData[key as keyof T]}`)
+                            .format("DD MMM YYYY")
+                            .toString()
+                        ) : type === "image" ? (
+                          <img
+                            src={getImageURL(`${entryData[key as keyof T]}`)}
+                            className="w-40 h-40 object-cover object-center"
+                            alt="table-img"
+                          />
+                        ) : (
+                          entryData[key as keyof T]
+                        )}
+                      </td>
+                    );
+                  })}
                 <td className="flex gap-x-2">
                   <Button
                     appearance="edit"
@@ -161,7 +185,7 @@ const Table = <T extends Object>({
                   <Button
                     appearance="delete"
                     shape="rounded"
-                    onClick={() => showDeleteConfirmation(entryData.id)}
+                    onClick={() => showModal(entryData.id)}
                   >
                     Hapus
                   </Button>

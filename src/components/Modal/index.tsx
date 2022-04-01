@@ -7,12 +7,12 @@ import "./style.scss";
 
 type ModalProps = {
   isOpen: boolean;
-  dom: React.ReactNode;
   maxW?: CommonSize;
   onClose?: () => void;
+  children: React.ReactNode;
 };
 
-const Modal = ({ isOpen, dom, maxW = "md", onClose }: ModalProps) => {
+const Modal = ({ isOpen, children, maxW = "md", onClose }: ModalProps) => {
   return (
     <div
       className={classNames(
@@ -41,7 +41,7 @@ const Modal = ({ isOpen, dom, maxW = "md", onClose }: ModalProps) => {
           className="w-5 h-5 absolute right-4 top-4 cursor-pointer"
           onClick={onClose}
         />
-        {dom}
+        {children}
       </div>
     </div>
   );

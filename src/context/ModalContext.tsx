@@ -34,7 +34,9 @@ export const ModalWrapper = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <ModalContext.Provider value={{ openModal, closeModal, isOpen }}>
-      <Modal dom={dom} isOpen={isOpen} onClose={closeModal} maxW={size} />
+      <Modal isOpen={isOpen} onClose={closeModal} maxW={size}>
+        {dom}
+      </Modal>
       {children}
     </ModalContext.Provider>
   );
