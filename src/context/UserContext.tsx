@@ -4,7 +4,7 @@ import { coreAPI } from "../api";
 import useSnackbar from "../hooks/useSnackbar";
 import { getUserInfo } from "../models/auth";
 import { UserInfo } from "../types/entities/auth";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useEffectOnce from "../hooks/useEffectOnce";
 
 type UserState = {
@@ -33,6 +33,7 @@ export const UserWrapper = ({ children }: { children: React.ReactNode }) => {
 
   const snackbar = useSnackbar();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const loginUser = (token: string, userId: number) => {
     coreAPI.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -79,7 +80,7 @@ export const UserWrapper = ({ children }: { children: React.ReactNode }) => {
   }, [isAuthenticated]);
 
   useEffect(() => {
-    if (userInfo.isAdmin) {
+    if (userInfo.isAdmin && pathname === '/') {
       navigate("/admin");
     }
   }, [userInfo.isAdmin]);
