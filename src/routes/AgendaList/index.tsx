@@ -9,7 +9,8 @@ import useSnackbar from "../../hooks/useSnackbar";
 import { Agenda } from "../../types/entities/agenda";
 import { AxiosError } from "axios";
 import { getAgendaList } from "../../models/agenda";
-import qs from 'query-string'
+import qs from "query-string";
+import Pagination from "../../components/Pagination";
 
 const AgendaList = () => {
   const [agendaList, setAgendaList] = useState<Agenda[]>([]);
@@ -24,7 +25,9 @@ const AgendaList = () => {
     try {
       setIsFetchingAgenda(true);
       const urlParams = qs.parse(search);
-      const { data } = await getAgendaList(`?${qs.stringify({ offset: 0, limit: 10, ...urlParams })}`);
+      const { data } = await getAgendaList(
+        `?${qs.stringify({ offset: 0, limit: 10, ...urlParams })}`
+      );
       if (data.data) {
         setAgendaList(data.data);
       }
@@ -37,23 +40,24 @@ const AgendaList = () => {
 
   const handleSearch = (evt: React.FormEvent) => {
     evt.preventDefault();
-    navigate(`${pathname}?${qs.stringify({ keyword })}`);
-  }
-
+    const currParams = qs.parse(search);
+    navigate(`${pathname}?${qs.stringify({ ...currParams, keyword })}`);
+  };
 
   useEffectOnce(() => {
-    const keywordFromURL = qs.parse(search)['keyword']?.toString();
+    const keywordFromURL = qs.parse(search)["keyword"]?.toString();
     if (keywordFromURL) {
       setKeyword(keywordFromURL);
     }
-  })
+  });
 
   useEffect(() => {
     fetchAgendaList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
 
   return (
-    <div className="py-28 max-w-7xl mx-auto w-full px-8">
+    <div className="pt-28 pb-12 max-w-7xl mx-auto w-full px-8">
       <Header
         brownText="Agenda"
         blackText="Terkini"
@@ -66,10 +70,10 @@ const AgendaList = () => {
           icon={<SearchIcon className="w-5 h-5" />}
           className="mb-6"
           value={keyword}
-          onChange={e => setKeyword(e.target.value)}
+          onChange={(e) => setKeyword(e.target.value)}
         />
       </form>
-      <div className="mt-4 grid grid-cols-12 gap-5">
+      <div className="mt-4 mb-6 grid grid-cols-12 gap-5">
         {agendaList.map((agenda) => (
           <AgendaCard
             title={agenda.name}
@@ -78,6 +82,7 @@ const AgendaList = () => {
           />
         ))}
       </div>
+      <Pagination totalData={90} rowPerPage={10} />
     </div>
   );
 };
