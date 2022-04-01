@@ -31,17 +31,17 @@ const Card = ({
           />
         )}
       </div>
-      <div className="px-4">
+      <div className="px-4 flex-auto flex flex-col">
         <h4 className="text-[#FE0000] py-2 text-sm font-bold">
           {media === "video" ? "Video" : "Berita"}
         </h4>
         <p className="pb-2 line-clamp-3 sm:line-clamp-4">{description}</p>
         <button
           onClick={onViewDetail}
-          className="flex justify-between text-green-400 text-sm pb-4 items-center"
+          className="flex justify-between text-green-400 text-sm pb-4 items-center mt-auto"
         >
           <span className="font-semibold">Lihat Detail</span>
-          <ArrowRightIcon className="w-4 h-4" />
+          <ArrowRightIcon className="w-4 h-4"  />
         </button>
       </div>
     </div>

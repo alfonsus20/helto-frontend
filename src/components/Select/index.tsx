@@ -40,7 +40,7 @@ const Select = ({
   };
 
   return (
-    <div className={classNames("px-2 w-full", className)}>
+    <div className={classNames("w-full", className)}>
       <div
         className={classNames("bg-pink-300 rounded-md border-2 p-2 relative", {
           "border-white": !isError,

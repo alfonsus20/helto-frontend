@@ -69,26 +69,26 @@ const TipsAndTrick = () => {
             )}
           </div>
           <div className="col-span-12 sm:col-span-7 lg:col-span-4">
-            {tipsAndTrickList.slice(1, 6).map((_, idx) => (
+            {tipsAndTrickList.slice(1, 6).map((tipsAndTrick, idx) => (
               <WideCard
                 title="Lorem ipsum"
                 shadow="md"
                 key={idx}
                 className="mb-2"
-                content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                imageUrl="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/unsplash_FV_PxCqgtwc.png"
+                content={tipsAndTrick.content}
+                imageUrl={getImageURL(tipsAndTrick.image)}
               />
             ))}
           </div>{" "}
           <div className="col-span-12 lg:col-span-4">
-            {tipsAndTrickList.slice(6, 10).map((_, idx) => (
+            {tipsAndTrickList.slice(6, 10).map((tipsAndTrick, idx) => (
               <WideCard
                 title="Lorem ipsum"
                 shadow="md"
                 key={idx}
                 className="mb-2"
-                content="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                imageUrl="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/unsplash_FV_PxCqgtwc.png"
+                content={tipsAndTrick.content}
+                imageUrl={getImageURL(tipsAndTrick.image)}
               />
             ))}
           </div>

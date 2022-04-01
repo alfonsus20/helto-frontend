@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import CartImage from "../../images/cart.png";
 import Input from "../../components/Input";
 import { LockClosedIcon, UserIcon } from "@heroicons/react/outline";
 import Button from "../../components/Button";
@@ -11,6 +10,7 @@ import { AxiosError } from "axios";
 import { login } from "../../models/auth";
 import useSnackbar from "../../hooks/useSnackbar";
 import { useUserContext } from "../../context/UserContext";
+import Logo from "../../images/logo-white.png";
 
 const emptyFormData: FormTemplate<LoginParams> = {
   email: {
@@ -57,7 +57,7 @@ const Login = () => {
         onSubmit={handleSubmit}
         className="py-28 flex justify-center flex-col items-center max-w-xs w-full"
       >
-        <img src={CartImage} alt="logo" className="w-32 h-auto mb-4" />
+        <img src={Logo} alt="logo" className="w-32 h-auto mb-4" />
         <Input
           appearance="secondary"
           placeholder="Email"

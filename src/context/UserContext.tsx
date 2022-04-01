@@ -20,7 +20,7 @@ const defaultValue: UserState = {
   loginUser: () => { },
   logoutUser: () => { },
   fetchUserInfo: () => { },
-  userInfo: { isAdmin: !!localStorage.getItem('isAdmin') } as UserInfo,
+  userInfo: { isAdmin: localStorage.getItem('isAdmin') === 'true' } as UserInfo,
 };
 
 const UserContext = createContext(defaultValue);

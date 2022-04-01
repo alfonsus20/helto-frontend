@@ -10,6 +10,7 @@ import useSnackbar from "../../hooks/useSnackbar";
 import { useModalContext } from "../../context/ModalContext";
 import dayjs from "dayjs";
 import { getImageURL } from "../../utils/helper";
+
 type TableData<T extends Object> = {
   [key in keyof T]: {
     type: "text" | "image" | "date";

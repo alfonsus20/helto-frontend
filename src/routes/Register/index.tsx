@@ -21,6 +21,7 @@ import { getCities, getProvinces } from "../../models/location";
 import useSnackbar from "../../hooks/useSnackbar";
 import { AxiosError } from "axios";
 import { useUserContext } from "../../context/UserContext";
+import Logo from "../../images/logo-white.png";
 
 const emptyFormData: FormTemplate<RegisterParams> = {
   name: {
@@ -138,11 +139,11 @@ const Register = () => {
         onSubmit={handleSubmit}
         className="py-28 flex justify-center flex-col items-center max-w-xs w-full"
       >
-        <img src={CartImage} alt="logo" className="w-32 h-auto mb-4" />
+        <img src={Logo} alt="logo" className="w-32 h-auto" />
         <Input
           appearance="secondary"
           placeholder="Nama Lengkap"
-          className="mb-4 px-2 rounded-md"
+          className="mb-4 rounded-md"
           icon={<UserIcon className="w-5 h-5 text-white" />}
           name="name"
           onChange={handleChange}
@@ -152,7 +153,7 @@ const Register = () => {
         <Input
           appearance="secondary"
           placeholder="Email"
-          className="mb-4 px-2 rounded-md"
+          className="mb-4 rounded-md"
           icon={<MailIcon className="w-5 h-5 text-white" />}
           name="email"
           onChange={handleChange}
@@ -162,7 +163,7 @@ const Register = () => {
         <Input
           appearance="secondary"
           placeholder="Kata sandi"
-          className="mb-4 px-2 rounded-md"
+          className="mb-4 rounded-md"
           type="password"
           onChange={handleChange}
           icon={<LockClosedIcon className="w-5 h-5 text-white" />}
@@ -175,7 +176,7 @@ const Register = () => {
           placeholder="No Telepon"
           type="tel"
           onChange={handleChange}
-          className="mb-4 px-2 rounded-md"
+          className="mb-4 rounded-md"
           icon={<PhoneIcon className="w-5 h-5 text-white" />}
           name="phone"
           isError={!!errors.phone}
