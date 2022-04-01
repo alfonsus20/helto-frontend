@@ -27,6 +27,9 @@ module.exports = {
           300: "#CEAB93",
         },
       },
+      transitionProperty: {
+        modal: "transform,visibility,opacity",
+      },
     },
     screens: {
       xs: "480px",

@@ -35,6 +35,7 @@ const AdminTipsAndTrick = () => {
 
   useEffect(() => {
     fetchTipsAndTrickList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
 
   return (

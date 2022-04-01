@@ -119,16 +119,11 @@ const Table = <T extends Object>({
           <thead className="bg-[#F3F6F9]">
             <tr className="font-bold">
               <td className="px-3 py-4">No.</td>
-              {Object.keys(body).map((keyBody, idx) => {
-                const { title } = body[keyBody as keyof T];
-                if (title) {
-                  return (
-                    <td className="px-3 py-4" key={idx}>
-                      {title}
-                    </td>
-                  );
-                }
-              })}
+              {Object.keys(body).filter(keyBody => body[keyBody as keyof T].title).map((keyBody, idx) =>
+                <td className="px-3 py-4" key={idx}>
+                  {body[keyBody as keyof T].title}
+                </td>
+              )}
               <td className="px-3 py-4">Aksi</td>
             </tr>
           </thead>
@@ -136,25 +131,24 @@ const Table = <T extends Object>({
             {data.map((entryData, index) => (
               <tr key={entryData.id}>
                 <td className="px-3 py-4">{index + 1}</td>
-                {Object.keys(body).map((key) => {
-                  const { title, wrapped, type } = body[key as keyof T];
-                  if (title) {
-                    return (
-                      <td
-                        className={classNames("px-3",
-                          { "whitespace-normal min-w-[400px] line-clamp-4 my-4": wrapped },
-                          { "whitespace-nowrap py-4": !wrapped },
-                          { "min-w-[12rem]": type === 'image' }
-                        )}
-                      >
-                        {type === "date"
-                          ? dayjs(`${entryData[key as keyof T]} `)
-                            .format("DD MMM YYYY")
-                            .toString()
-                          : type === 'image' ? <img src={getImageURL(`${entryData[key as keyof T]} `)} className='w-40 h-40 object-cover object-center' alt='table-img' /> : entryData[key as keyof T]}
-                      </td>
-                    );
-                  }
+                {Object.keys(body).filter(keyBody => body[keyBody as keyof T].title).map((key, idx) => {
+                  const { wrapped, type } = body[key as keyof T];
+                  return (
+                    <td
+                      key={idx}
+                      className={classNames("px-3",
+                        { "whitespace-normal min-w-[400px] line-clamp-4 my-4": wrapped },
+                        { "whitespace-nowrap py-4": !wrapped },
+                        { "min-w-[12rem]": type === 'image' }
+                      )}
+                    >
+                      {type === "date"
+                        ? dayjs(`${entryData[key as keyof T]}`)
+                          .format("DD MMM YYYY")
+                          .toString()
+                        : type === 'image' ? <img src={getImageURL(`${entryData[key as keyof T]}`)} className='w-40 h-40 object-cover object-center' alt='table-img' /> : entryData[key as keyof T]}
+                    </td>
+                  );
                 })}
                 <td className="flex gap-x-2">
                   <Button
