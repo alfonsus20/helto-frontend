@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import qs from 'query-string'
 import { SearchIcon } from "@heroicons/react/outline";
 import Card from "../../components/Card";
 import Header from "../../components/Header";
@@ -11,8 +12,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { NewsSingle } from "../../types/entities/news";
 import { AxiosError } from "axios";
 import useSnackbar from "../../hooks/useSnackbar";
-import { IMAGE_URL } from "../../utils/constants";
-import qs from 'query-string'
+import { getImageURL } from "../../utils/helper";
 
 const NewsList = () => {
   const [newsList, setNewsList] = useState<NewsSingle[]>([]);
@@ -30,7 +30,7 @@ const NewsList = () => {
       <NewsModal
         title={foundNews.title}
         content={foundNews.content}
-        imageURL={`${IMAGE_URL}/${foundNews.image}`}
+        imageURL={getImageURL(foundNews.image)}
       />
     );
     openModal(modalDOM, "2xl");
@@ -88,7 +88,7 @@ const NewsList = () => {
         {newsList.map((news) => (
           <Card
             description={news.title}
-            url={`${IMAGE_URL}/${news.image}`}
+            url={getImageURL(news.image)}
             key={news.id}
             onViewDetail={() => handleViewNewsDetail(news.id)}
           />
