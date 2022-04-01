@@ -52,7 +52,11 @@ const Pagination = ({ totalData, rowPerPage }: PaginationProps) => {
   });
 
   return (
-    <div className="flex justify-around max-w-[220px] mx-auto items-center">
+    <div
+      className={`${
+        totalData === 0 ? "hidden" : "flex"
+      } justify-around max-w-[220px] mx-auto items-center`}
+    >
       <button
         onClick={goPrev}
         className="rounded-full p-1 bg-brown-500 text-white"

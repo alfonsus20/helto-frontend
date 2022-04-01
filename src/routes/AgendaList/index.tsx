@@ -11,6 +11,7 @@ import { AxiosError } from "axios";
 import { getAgendaList } from "../../models/agenda";
 import qs from "query-string";
 import Pagination from "../../components/Pagination";
+import Loader from "../../components/Loader";
 
 const AgendaList = () => {
   const [agendaList, setAgendaList] = useState<Agenda[]>([]);
@@ -82,7 +83,7 @@ const AgendaList = () => {
           />
         ))}
       </div>
-      <Pagination totalData={90} rowPerPage={10} />
+      <Pagination totalData={9} rowPerPage={10} />
     </div>
   );
 };
