@@ -16,11 +16,11 @@ type UserState = {
 };
 
 const defaultValue: UserState = {
-  isAuthenticated: false,
+  isAuthenticated: !!localStorage.getItem('token'),
   loginUser: () => { },
   logoutUser: () => { },
   fetchUserInfo: () => { },
-  userInfo: {} as UserInfo,
+  userInfo: { isAdmin: !!localStorage.getItem('isAdmin') } as UserInfo,
 };
 
 const UserContext = createContext(defaultValue);
@@ -46,6 +46,7 @@ export const UserWrapper = ({ children }: { children: React.ReactNode }) => {
     setUserInfo({} as UserInfo);
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
+    localStorage.removeItem("isAdmin");
     delete coreAPI.defaults.headers.common['Authorization'];
   };
 
@@ -54,13 +55,12 @@ export const UserWrapper = ({ children }: { children: React.ReactNode }) => {
       const { data } = await getUserInfo();
       if (data.data) {
         setUserInfo(data.data);
+        localStorage.setItem("isAdmin", String(data.data.isAdmin));
       }
     } catch (e) {
       snackbar.error((e as AxiosError).response?.data.message);
     }
   };
-
-
 
   useEffectOnce(() => {
     const token = localStorage.getItem('token');
@@ -82,7 +82,7 @@ export const UserWrapper = ({ children }: { children: React.ReactNode }) => {
     if (userInfo.isAdmin) {
       navigate("/admin");
     }
-  }, [userInfo]);
+  }, [userInfo.isAdmin]);
 
   return (
     <UserContext.Provider

@@ -6,10 +6,10 @@ import HamburgerMenu from "react-hamburger-menu";
 import { useSidebarContext } from "../../context/SidebarContext";
 
 const AdminRoute = () => {
-  const { userInfo } = useUserContext();
+  const { userInfo, isAuthenticated } = useUserContext();
   const { isOpened, toogleIsOpened } = useSidebarContext();
 
-  if (userInfo.isAdmin) {
+  if (userInfo.isAdmin && isAuthenticated) {
     return (
       <div className="flex max-w-screen relative">
         <SidebarAdmin />

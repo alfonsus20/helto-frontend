@@ -15,7 +15,7 @@ const TextArea = ({
       <textarea
         className={classNames(
           "px-4 py-2 w-full outline-none border-2 focus:border-gray-400 rounded-lg resize-none",
-          { "border-red-600 focus:border-red-600": isError }
+          { "border-red-600 focus:border-red-600 placeholder:text-red-600 text-500": isError }
         )}
         rows={rows}
         {...rest}
