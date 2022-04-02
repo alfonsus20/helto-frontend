@@ -12,6 +12,10 @@ import { useLocation } from "react-router-dom";
 import qs from "query-string";
 import Search from "../../components/Search";
 
+const wideCardSkeleton = [...Array(6)].map((_, idx) => (
+  <WideCard loading key={idx} className='col-span-12 xs:col-span-6 lg:col-span-4' />
+));
+
 const TipsAndTrickList = () => {
   const [tipsAndTrickList, setTipsAndTrickList] = useState<Array<TipsAndTrick>>(
     []
@@ -23,7 +27,7 @@ const TipsAndTrickList = () => {
   const { openModal } = useModalContext();
   const { search } = useLocation();
 
-  const handleViewNewsDetail = (tipsAndTrickId: number) => {
+  const handleViewDetail = (tipsAndTrickId: number) => {
     const foundTipsAndTrick = tipsAndTrickList.find(
       (tipsAndTrick) => tipsAndTrick.id === tipsAndTrickId
     )!;
@@ -67,17 +71,19 @@ const TipsAndTrickList = () => {
         fetchFunc={fetchTipsAndTrickList}
       />
       <div className="mt-4 grid grid-cols-12 gap-5">
-        {tipsAndTrickList.map((tipsAndTrick) => (
-          <WideCard
-            title={tipsAndTrick.title}
-            shadow="md"
-            key={tipsAndTrick.id}
-            className="mb-2 col-span-12 xs:col-span-6 lg:col-span-4"
-            content={tipsAndTrick.content}
-            imageUrl={getImageURL(tipsAndTrick.image)}
-            onClick={() => handleViewNewsDetail(tipsAndTrick.id)}
-          />
-        ))}
+        {isFetchingTipsAndTrick
+          ? wideCardSkeleton
+          : tipsAndTrickList.map((tipsAndTrick) => (
+              <WideCard
+                title={tipsAndTrick.title}
+                shadow="md"
+                key={tipsAndTrick.id}
+                className="col-span-12 xs:col-span-6 lg:col-span-4"
+                content={tipsAndTrick.content}
+                imageUrl={getImageURL(tipsAndTrick.image)}
+                onClick={() => handleViewDetail(tipsAndTrick.id)}
+              />
+            ))}
       </div>
     </div>
   );
