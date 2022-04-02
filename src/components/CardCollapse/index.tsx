@@ -1,7 +1,9 @@
-import { ChevronDownIcon } from "@heroicons/react/outline";
+import { useState } from "react";
 import classNames from "classnames";
-import React, { useState } from "react";
+
 import RadioButton from "../RadioButton";
+import { ChevronDownIcon } from "@heroicons/react/outline";
+
 import "./style.scss";
 
 const CardCollapse = () => {

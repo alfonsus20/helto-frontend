@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
+
 import Button from "../../components/Button";
-import { useDropzone } from "react-dropzone";
+
 import UploadImage from "../../images/upload.png";
+
+import { useDropzone } from "react-dropzone";
 import useSnackbar from "../../hooks/useSnackbar";
+
 import { predictImage } from "../../models/predictImage";
+
 import { Prediction } from "../../types/entities/prediction";
 
 const DiseaseDetection = () => {

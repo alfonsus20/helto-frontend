@@ -1,6 +1,7 @@
 import React from "react";
 import classNames from "classnames";
-import type { CommonInputProps } from "../../theme";
+
+import { CommonInputProps } from "../../theme";
 
 const TextArea = ({
   appearance,

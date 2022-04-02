@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
+
 import AdminRoute from "../components/AdminRoute";
 import AuthRoute from "../components/AuthRoute";
 import ProtectedRoute from "../components/ProtectedRoute";

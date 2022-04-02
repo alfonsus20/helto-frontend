@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import qs from "query-string";
+
 import Card from "../../components/Card";
 import Header from "../../components/Header";
-import { useModalContext } from "../../context/ModalContext";
-import NewsModal from "../../components/NewsModal";
-import { getNewsList } from "../../models/news";
-import { useLocation } from "react-router-dom";
-import { NewsSingle } from "../../types/entities/news";
-import { AxiosError } from "axios";
-import useSnackbar from "../../hooks/useSnackbar";
-import { getImageURL } from "../../utils/helper";
 import Search from "../../components/Search";
+import NewsModal from "../../components/NewsModal";
+
+import useSnackbar from "../../hooks/useSnackbar";
+import { useModalContext } from "../../context/ModalContext";
+
+import { getNewsList } from "../../models/news";
+
+import { NewsSingle } from "../../types/entities/news";
+import { getImageURL } from "../../utils/helper";
+import { AxiosError } from "axios";
 
 const NewsList = () => {
   const [newsList, setNewsList] = useState<NewsSingle[]>([]);

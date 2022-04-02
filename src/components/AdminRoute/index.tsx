@@ -1,8 +1,9 @@
-import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { useUserContext } from "../../context/UserContext";
-import SidebarAdmin from "../SidebarAdmin";
 import HamburgerMenu from "react-hamburger-menu";
+
+import SidebarAdmin from "../SidebarAdmin";
+
+import { useUserContext } from "../../context/UserContext";
 import { useSidebarContext } from "../../context/SidebarContext";
 import { LoaderWrapper } from "../../context/LoaderContext";
 

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import qs from "query-string";
-import useEffectOnce from "../../hooks/useEffectOnce";
 import { useLocation, useNavigate } from "react-router-dom";
+import qs from "query-string";
+
 import Input from "../Input";
 import { SearchIcon } from "@heroicons/react/outline";
+
+import useEffectOnce from "../../hooks/useEffectOnce";
 
 type SearchProps = {
   fetchFunc: () => void;

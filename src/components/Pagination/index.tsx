@@ -1,8 +1,10 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import  { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import qs from "query-string";
-import useEffectOnce from "../../hooks/useEffectOnce";
+
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/outline";
+
+import useEffectOnce from "../../hooks/useEffectOnce";
 
 type PaginationProps = {
   totalData: number;

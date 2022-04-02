@@ -1,6 +1,8 @@
-import { XIcon } from "@heroicons/react/outline";
-import classNames from "classnames";
 import React from "react";
+import classNames from "classnames";
+
+import { XIcon } from "@heroicons/react/outline";
+
 import { CommonSize } from "../../theme";
 
 import "./style.scss";

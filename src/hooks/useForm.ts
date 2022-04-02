@@ -1,5 +1,6 @@
+import { ChangeEvent, useState } from "react";
 import dayjs from "dayjs";
-import React, { ChangeEvent, useState } from "react";
+
 import { FormTemplate } from "../types/form";
 
 function useForm<T>(formData: FormTemplate<T>) {

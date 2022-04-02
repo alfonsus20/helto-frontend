@@ -1,5 +1,3 @@
-import React from "react";
-
 type NewsModalProps = {
   imageURL: string;
   title: string;

@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { MailIcon, PhoneIcon } from "@heroicons/react/outline";
+
 import Button from "../Button";
 import TextArea from "../TextArea";
 import Input from "../Input";
+import { MailIcon, PhoneIcon } from "@heroicons/react/outline";
+import Logo from "../../images/logo.png";
+
 import useForm from "../../hooks/useForm";
+import useSnackbar from "../../hooks/useSnackbar";
+
 import { postFeedback } from "../../models/feedback";
+
 import { Feedback } from "../../types/entities/feedback";
 import { FormTemplate } from "../../types/form";
-import useSnackbar from "../../hooks/useSnackbar";
 import { AxiosError } from "axios";
-import Logo from "../../images/logo.png";
 
 const emptyFormData: FormTemplate<Feedback> = {
   name: {

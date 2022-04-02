@@ -1,19 +1,28 @@
-import React, { useState } from "react";
-import Header from "../../components/Header";
-import WideCard from "../../components/WideCard";
-import useSnackbar from "../../hooks/useSnackbar";
-import { TipsAndTrick } from "../../types/entities/tipsAndTrick";
-import { AxiosError } from "axios";
-import { getTipsAndTrickList } from "../../models/tipsAndTrick";
-import { getImageURL } from "../../utils/helper";
-import { useModalContext } from "../../context/ModalContext";
-import NewsModal from "../../components/NewsModal";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import qs from "query-string";
+
+import Header from "../../components/Header";
+import WideCard from "../../components/WideCard";
+import NewsModal from "../../components/NewsModal";
 import Search from "../../components/Search";
 
+import useSnackbar from "../../hooks/useSnackbar";
+import { useModalContext } from "../../context/ModalContext";
+
+import { getTipsAndTrickList } from "../../models/tipsAndTrick";
+
+import { TipsAndTrick } from "../../types/entities/tipsAndTrick";
+import { AxiosError } from "axios";
+
+import { getImageURL } from "../../utils/helper";
+
 const wideCardSkeleton = [...Array(6)].map((_, idx) => (
-  <WideCard loading key={idx} className='col-span-12 xs:col-span-6 lg:col-span-4' />
+  <WideCard
+    loading
+    key={idx}
+    className="col-span-12 xs:col-span-6 lg:col-span-4"
+  />
 ));
 
 const TipsAndTrickList = () => {

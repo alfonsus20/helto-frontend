@@ -1,5 +1,6 @@
-import { AxiosPromise } from "axios";
 import { coreAPI } from "../api";
+
+import { AxiosPromise } from "axios";
 import { APIResponse } from "../types/apiResponse";
 import { GetMediaResponse, Media, MediaParams } from "../types/entities/media";
 

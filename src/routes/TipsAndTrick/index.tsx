@@ -114,25 +114,22 @@ const TipsAndTrick = () => {
                       onClick={() => handleViewDetail(tipsAndTrick.id)}
                     />
                   ))}
-          </div>{" "}
-          <div className="col-span-12 lg:col-span-4">
-            {tipsAndTrickList
-              .slice(5, 8)
-              .map((tipsAndTrick) =>
-                isFetchingTipsAndTrick ? (
-                  wideCardSkeleton
-                ) : (
-                  <WideCard
-                    title="Lorem ipsum"
-                    shadow="md"
-                    key={tipsAndTrick.id}
-                    className="mb-2"
-                    content={tipsAndTrick.content}
-                    imageUrl={getImageURL(tipsAndTrick.image)}
-                    onClick={() => handleViewDetail(tipsAndTrick.id)}
-                  />
-                )
-              )}
+          </div>
+          <div className="col-span-12 lg:col-span-4 space-y-2">
+            {isFetchingTipsAndTrick
+              ? wideCardSkeleton
+              : tipsAndTrickList
+                  .slice(5, 8)
+                  .map((tipsAndTrick) => (
+                    <WideCard
+                      title={tipsAndTrick.title}
+                      shadow="md"
+                      key={tipsAndTrick.id}
+                      content={tipsAndTrick.content}
+                      imageUrl={getImageURL(tipsAndTrick.image)}
+                      onClick={() => handleViewDetail(tipsAndTrick.id)}
+                    />
+                  ))}
           </div>
         </div>
       </section>

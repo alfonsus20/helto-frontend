@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import qs from "query-string";
+
 import Card from "../../components/Card";
 import Header from "../../components/Header";
 import VideoModal from "../../components/VideoModal";
-import { useModalContext } from "../../context/ModalContext";
-import { useLocation } from "react-router-dom";
-import useSnackbar from "../../hooks/useSnackbar";
-import { Media } from "../../types/entities/media";
-import { getEmbedYoutubeURL } from "../../utils/helper";
-import { AxiosError } from "axios";
-import { getMediaList } from "../../models/media";
 import Search from "../../components/Search";
+
+import { useModalContext } from "../../context/ModalContext";
+import useSnackbar from "../../hooks/useSnackbar";
+
+import { getMediaList } from "../../models/media";
+
+import { Media } from "../../types/entities/media";
+import { AxiosError } from "axios";
+
+import { getEmbedYoutubeURL } from "../../utils/helper";
 
 const VideoList = () => {
   const [videoList, setVideoList] = useState<Media[]>([]);

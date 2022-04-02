@@ -1,5 +1,6 @@
-import { AxiosPromise } from "axios";
 import { locationAPI } from "../api";
+
+import { AxiosPromise } from "axios";
 import { APICityResponse, APIProvinceResponse } from "../types/apiResponse";
 
 export const getProvinces = (): AxiosPromise<APIProvinceResponse> => {

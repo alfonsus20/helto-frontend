@@ -1,10 +1,10 @@
-import { AxiosPromise } from "axios";
 import { coreAPI } from "../api";
+
+import { AxiosPromise } from "axios";
 import { APIResponse } from "../types/apiResponse";
 import {
   GetNewsResponse,
   GetSingleNewsResponse,
-  NewsSingle,
 } from "../types/entities/news";
 
 export const getNewsList = (

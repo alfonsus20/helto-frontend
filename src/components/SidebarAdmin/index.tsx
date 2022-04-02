@@ -1,4 +1,5 @@
-import React from "react";
+import { Link } from "react-router-dom";
+import HamburgerMenu from "react-hamburger-menu";
 import {
   CalendarIcon,
   LogoutIcon,
@@ -6,11 +7,11 @@ import {
   SearchIcon,
   VideoCameraIcon,
 } from "@heroicons/react/outline";
-import { Link } from "react-router-dom";
-import Logo from "../../images/logo.png";
-import HamburgerMenu from "react-hamburger-menu";
-import { useSidebarContext } from "../../context/SidebarContext";
 import classNames from "classnames";
+
+import Logo from "../../images/logo.png";
+
+import { useSidebarContext } from "../../context/SidebarContext";
 import { useUserContext } from "../../context/UserContext";
 
 const SidebarAdmin = () => {

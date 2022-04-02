@@ -1,5 +1,3 @@
-import React from "react";
-
 type VideoModalProps = {
   videoURL: string;
   content: string;

@@ -1,16 +1,18 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
+import qs from "query-string";
 
 import AgendaCard from "../../components/AgendaCard";
 import Header from "../../components/Header";
 import Pagination from "../../components/Pagination";
 import Search from "../../components/Search";
 
-import { useLocation } from "react-router-dom";
+import useSnackbar from "../../hooks/useSnackbar";
+
+import { getAgendaList } from "../../models/agenda";
+
 import { Agenda } from "../../types/entities/agenda";
 import { AxiosError } from "axios";
-import { getAgendaList } from "../../models/agenda";
-import useSnackbar from "../../hooks/useSnackbar";
-import qs from "query-string";
 
 const AgendaList = () => {
   const [agendaList, setAgendaList] = useState<Agenda[]>([]);

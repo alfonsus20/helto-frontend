@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../../components/Header";
 import { UserGroupIcon, ViewGridIcon } from "@heroicons/react/solid";
-import NewsCard from "../../components/WideCard";
+import WideCard from "../../components/WideCard";
 import Carousel from "./components/Carousel";
 import ProgramCarousel from "./components/ProgramCarousel";
 import LandingPageBg from "../../images/landing-page.webp";
@@ -99,17 +99,17 @@ const Home = () => {
             </p>
           </div>
           <div className="w-full md:w-1/2 flex flex-col gap-4">
-            <NewsCard
+            <WideCard
               imageUrl="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/Mask group.png"
               title="McDonald’s Setop Jual Kentang Large Mulai Hari Ini"
               content="Hal ini menyusul gelombang krisis kentang goreng McDonald's sampai di Indonesia..."
             />
-            <NewsCard
+            <WideCard
               imageUrl="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/Mask group (1).png"
               title="Penemuan Kentang Raksasa di Selandia Baru, Hasil DNA Bikin Sedih"
               content="Kentang berukuran raksasa ini ditemukan pasangan suami istri petani asal Selandia Baru..."
             />
-            <NewsCard
+            <WideCard
               imageUrl="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/Mask group (2).png"
               title="Keripik Kulit Kentang di Padang Panjang yang Renyah dan Kaya Manfaat"
               content="Pengusaha bidang olahan kentang berhasil membuat keripik kulit kentang. Pengusaha itu berada di Padang Panjang, Sumatera Barat."

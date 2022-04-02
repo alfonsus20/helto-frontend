@@ -1,16 +1,21 @@
 import React, { useState } from "react";
 import Input from "../../components/Input";
-import { LockClosedIcon, UserIcon } from "@heroicons/react/outline";
 import Button from "../../components/Button";
+import { LockClosedIcon, UserIcon } from "@heroicons/react/outline";
+
 import Background from "../../images/bg-masuk.webp";
-import { LoginParams } from "../../types/entities/auth";
-import { FormTemplate } from "../../types/form";
+import Logo from "../../images/logo-white.png";
+
 import useForm from "../../hooks/useForm";
-import { AxiosError } from "axios";
-import { login } from "../../models/auth";
 import useSnackbar from "../../hooks/useSnackbar";
 import { useUserContext } from "../../context/UserContext";
-import Logo from "../../images/logo-white.png";
+
+import { login } from "../../models/auth";
+
+import { LoginParams } from "../../types/entities/auth";
+import { FormTemplate } from "../../types/form";
+import { AxiosError } from "axios";
+
 
 const emptyFormData: FormTemplate<LoginParams> = {
   email: {

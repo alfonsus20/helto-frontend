@@ -1,7 +1,6 @@
-import React from "react";
 import Slider from "react-slick";
-import { PROGRAMS } from "../../../../utils/constants";
 import ProgramCard from "../ProgramCard";
+import { PROGRAMS } from "../../../../utils/constants";
 
 const ProgramCarousel = () => {
   const settings = {

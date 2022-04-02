@@ -53,7 +53,7 @@ const WideCard = ({
         ) : (
           <>
             <h5 className="font-bold text-brown-700 xs:mb-2">{title}</h5>
-            <p className="line-clamp-3">{content}</p>
+            <p className="hidden xs:line-clamp-3">{content}</p>
           </>
         )}
       </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import CartImage from "../../images/cart.png";
+
 import Input from "../../components/Input";
 import {
   LocationMarkerIcon,
@@ -10,18 +10,22 @@ import {
   UserIcon,
 } from "@heroicons/react/outline";
 import Button from "../../components/Button";
-import Background from "../../images/bg-daftar.webp";
 import Select from "../../components/Select";
-import useForm from "../../hooks/useForm";
-import { FormTemplate, SelectItem } from "../../types/form";
-import { RegisterParams } from "../../types/entities/auth";
-import { register } from "../../models/auth";
-import useEffectOnce from "../../hooks/useEffectOnce";
-import { getCities, getProvinces } from "../../models/location";
-import useSnackbar from "../../hooks/useSnackbar";
-import { AxiosError } from "axios";
-import { useUserContext } from "../../context/UserContext";
+
 import Logo from "../../images/logo-white.png";
+import Background from "../../images/bg-daftar.webp";
+
+import useForm from "../../hooks/useForm";
+import useEffectOnce from "../../hooks/useEffectOnce";
+import useSnackbar from "../../hooks/useSnackbar";
+import { useUserContext } from "../../context/UserContext";
+
+import { getCities, getProvinces } from "../../models/location";
+
+import { AxiosError } from "axios";
+import { register } from "../../models/auth";
+import { RegisterParams } from "../../types/entities/auth";
+import { FormTemplate, SelectItem } from "../../types/form";
 
 const emptyFormData: FormTemplate<RegisterParams> = {
   name: {
@@ -57,7 +61,6 @@ const Register = () => {
     label: "",
     value: "",
   });
-  const [loading, setLoading] = useState<boolean>(false);
   const [submitting, setSubmitting] = useState<boolean>(false);
 
   const {
@@ -73,7 +76,6 @@ const Register = () => {
 
   const getProvinceList = async () => {
     try {
-      setLoading(true);
       const { data } = await getProvinces();
       const provinceData = data.provinsi.map((prov) => ({
         label: prov.nama,
@@ -81,14 +83,12 @@ const Register = () => {
       }));
       setProvinces(provinceData);
     } catch (err) {
-    } finally {
-      setLoading(false);
+      console.log(err);
     }
   };
 
   const getCityList = async () => {
     try {
-      setLoading(true);
       const { data } = await getCities(selectedProvince.value);
       const provinceData = data.kota_kabupaten.map((prov) => ({
         label: prov.nama,
@@ -96,8 +96,7 @@ const Register = () => {
       }));
       setCities(provinceData);
     } catch (err) {
-    } finally {
-      setLoading(false);
+      console.log(err);
     }
   };
 
@@ -128,6 +127,7 @@ const Register = () => {
       region: { ...emptyFormData.region, value: "" },
     });
     getCityList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedProvince]);
 
   return (
@@ -180,6 +180,7 @@ const Register = () => {
           icon={<PhoneIcon className="w-5 h-5 text-white" />}
           name="phone"
           isError={!!errors.phone}
+          helperText={errors.phone}
         />
         <Select
           name="province"
@@ -206,7 +207,6 @@ const Register = () => {
           icon={<LocationMarkerIcon className="w-5 h-5" />}
           onChange={handleChange}
           className="mb-6"
-          loading={loading}
           isError={!!errors.region}
           helperText={errors.region}
         />

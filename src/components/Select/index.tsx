@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
 import classNames from "classnames";
+
 import { SelectItem } from "../../types/form";
 
 type SelectProps = {
@@ -28,10 +29,8 @@ const Select = ({
   value,
 }: SelectProps) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
-  const [_, setSelectedItem] = useState<SelectItem | null>(null);
 
   const handleSelect = (item: SelectItem) => {
-    setSelectedItem(item);
     setIsExpanded(false);
     const customEvent = {
       target: { name, value: item.value },

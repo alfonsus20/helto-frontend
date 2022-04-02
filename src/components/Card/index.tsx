@@ -1,6 +1,6 @@
-import React from "react";
-import { ArrowRightIcon } from "@heroicons/react/outline";
 import classNames from "classnames";
+
+import { ArrowRightIcon } from "@heroicons/react/outline";
 
 type CardProps = {
   url?: string;

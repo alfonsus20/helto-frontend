@@ -1,10 +1,11 @@
-import React from "react";
-import classNames from "classnames";
 import { Link, useLocation } from "react-router-dom";
-import { useSidebarContext } from "../../context/SidebarContext";
+import classNames from "classnames";
+
 import Button from "../Button";
-import { useUserContext } from "../../context/UserContext";
 import { UserIcon } from "@heroicons/react/outline";
+
+import { useSidebarContext } from "../../context/SidebarContext";
+import { useUserContext } from "../../context/UserContext";
 
 const MobileNavbar = () => {
   const { isOpened, toogleIsOpened } = useSidebarContext();

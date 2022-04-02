@@ -1,6 +1,8 @@
-import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/outline";
-import React, { useState } from "react";
+import { useState } from "react";
 import Slider from "react-slick";
+
+import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/outline";
+
 import Image1 from "../../../../images/carousel-item-1.png";
 import Image2 from "../../../../images/carousel-item-2.png";
 

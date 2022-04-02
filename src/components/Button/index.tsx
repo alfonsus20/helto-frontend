@@ -1,7 +1,8 @@
 import React from "react";
-import classNames from "classnames";
-import type { CommonSize, CommonShape } from "../../theme";
 import { useNavigate } from "react-router-dom";
+import classNames from "classnames";
+
+import  { CommonSize, CommonShape } from "../../theme";
 
 import "./style.scss";
 
