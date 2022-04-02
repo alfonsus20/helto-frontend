@@ -1,9 +1,5 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Input from "../Input";
-import qs from "query-string";
-import useEffectOnce from "../../hooks/useEffectOnce";
-import { SearchIcon } from "@heroicons/react/outline";
 import Button from "../Button";
 import { AxiosError, AxiosPromise } from "axios";
 import useSnackbar from "../../hooks/useSnackbar";
@@ -38,30 +34,24 @@ const Table = <T extends Object>({
   data,
   searchPlaceholder,
 }: TableProps<T>) => {
-  const [keyword, setKeyword] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [isModalShown, setIsModalShown] = useState<boolean>(false);
   const [selectedId, setSelectedId] = useState<number | null>(null);
 
   const navigate = useNavigate();
-  const { pathname, search } = useLocation();
+  const { pathname } = useLocation();
   const snackbar = useSnackbar();
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    navigate(`${pathname}?${qs.stringify({ keyword })}`);
-  };
 
   const handleDelete = async (id: number) => {
     try {
-      setLoading(true);
+      setIsDeleting(true);
       await deleteFunc(id);
       snackbar.success("Data berhasil dihapus");
       fetchFunc();
     } catch (error) {
       snackbar.error((error as AxiosError).response?.data.message);
     } finally {
-      setLoading(false);
+      setIsDeleting(false);
       setIsModalShown(false);
     }
   };
@@ -76,13 +66,6 @@ const Table = <T extends Object>({
     setIsModalShown(false);
   };
 
-  useEffectOnce(() => {
-    const keywordFromURL = qs.parse(search)["keyword"]?.toString();
-    if (keywordFromURL) {
-      setKeyword(keywordFromURL);
-    }
-  });
-
   return (
     <div className="w-full">
       <Modal isOpen={isModalShown} onClose={hideModal}>
@@ -94,7 +77,7 @@ const Table = <T extends Object>({
             <Button
               shape="rounded"
               onClick={() => handleDelete(selectedId!)}
-              disabled={loading}
+              disabled={isDeleting}
             >
               Hapus
             </Button>
@@ -102,7 +85,7 @@ const Table = <T extends Object>({
               shape="rounded"
               appearance="default"
               onClick={hideModal}
-              disabled={loading}
+              disabled={isDeleting}
             >
               Batal
             </Button>

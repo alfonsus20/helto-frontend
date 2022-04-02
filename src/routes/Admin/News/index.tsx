@@ -1,21 +1,22 @@
+import React, { useState } from "react";
 import { AxiosError } from "axios";
-import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Table from "../../../components/Table";
+import { useLoader } from "../../../context/LoaderContext";
 import useSnackbar from "../../../hooks/useSnackbar";
 import { deleteNews, getNewsList } from "../../../models/news";
 import { NewsSingle } from "../../../types/entities/news";
 
 const AdminNews = () => {
   const [newsList, setNewsList] = useState<Array<NewsSingle>>([]);
-  const [isFetchingNews, setIsFetchingNews] = useState<boolean>(false);
+  const { setLoading } = useLoader();
 
   const { search } = useLocation();
   const snackbar = useSnackbar();
 
   const fetchNewsList = async () => {
     try {
-      setIsFetchingNews(true);
+      setLoading(true);
       const { data } = await getNewsList(search);
       if (data.data) {
         setNewsList(data.data.news);
@@ -23,13 +24,9 @@ const AdminNews = () => {
     } catch (error) {
       snackbar.error((error as AxiosError).response?.data.message);
     } finally {
-      setIsFetchingNews(false);
+      setLoading(false);
     }
   };
-
-  useEffect(() => {
-    fetchNewsList();
-  }, [search]);
 
   return (
     <div>

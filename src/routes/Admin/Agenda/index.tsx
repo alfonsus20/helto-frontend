@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Table from "../../../components/Table";
 import useSnackbar from "../../../hooks/useSnackbar";
 import { AxiosError } from "axios";
 import { useLocation } from "react-router-dom";
 import { deleteAgenda, getAgendaList } from "../../../models/agenda";
 import { Agenda } from "../../../types/entities/agenda";
+import { useLoader } from "../../../context/LoaderContext";
 
 const AdminNews = () => {
   const [agendaList, setAgendaList] = useState<Array<Agenda>>([]);
-  const [isFetchingAgenda, setIsFetchingAgenda] = useState<boolean>(false);
+  const { setLoading } = useLoader();
 
   const { search } = useLocation();
   const snackbar = useSnackbar();
 
   const fetchAgendaList = async () => {
     try {
-      setIsFetchingAgenda(true);
+      setLoading(true);
       const { data } = await getAgendaList(search);
       if (data.data) {
         setAgendaList(data.data);
@@ -23,13 +24,9 @@ const AdminNews = () => {
     } catch (error) {
       snackbar.error((error as AxiosError).response?.data.message);
     } finally {
-      setIsFetchingAgenda(false);
+      setLoading(false);
     }
   };
-
-  useEffect(() => {
-    fetchAgendaList();
-  }, [search]);
 
   return (
     <div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { AxiosError } from "axios";
 import { useLocation } from "react-router-dom";
 import Table from "../../../components/Table";
@@ -8,20 +8,20 @@ import {
   getTipsAndTrickList,
 } from "../../../models/tipsAndTrick";
 import { TipsAndTrick } from "../../../types/entities/tipsAndTrick";
+import { useLoader } from "../../../context/LoaderContext";
 
 const AdminTipsAndTrick = () => {
   const [tipsAndTrickList, setTipsAndTrickList] = useState<Array<TipsAndTrick>>(
     []
   );
-  const [isFetchingTipsAndTrick, setIsFetchingTipsAndTrick] =
-    useState<boolean>(false);
 
   const { search } = useLocation();
   const snackbar = useSnackbar();
+  const { setLoading } = useLoader();
 
   const fetchTipsAndTrickList = async () => {
     try {
-      setIsFetchingTipsAndTrick(true);
+      setLoading(true);
       const { data } = await getTipsAndTrickList(search);
       if (data.data) {
         setTipsAndTrickList(data.data);
@@ -29,14 +29,9 @@ const AdminTipsAndTrick = () => {
     } catch (error) {
       snackbar.error((error as AxiosError).response?.data.message);
     } finally {
-      setIsFetchingTipsAndTrick(false);
+      setLoading(false);
     }
   };
-
-  useEffect(() => {
-    fetchTipsAndTrickList();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search]);
 
   return (
     <div>
@@ -45,7 +40,7 @@ const AdminTipsAndTrick = () => {
         <Table
           fetchFunc={fetchTipsAndTrickList}
           deleteFunc={deleteTipsAndTrick}
-          searchPlaceholder='Cari Tips dan Trik'
+          searchPlaceholder="Cari Tips dan Trik"
           body={{
             id: { type: "text" },
             title: { type: "text", title: "Judul" },
