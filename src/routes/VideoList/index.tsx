@@ -60,16 +60,19 @@ const VideoList = () => {
         placeholder="Cari Media Terbaru Hari Ini"
         fetchFunc={fetchVideoList}
       />
+      <div className="mt-4 grid grid-cols-12 gap-5">{}</div>
       <div className="mt-4 grid grid-cols-12 gap-5">
-        {videoList.map((video) => (
-          <Card
-            description={video.description}
-            url={getEmbedYoutubeURL(video.link)}
-            key={video.id}
-            media="video"
-            onViewDetail={() => handleViewVideoDetail(video.id)}
-          />
-        ))}
+        {isFetchingVideo
+          ? [...Array(8)].map((_, idx) => <Card loading key={idx} />)
+          : videoList.map((video) => (
+              <Card
+                description={video.description}
+                url={getEmbedYoutubeURL(video.link)}
+                key={video.id}
+                media="video"
+                onViewDetail={() => handleViewVideoDetail(video.id)}
+              />
+            ))}
       </div>
     </div>
   );

@@ -15,7 +15,6 @@ import Search from "../../components/Search";
 const NewsList = () => {
   const [newsList, setNewsList] = useState<NewsSingle[]>([]);
   const [isFetchingNews, setIsFetchingNews] = useState<boolean>(false);
-  const [keyword, setKeyword] = useState<string>("");
 
   const snackbar = useSnackbar();
   const { openModal } = useModalContext();
@@ -63,14 +62,16 @@ const NewsList = () => {
         fetchFunc={fetchNewsList}
       />
       <div className="mt-4 grid grid-cols-12 gap-5">
-        {newsList.map((news) => (
-          <Card
-            description={news.title}
-            url={getImageURL(news.image)}
-            key={news.id}
-            onViewDetail={() => handleViewNewsDetail(news.id)}
-          />
-        ))}
+        {isFetchingNews
+          ? [...Array(8)].map((_, idx) => <Card loading key={idx} />)
+          : newsList.map((news) => (
+              <Card
+                description={news.title}
+                url={getImageURL(news.image)}
+                key={news.id}
+                onViewDetail={() => handleViewNewsDetail(news.id)}
+              />
+            ))}
       </div>
     </div>
   );

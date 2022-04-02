@@ -76,7 +76,7 @@ const DiseaseDetection = () => {
           )}
         </div>
         <div className="flex flew-row gap-4 justify-center">
-          {result && (
+          {result.variant && (
             <Button appearance="secondary" onClick={open} disabled={loading}>
               Unggah Ulang
             </Button>

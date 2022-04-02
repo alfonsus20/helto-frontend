@@ -18,7 +18,7 @@ import { getEmbedYoutubeURL } from "../../utils/helper";
 import { IMAGE_URL } from "../../utils/constants";
 
 const News = () => {
-  const [isFetchingNews, setIsFetchingNews] = useState<boolean>(false);
+  const [isFetching, setIsFetching] = useState<boolean>(false);
   const [newsList, setNewsList] = useState<Array<NewsSingle>>([]);
   const [mediaList, setMediaList] = useState<Array<Media>>([]);
   const [agendaList, setAgendaList] = useState<Array<Agenda>>([]);
@@ -27,7 +27,7 @@ const News = () => {
 
   const fetchNews = async () => {
     try {
-      setIsFetchingNews(true);
+      setIsFetching(true);
       const query = "?offset=0&limit=8";
       const promises = Promise.all<
         [
@@ -43,7 +43,7 @@ const News = () => {
     } catch (error) {
       snackbar.error((error as AxiosError).response?.data.message);
     } finally {
-      setIsFetchingNews(false);
+      setIsFetching(false);
     }
   };
 
@@ -64,13 +64,15 @@ const News = () => {
           </Link>
         </div>
         <div className="mt-4 grid grid-cols-12 gap-5">
-          {newsList.map((news) => (
-            <Card
-              description={news.content}
-              url={`${IMAGE_URL}/${news.image}`}
-              key={news.id}
-            />
-          ))}
+          {isFetching
+            ? [...Array(4)].map((_, idx) => <Card loading key={idx} />)
+            : newsList.map((news) => (
+                <Card
+                  description={news.content}
+                  url={`${IMAGE_URL}/${news.image}`}
+                  key={news.id}
+                />
+              ))}
         </div>
       </section>
       <section className="mb-12">
@@ -104,14 +106,16 @@ const News = () => {
           </Link>
         </div>
         <div className="mt-4 grid grid-cols-12 gap-5">
-          {mediaList.map((media) => (
-            <Card
-              description={media.description}
-              url={getEmbedYoutubeURL(media.link)}
-              key={media.id}
-              media="video"
-            />
-          ))}
+          {isFetching
+            ? [...Array(4)].map((_, idx) => <Card loading key={idx} />)
+            : mediaList.map((media) => (
+                <Card
+                  description={media.description}
+                  url={getEmbedYoutubeURL(media.link)}
+                  key={media.id}
+                  media="video"
+                />
+              ))}
         </div>
       </section>
     </div>

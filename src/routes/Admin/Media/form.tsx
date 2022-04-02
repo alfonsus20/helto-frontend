@@ -63,7 +63,6 @@ const FormMedia = () => {
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
     if (validateData()) {
-      console.log(getDataToSubmit());
       try {
         setIsSubmitting(true);
         await createMedia(getDataToSubmit());
