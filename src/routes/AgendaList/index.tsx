@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { SearchIcon } from "@heroicons/react/outline";
+import React, { useState } from "react";
 import Header from "../../components/Header";
-import Input from "../../components/Input";
 import AgendaCard from "../../components/AgendaCard";
-import useEffectOnce from "../../hooks/useEffectOnce";
 import { useLocation, useNavigate } from "react-router-dom";
 import useSnackbar from "../../hooks/useSnackbar";
 import { Agenda } from "../../types/entities/agenda";
@@ -11,16 +8,15 @@ import { AxiosError } from "axios";
 import { getAgendaList } from "../../models/agenda";
 import qs from "query-string";
 import Pagination from "../../components/Pagination";
-import Loader from "../../components/Loader";
+import Search from "../../components/Search";
 
 const AgendaList = () => {
   const [agendaList, setAgendaList] = useState<Agenda[]>([]);
   const [isFetchingAgenda, setIsFetchingAgenda] = useState<boolean>(false);
-  const [keyword, setKeyword] = useState<string>("");
 
   const snackbar = useSnackbar();
   const navigate = useNavigate();
-  const { search, pathname } = useLocation();
+  const { search } = useLocation();
 
   const fetchAgendaList = async () => {
     try {
@@ -39,24 +35,6 @@ const AgendaList = () => {
     }
   };
 
-  const handleSearch = (evt: React.FormEvent) => {
-    evt.preventDefault();
-    const currParams = qs.parse(search);
-    navigate(`${pathname}?${qs.stringify({ ...currParams, keyword })}`);
-  };
-
-  useEffectOnce(() => {
-    const keywordFromURL = qs.parse(search)["keyword"]?.toString();
-    if (keywordFromURL) {
-      setKeyword(keywordFromURL);
-    }
-  });
-
-  useEffect(() => {
-    fetchAgendaList();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search]);
-
   return (
     <div className="pt-28 pb-12 max-w-7xl mx-auto w-full px-8">
       <Header
@@ -65,15 +43,10 @@ const AgendaList = () => {
         textAlign="left"
         className="mb-4"
       />
-      <form onSubmit={handleSearch}>
-        <Input
-          placeholder="Cari Agenda Terbaru Hari Ini"
-          icon={<SearchIcon className="w-5 h-5" />}
-          className="mb-6"
-          value={keyword}
-          onChange={(e) => setKeyword(e.target.value)}
-        />
-      </form>
+      <Search
+        placeholder="Cari Agenda Terbaru Hari Ini"
+        fetchFunc={fetchAgendaList}
+      />
       <div className="mt-4 mb-6 grid grid-cols-12 gap-5">
         {agendaList.map((agenda) => (
           <AgendaCard
