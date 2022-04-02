@@ -1,19 +1,25 @@
-import React, { useState } from "react";
-import { ChevronRightIcon } from "@heroicons/react/outline";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+
 import Header from "../../components/Header";
 import Card from "../../components/Card";
 import AgendaCard from "../../components/AgendaCard";
-import useSnackbar from "../../hooks/useSnackbar";
+import { ChevronRightIcon } from "@heroicons/react/outline";
+
+import { Link } from "react-router-dom";
 import { AxiosError, AxiosPromise } from "axios";
+
 import { getNewsList } from "../../models/news";
-import { GetNewsResponse, NewsSingle } from "../../types/entities/news";
-import { APIResponse } from "../../types/apiResponse";
 import { getAgendaList } from "../../models/agenda";
 import { getMediaList } from "../../models/media";
-import { Agenda } from "../../types/entities/agenda";
+
+import { APIResponse } from "../../types/apiResponse";
+import { GetNewsResponse, NewsSingle } from "../../types/entities/news";
 import { GetMediaResponse, Media } from "../../types/entities/media";
+import { Agenda } from "../../types/entities/agenda";
+
 import useEffectOnce from "../../hooks/useEffectOnce";
+import useSnackbar from "../../hooks/useSnackbar";
+
 import { getEmbedYoutubeURL } from "../../utils/helper";
 import { IMAGE_URL } from "../../utils/constants";
 
@@ -28,7 +34,7 @@ const News = () => {
   const fetchNews = async () => {
     try {
       setIsFetching(true);
-      const query = "?offset=0&limit=8";
+      const query = "?offset=0&limit=4";
       const promises = Promise.all<
         [
           AxiosPromise<APIResponse<GetNewsResponse>>,
@@ -57,7 +63,7 @@ const News = () => {
         <div className="flex justify-between">
           <Header brownText="Berita" blackText="Terkini" textAlign="left" />
           <Link
-            to="/berita/terkini"
+            to="/berita/selengkapnya"
             className="flex items-center gap-x-4 text-green-600 font-bold"
           >
             <span> Lihat Semua</span> <ChevronRightIcon className="w-5 h-5" />
@@ -86,13 +92,15 @@ const News = () => {
           </Link>
         </div>
         <div className="mt-4 grid grid-cols-12 gap-5">
-          {agendaList.map((agenda) => (
-            <AgendaCard
-              title={agenda.name}
-              datetime={agenda.UpdatedAt}
-              key={agenda.id}
-            />
-          ))}
+          {isFetching
+            ? [...Array(3)].map((_, idx) => <AgendaCard loading key={idx} />)
+            : agendaList.map((agenda) => (
+                <AgendaCard
+                  title={agenda.name}
+                  datetime={agenda.UpdatedAt}
+                  key={agenda.id}
+                />
+              ))}
         </div>
       </section>
       <section className="mb-12">

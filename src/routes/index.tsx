@@ -28,7 +28,7 @@ const RouteList = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/berita" element={<News />} />
-      <Route path="/berita/terkini" element={<NewsList />} />
+      <Route path="/berita/selengkapnya" element={<NewsList />} />
       <Route path="/berita/agenda" element={<AgendaList />} />
       <Route path="/berita/media" element={<VideoList />} />
       <Route path="/tips-dan-trik" element={<TipsAndTrick />} />

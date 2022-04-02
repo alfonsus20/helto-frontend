@@ -1,21 +1,22 @@
-import React, { useState } from "react";
-import Header from "../../components/Header";
+import { useState } from "react";
+
 import AgendaCard from "../../components/AgendaCard";
-import { useLocation, useNavigate } from "react-router-dom";
-import useSnackbar from "../../hooks/useSnackbar";
+import Header from "../../components/Header";
+import Pagination from "../../components/Pagination";
+import Search from "../../components/Search";
+
+import { useLocation } from "react-router-dom";
 import { Agenda } from "../../types/entities/agenda";
 import { AxiosError } from "axios";
 import { getAgendaList } from "../../models/agenda";
+import useSnackbar from "../../hooks/useSnackbar";
 import qs from "query-string";
-import Pagination from "../../components/Pagination";
-import Search from "../../components/Search";
 
 const AgendaList = () => {
   const [agendaList, setAgendaList] = useState<Agenda[]>([]);
   const [isFetchingAgenda, setIsFetchingAgenda] = useState<boolean>(false);
 
   const snackbar = useSnackbar();
-  const navigate = useNavigate();
   const { search } = useLocation();
 
   const fetchAgendaList = async () => {
@@ -48,13 +49,15 @@ const AgendaList = () => {
         fetchFunc={fetchAgendaList}
       />
       <div className="mt-4 mb-6 grid grid-cols-12 gap-5">
-        {agendaList.map((agenda) => (
-          <AgendaCard
-            title={agenda.name}
-            key={agenda.id}
-            datetime={agenda.UpdatedAt}
-          />
-        ))}
+        {isFetchingAgenda
+          ? [...Array(6)].map((_, idx) => <AgendaCard loading key={idx} />)
+          : agendaList.map((agenda) => (
+              <AgendaCard
+                title={agenda.name}
+                key={agenda.id}
+                datetime={agenda.UpdatedAt}
+              />
+            ))}
       </div>
       <Pagination totalData={9} rowPerPage={10} />
     </div>
