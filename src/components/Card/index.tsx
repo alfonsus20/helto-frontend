@@ -60,7 +60,7 @@ const Card = ({
             <div className="h-3 xs:h-2 bg-slate-200 rounded"></div>
           </div>
         ) : (
-          <p className="pb-2 line-clamp-3 sm:line-clamp-4">{description}</p>
+          <p className="mb-2 line-clamp-3 sm:line-clamp-4">{description}</p>
         )}
         {loading ? (
           <div className="flex justify-between py-3 mt-auto">

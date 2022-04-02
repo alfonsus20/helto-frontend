@@ -43,7 +43,8 @@ const SidebarAdmin = () => {
       <div className="px-4 flex-auto flex flex-col">
         <Link
           to="/admin/tips-dan-trik"
-          className="flex p-4 gap-x-4 items-center  rounded-lg hover:bg-brown-500 hover:text-white "
+          className="flex p-4 gap-x-4 items-center  rounded-lg hover:bg-brown-500 hover:text-white"
+          onClick={toogleIsOpened}
         >
           <div className="flex-none">
             <SearchIcon className="w-5 h-5" />
@@ -52,7 +53,8 @@ const SidebarAdmin = () => {
         </Link>
         <Link
           to="/admin/berita"
-          className="flex p-4 gap-x-4 items-center  rounded-lg hover:bg-brown-500 hover:text-white "
+          className="flex p-4 gap-x-4 items-center  rounded-lg hover:bg-brown-500 hover:text-white"
+          onClick={toogleIsOpened}
         >
           <div className="flex-none">
             <NewspaperIcon className="w-5 h-5" />
@@ -61,7 +63,8 @@ const SidebarAdmin = () => {
         </Link>
         <Link
           to="/admin/agenda"
-          className="flex p-4 gap-x-4 items-center  rounded-lg hover:bg-brown-500 hover:text-white "
+          className="flex p-4 gap-x-4 items-center  rounded-lg hover:bg-brown-500 hover:text-white"
+          onClick={toogleIsOpened}
         >
           <div className="flex-none">
             <CalendarIcon className="w-5 h-5" />
@@ -70,7 +73,8 @@ const SidebarAdmin = () => {
         </Link>
         <Link
           to="/admin/media"
-          className="flex p-4 gap-x-4 items-center  rounded-lg hover:bg-brown-500 hover:text-white "
+          className="flex p-4 gap-x-4 items-center  rounded-lg hover:bg-brown-500 hover:text-white"
+          onClick={toogleIsOpened}
         >
           <div className="flex-none">
             <VideoCameraIcon className="w-5 h-5" />
