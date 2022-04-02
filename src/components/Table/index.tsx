@@ -11,6 +11,7 @@ import dayjs from "dayjs";
 import { getImageURL } from "../../utils/helper";
 import classNames from "classnames";
 import Modal from "../Modal";
+import Search from "../Search";
 
 type TableData<T extends Object> = {
   [key in keyof T]: {
@@ -26,7 +27,7 @@ type TableProps<T> = {
   data: (T & {
     id: number;
   })[];
-  searchPlaceholder?: string;
+  searchPlaceholder: string;
   fetchFunc: () => void;
 };
 
@@ -109,15 +110,11 @@ const Table = <T extends Object>({
         </div>
       </Modal>
       <div className="flex justify-between my-2 mb-6">
-        <form onSubmit={handleSubmit}>
-          <Input
-            placeholder={searchPlaceholder}
-            className="max-w-xs"
-            value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
-            icon={<SearchIcon className="w-5 h-5" />}
-          />
-        </form>
+        <Search
+          placeholder={searchPlaceholder}
+          fetchFunc={fetchFunc}
+          className="max-w-xs"
+        />
         <Button shape="rounded" onClick={() => navigate(`${pathname}/tambah`)}>
           Tambah
         </Button>

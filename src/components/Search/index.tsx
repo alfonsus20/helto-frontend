@@ -8,9 +8,10 @@ import { SearchIcon } from "@heroicons/react/outline";
 type SearchProps = {
   fetchFunc: () => void;
   placeholder: string;
+  className?: string;
 };
 
-const Search = ({ fetchFunc, placeholder }: SearchProps) => {
+const Search = ({ fetchFunc, placeholder, className }: SearchProps) => {
   const [keyword, setKeyword] = useState<string>("");
   const { pathname, search } = useLocation();
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ const Search = ({ fetchFunc, placeholder }: SearchProps) => {
       <Input
         placeholder={placeholder}
         icon={<SearchIcon className="w-5 h-5" />}
-        className="mb-6"
+        className={className}
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
       />

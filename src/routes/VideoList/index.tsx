@@ -1,28 +1,24 @@
-import React, { useEffect, useState } from "react";
-import qs from 'query-string'
-import { SearchIcon } from "@heroicons/react/outline";
+import React, { useState } from "react";
+import qs from "query-string";
 import Card from "../../components/Card";
 import Header from "../../components/Header";
-import Input from "../../components/Input";
 import VideoModal from "../../components/VIdeoModal";
 import { useModalContext } from "../../context/ModalContext";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import useSnackbar from "../../hooks/useSnackbar";
 import { Media } from "../../types/entities/media";
 import { getEmbedYoutubeURL } from "../../utils/helper";
 import { AxiosError } from "axios";
 import { getMediaList } from "../../models/media";
-import useEffectOnce from "../../hooks/useEffectOnce";
+import Search from "../../components/Search";
 
 const VideoList = () => {
   const [videoList, setVideoList] = useState<Media[]>([]);
   const [isFetchingVideo, setIsFetchingVideo] = useState<boolean>(false);
-  const [keyword, setKeyword] = useState<string>("");
 
   const snackbar = useSnackbar();
-  const navigate = useNavigate();
   const { openModal } = useModalContext();
-  const { search, pathname } = useLocation();
+  const { search } = useLocation();
 
   const handleViewVideoDetail = (videoId: number) => {
     const foundVideo = videoList.find((video) => video.id === videoId)!;
@@ -39,7 +35,9 @@ const VideoList = () => {
     try {
       setIsFetchingVideo(true);
       const urlParams = qs.parse(search);
-      const { data } = await getMediaList(`?${qs.stringify({ ...urlParams, offset: 0, limit: 10 })}`);
+      const { data } = await getMediaList(
+        `?${qs.stringify({ ...urlParams, offset: 0, limit: 10 })}`
+      );
       if (data.data) {
         setVideoList(data.data.media);
       }
@@ -50,23 +48,6 @@ const VideoList = () => {
     }
   };
 
-  const handleSearch = (evt: React.FormEvent) => {
-    evt.preventDefault();
-    navigate(`${pathname}?${qs.stringify({ keyword })}`);
-  }
-
-
-  useEffectOnce(() => {
-    const keywordFromURL = qs.parse(search)['keyword']?.toString();
-    if (keywordFromURL) {
-      setKeyword(keywordFromURL);
-    }
-  })
-
-  useEffect(() => {
-    fetchVideoList();
-  }, [search]);
-
   return (
     <div className="py-28 max-w-7xl mx-auto w-full px-8">
       <Header
@@ -75,15 +56,10 @@ const VideoList = () => {
         textAlign="left"
         className="mb-4"
       />
-      <form onSubmit={handleSearch}>
-        <Input
-          placeholder="Cari Video Terbaru Hari Ini"
-          icon={<SearchIcon className="w-5 h-5" />}
-          className="mb-6"
-          onChange={e => setKeyword(e.target.value)}
-          value={keyword}
-        />
-      </form>
+      <Search
+        placeholder="Cari Media Terbaru Hari Ini"
+        fetchFunc={fetchVideoList}
+      />
       <div className="mt-4 grid grid-cols-12 gap-5">
         {videoList.map((video) => (
           <Card

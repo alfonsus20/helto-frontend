@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from "react";
-import qs from 'query-string'
-import { SearchIcon } from "@heroicons/react/outline";
+import React, { useState } from "react";
+import qs from "query-string";
 import Card from "../../components/Card";
 import Header from "../../components/Header";
-import Input from "../../components/Input";
 import { useModalContext } from "../../context/ModalContext";
 import NewsModal from "../../components/NewsModal";
-import useEffectOnce from "../../hooks/useEffectOnce";
 import { getNewsList } from "../../models/news";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { NewsSingle } from "../../types/entities/news";
 import { AxiosError } from "axios";
 import useSnackbar from "../../hooks/useSnackbar";
 import { getImageURL } from "../../utils/helper";
+import Search from "../../components/Search";
 
 const NewsList = () => {
   const [newsList, setNewsList] = useState<NewsSingle[]>([]);
@@ -20,9 +18,8 @@ const NewsList = () => {
   const [keyword, setKeyword] = useState<string>("");
 
   const snackbar = useSnackbar();
-  const navigate = useNavigate();
   const { openModal } = useModalContext();
-  const { search, pathname } = useLocation();
+  const { search } = useLocation();
 
   const handleViewNewsDetail = (newsId: number) => {
     const foundNews = newsList.find((news) => news.id === newsId)!;
@@ -40,7 +37,9 @@ const NewsList = () => {
     try {
       setIsFetchingNews(true);
       const urlParams = qs.parse(search);
-      const { data } = await getNewsList(`?${qs.stringify({ ...urlParams, offset: 0, limit: 10 })}`);
+      const { data } = await getNewsList(
+        `?${qs.stringify({ ...urlParams, offset: 0, limit: 10 })}`
+      );
       if (data.data) {
         setNewsList(data.data.news);
       }
@@ -51,22 +50,6 @@ const NewsList = () => {
     }
   };
 
-  const handleSearch = (evt: React.FormEvent) => {
-    evt.preventDefault();
-    navigate(`${pathname}?${qs.stringify({ keyword })}`);
-  }
-
-  useEffectOnce(() => {
-    const keywordFromURL = qs.parse(search)['keyword']?.toString();
-    if (keywordFromURL) {
-      setKeyword(keywordFromURL);
-    }
-  })
-
-  useEffect(() => {
-    fetchNewsList();
-  }, [search]);
-
   return (
     <div className="py-28 max-w-7xl mx-auto w-full px-8">
       <Header
@@ -75,15 +58,10 @@ const NewsList = () => {
         textAlign="left"
         className="mb-4"
       />
-      <form onSubmit={handleSearch}>
-        <Input
-          placeholder="Cari Berita Terbaru Hari Ini"
-          icon={<SearchIcon className="w-5 h-5" />}
-          className="mb-6"
-          onChange={e => setKeyword(e.target.value)}
-          value={keyword}
-        />
-      </form>
+      <Search
+        placeholder="Cari Berita Terbaru Hari Ini"
+        fetchFunc={fetchNewsList}
+      />
       <div className="mt-4 grid grid-cols-12 gap-5">
         {newsList.map((news) => (
           <Card
