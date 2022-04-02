@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ChevronRightIcon } from "@heroicons/react/outline";
 import { AxiosError } from "axios";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Header from "../../components/Header";
 import WideCard from "../../components/WideCard";
 import useEffectOnce from "../../hooks/useEffectOnce";
@@ -17,7 +17,6 @@ const TipsAndTrick = () => {
   const [isFetchingTipsAndTrick, setIsFetchingTipsAndTrick] =
     useState<boolean>(false);
 
-  const { search } = useLocation();
   const snackbar = useSnackbar();
 
   const fetchTipsAndTrickList = async () => {
@@ -51,7 +50,7 @@ const TipsAndTrick = () => {
           </Link>
         </div>
         <div className="grid grid-cols-12 mx-auto max-w-7xl gap-4">
-          <div className="col-span-12 sm:col-span-5 lg:col-span-4 relative">
+          <div className="col-span-12 sm:col-span-5 lg:col-span-4 relative min-h-[500px]">
             {tipsAndTrickList.length > 0 && (
               <>
                 <img

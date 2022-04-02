@@ -3,6 +3,8 @@ import { useState } from "react";
 import Header from "../../components/Header";
 import Card from "../../components/Card";
 import AgendaCard from "../../components/AgendaCard";
+import NewsModal from "../../components/NewsModal";
+import VideoModal from "../../components/VideoModal";
 import { ChevronRightIcon } from "@heroicons/react/outline";
 
 import { Link } from "react-router-dom";
@@ -19,9 +21,9 @@ import { Agenda } from "../../types/entities/agenda";
 
 import useEffectOnce from "../../hooks/useEffectOnce";
 import useSnackbar from "../../hooks/useSnackbar";
+import { useModalContext } from "../../context/ModalContext";
 
-import { getEmbedYoutubeURL } from "../../utils/helper";
-import { IMAGE_URL } from "../../utils/constants";
+import { getEmbedYoutubeURL, getImageURL } from "../../utils/helper";
 
 const News = () => {
   const [isFetching, setIsFetching] = useState<boolean>(false);
@@ -30,6 +32,7 @@ const News = () => {
   const [agendaList, setAgendaList] = useState<Array<Agenda>>([]);
 
   const snackbar = useSnackbar();
+  const { openModal } = useModalContext();
 
   const fetchNews = async () => {
     try {
@@ -51,6 +54,29 @@ const News = () => {
     } finally {
       setIsFetching(false);
     }
+  };
+
+  const handleViewNewsDetail = (newsId: number) => {
+    const foundNews = newsList.find((news) => news.id === newsId)!;
+    const modalDOM = (
+      <NewsModal
+        title={foundNews.title}
+        content={foundNews.content}
+        imageURL={getImageURL(foundNews.image)}
+      />
+    );
+    openModal(modalDOM, "2xl");
+  };
+
+  const handleViewVideoDetail = (videoId: number) => {
+    const foundVideo = mediaList.find((video) => video.id === videoId)!;
+    const modalDOM = (
+      <VideoModal
+        content={foundVideo.description}
+        videoURL={getEmbedYoutubeURL(foundVideo.link)}
+      />
+    );
+    openModal(modalDOM, "2xl");
   };
 
   useEffectOnce(() => {
@@ -75,8 +101,9 @@ const News = () => {
             : newsList.map((news) => (
                 <Card
                   description={news.content}
-                  url={`${IMAGE_URL}/${news.image}`}
+                  url={getImageURL(news.image)}
                   key={news.id}
+                  onViewDetail={() => handleViewNewsDetail(news.id)}
                 />
               ))}
         </div>
@@ -122,6 +149,7 @@ const News = () => {
                   url={getEmbedYoutubeURL(media.link)}
                   key={media.id}
                   media="video"
+                  onViewDetail={() => handleViewVideoDetail(media.id)}
                 />
               ))}
         </div>

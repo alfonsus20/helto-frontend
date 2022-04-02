@@ -8,7 +8,7 @@ type VideoModalProps = {
 const VideoModal = ({ videoURL, content }: VideoModalProps) => {
   return (
     <div className="mt-4">
-      <iframe className="w-full h-80" title="video" src={videoURL}></iframe>
+      <iframe className="w-full h-60 sm:h-80" title="video" src={videoURL}></iframe>
       <div className="mt-2 text-[1.075rem]">{content}</div>
     </div>
   );

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import qs from "query-string";
 import Card from "../../components/Card";
 import Header from "../../components/Header";
-import VideoModal from "../../components/VIdeoModal";
+import VideoModal from "../../components/VideoModal";
 import { useModalContext } from "../../context/ModalContext";
 import { useLocation } from "react-router-dom";
 import useSnackbar from "../../hooks/useSnackbar";
