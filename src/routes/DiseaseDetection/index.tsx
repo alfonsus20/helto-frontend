@@ -18,7 +18,7 @@ const DiseaseDetection = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const snackbar = useSnackbar();
-  const {handleError} = useError();
+  const { handleError } = useError();
   const { getRootProps, getInputProps, open, isDragActive, acceptedFiles } =
     useDropzone({
       accept: "image/jpeg, image/png",
@@ -94,10 +94,20 @@ const DiseaseDetection = () => {
       </div>
       <div className="md:w-1/2 p-4 shadow-lg rounded-lg min-h-[12rem]">
         <h3 className="font-brown-500 font-semibold text-lg">Hasil :</h3>
-        <div>
-          <h4>{result.variant}</h4>
-          <h4>{result.description}</h4>
-        </div>
+        {loading ? (
+          <div className="animate-pulse space-y-2 mt-2">
+            <div className="h-3 bg-slate-200 rounded"></div>
+            <div className="h-3 bg-slate-200 rounded"></div>
+            <div className="h-3 bg-slate-200 rounded"></div>
+            <div className="h-3 bg-slate-200 rounded"></div>
+            <div className="h-3 bg-slate-200 rounded"></div>
+          </div>
+        ) : (
+          <div>
+            <h4>{result.variant}</h4>
+            <h4>{result.description}</h4>
+          </div>
+        )}
       </div>
     </div>
   );
