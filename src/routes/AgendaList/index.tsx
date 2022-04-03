@@ -16,9 +16,10 @@ import { Agenda } from "../../types/entities/agenda";
 const AgendaList = () => {
   const [agendaList, setAgendaList] = useState<Agenda[]>([]);
   const [isFetchingAgenda, setIsFetchingAgenda] = useState<boolean>(false);
+  const [totalData, setTotalData] = useState<number>(0);
 
   const { search } = useLocation();
-  const {handleError} = useError();
+  const { handleError } = useError();
 
   const fetchAgendaList = async () => {
     try {
@@ -28,7 +29,8 @@ const AgendaList = () => {
         `?${qs.stringify({ offset: 0, limit: 10, ...urlParams })}`
       );
       if (data.data) {
-        setAgendaList(data.data);
+        setAgendaList(data.data.agenda);
+        setTotalData(data.data.totalData);
       }
     } catch (error) {
       handleError(error);
@@ -60,7 +62,7 @@ const AgendaList = () => {
               />
             ))}
       </div>
-      <Pagination totalData={9} rowPerPage={10} />
+      <Pagination totalData={totalData} rowPerPage={10} />
     </div>
   );
 };

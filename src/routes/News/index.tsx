@@ -15,7 +15,7 @@ import { getMediaList } from "../../models/media";
 import { APIResponse } from "../../types/apiResponse";
 import { GetNewsResponse, NewsSingle } from "../../types/entities/news";
 import { GetMediaResponse, Media } from "../../types/entities/media";
-import { Agenda } from "../../types/entities/agenda";
+import { Agenda, GetAgendaList } from "../../types/entities/agenda";
 
 import useEffectOnce from "../../hooks/useEffectOnce";
 import { useModalContext } from "../../context/ModalContext";
@@ -41,16 +41,16 @@ const News = () => {
       const promises = Promise.all<
         [
           AxiosPromise<APIResponse<GetNewsResponse>>,
-          AxiosPromise<APIResponse<Agenda[]>>,
+          AxiosPromise<APIResponse<GetAgendaList>>,
           AxiosPromise<APIResponse<GetMediaResponse>>
         ]
       >([getNewsList(query), getAgendaList(query), getMediaList(query)]);
       const res = await promises;
       setNewsList(res[0].data.data?.news!);
-      setAgendaList(res[1].data.data!);
+      setAgendaList(res[1].data.data?.agenda!);
       setMediaList(res[2].data.data?.media!);
     } catch (error) {
-      handleError(error)
+      handleError(error);
     } finally {
       setIsFetching(false);
     }

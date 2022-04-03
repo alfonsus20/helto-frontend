@@ -27,7 +27,7 @@ const AdminTipsAndTrick = () => {
       setLoading(true);
       const { data } = await getTipsAndTrickList(search);
       if (data.data) {
-        setTipsAndTrickList(data.data);
+        setTipsAndTrickList(data.data.tipsAndTrick);
       }
     } catch (error) {
       handleError(error);

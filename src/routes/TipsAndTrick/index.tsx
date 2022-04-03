@@ -36,7 +36,7 @@ const TipsAndTrick = () => {
       setIsFetchingTipsAndTrick(true);
       const { data } = await getTipsAndTrickList("?offset=0&limit=9");
       if (data.data) {
-        setTipsAndTrickList(data.data);
+        setTipsAndTrickList(data.data.tipsAndTrick);
       }
     } catch (error) {
       handleError(error);

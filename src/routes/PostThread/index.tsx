@@ -40,7 +40,7 @@ const PostThread = () => {
   const { userInfo } = useUserContext();
   const { handleError } = useError();
   const snackbar = useSnackbar();
-  const { openModal, closeModal } = useModalContext();
+  const { openModal } = useModalContext();
   const navigate = useNavigate();
 
   const fetchThreadList = async () => {

@@ -12,3 +12,7 @@ export type TipsAndTrickParams = {
   content: string;
   image: File;
 };
+
+export type GetTipsAndTrickListResponse = {
+  tipsAndTrick: TipsAndTrick[];
+};

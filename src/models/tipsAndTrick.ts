@@ -2,11 +2,14 @@ import { coreAPI } from "../api";
 
 import { AxiosPromise } from "axios";
 import { APIResponse } from "../types/apiResponse";
-import { TipsAndTrick } from "../types/entities/tipsAndTrick";
+import {
+  GetTipsAndTrickListResponse,
+  TipsAndTrick,
+} from "../types/entities/tipsAndTrick";
 
 export const getTipsAndTrickList = (
   params?: string
-): AxiosPromise<APIResponse<Array<TipsAndTrick>>> => {
+): AxiosPromise<APIResponse<GetTipsAndTrickListResponse>> => {
   return coreAPI.get(`/tips-and-trick${params}`);
 };
 

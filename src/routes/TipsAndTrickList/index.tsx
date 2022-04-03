@@ -57,7 +57,7 @@ const TipsAndTrickList = () => {
         `?${qs.stringify({ offset: 0, limit: 9, ...urlParams })}`
       );
       if (data.data) {
-        setTipsAndTrickList(data.data);
+        setTipsAndTrickList(data.data.tipsAndTrick);
       }
     } catch (error) {
       handleError(error);

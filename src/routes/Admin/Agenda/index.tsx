@@ -22,7 +22,7 @@ const AdminNews = () => {
       setLoading(true);
       const { data } = await getAgendaList(search);
       if (data.data) {
-        setAgendaList(data.data);
+        setAgendaList(data.data.agenda);
       }
     } catch (error) {
       handleError(error);
