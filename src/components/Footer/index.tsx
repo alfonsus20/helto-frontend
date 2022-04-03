@@ -97,16 +97,16 @@ const Footer = () => {
         </div>
         <div className="col-span-12 sm:col-span-6 md:col-span-3">
           <h5 className="font-bold text-lg mb-4">Contact info</h5>
-          <dl>
-            <dd className="flex gap-x-2 mb-2">
+          <ul>
+            <li className="flex gap-x-2 mb-2">
               <PhoneIcon className="w-5 h-5 flex-shrink-0" />
               <p>08113552304</p>
-            </dd>
-            <dd className="flex gap-x-2 mb-2">
+            </li>
+            <li className="flex gap-x-2 mb-2">
               <MailIcon className="w-5 h-5 flex-shrink-0" />
               <p>Healtho_id@gmail.com</p>
-            </dd>
-          </dl>
+            </li>
+          </ul>
         </div>
         <div className="col-span-12 md:col-span-6">
           <h5 className="font-bold text-lg mb-4">

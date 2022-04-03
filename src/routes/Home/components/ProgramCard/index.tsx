@@ -29,7 +29,7 @@ const ProgramCard = ({
         >
           {icon}
         </div>
-        <h4 className="text-brown-700 font-bold text-xl mb-5">{title}</h4>
+        <h3 className="text-brown-700 font-bold text-xl mb-5">{title}</h3>
         <p className="">{content}</p>
       </div>
     </div>

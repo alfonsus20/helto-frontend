@@ -1,9 +1,9 @@
-import React from "react";
 import Header from "../../components/Header";
-import { UserGroupIcon, ViewGridIcon } from "@heroicons/react/solid";
 import WideCard from "../../components/WideCard";
 import Carousel from "./components/Carousel";
+import { UserGroupIcon, ViewGridIcon } from "@heroicons/react/solid";
 import ProgramCarousel from "./components/ProgramCarousel";
+
 import LandingPageBg from "../../images/landing-page.webp";
 
 const Home = () => {
@@ -31,11 +31,11 @@ const Home = () => {
       </section>
       <section className="px-8 py-14 max-w-5xl mx-auto">
         <Header brownText="Tips &amp;" blackText="Trik" />
-        <h4 className="text-center my-4 max-w-xl mx-auto">
+        <h3 className="text-center my-4 max-w-xl mx-auto">
           Banyaknya fungsi kentang membuat bahan ini selalu diproduksi setiap
           waktu, sehingga mengetahui cara tanam kentang yang baik menjadi
           penting
-        </h4>
+        </h3>
         <div className="flex flex-col sm:flex-row items-center">
           <div className="sm:w-[60%]">
             <img
@@ -90,9 +90,9 @@ const Home = () => {
             <div className="bg-yellow-500 text-xs rounded-full px-3 py-1 mb-2 max-w-min text-white">
               Terbaru
             </div>
-            <h5 className="font-bold text-brown-700 mb-2 text-lg">
+            <h3 className="font-bold text-brown-700 mb-2 text-lg">
               Dampak Suhu Dingin bagi Petani Kentang di Bandung
-            </h5>
+            </h3>
             <p className="line-clamp-3">
               Suhu dingin membuat kabut tebal masih menyelimuti sejumlah wilayah
               di Kabupaten Bandung, Jawa Barat. Suhu dingin, ...

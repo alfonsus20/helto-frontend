@@ -84,7 +84,10 @@ const SidebarAdmin = () => {
         </Link>
         <button
           className="flex p-4 gap-x-4 mt-auto items-center rounded-lg hover:bg-brown-500 hover:text-white mx-auto mb-4"
-          onClick={logoutUser}
+          onClick={() => {
+            logoutUser();
+            toogleIsOpened();
+          }}
         >
           <div className="flex-none">
             <LogoutIcon className="w-5 h-5" />
