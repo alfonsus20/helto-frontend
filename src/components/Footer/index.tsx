@@ -61,7 +61,11 @@ const Footer = () => {
   return (
     <div
       className={`mt-auto bg-[#F3F0E9] ${
-        pathname.includes("admin") ? "hidden" : "block"
+        pathname.includes("admin") ||
+        pathname.includes("login") ||
+        pathname.includes("register")
+          ? "hidden"
+          : "block"
       }`}
     >
       <div className="grid grid-cols-12 mx-auto max-w-6xl py-10 gap-6 px-8">

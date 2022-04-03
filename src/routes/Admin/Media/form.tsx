@@ -40,8 +40,8 @@ const FormMedia = () => {
 
   const snackbar = useSnackbar();
   const navigate = useNavigate();
-  const {handleError} = useError();
-  const {loading, setLoading} = useLoader();
+  const { handleError } = useError();
+  const { loading, setLoading } = useLoader();
 
   const handleFetches = async () => {
     try {
@@ -50,15 +50,15 @@ const FormMedia = () => {
       if (data.data) {
         setFormData({
           ...formData,
-          link: { ...formData.link, value: data.data.link },
+          link: { ...formData.link, value: data.data.media.link },
           description: {
             ...formData.description,
-            value: data.data.description,
+            value: data.data.media.description,
           },
         });
       }
     } catch (error) {
-     handleError(error)
+      handleError(error);
     } finally {
       setLoading(false);
     }
@@ -73,7 +73,7 @@ const FormMedia = () => {
         snackbar.success("Data berhasil ditambahkan");
         navigate("/admin/media");
       } catch (error) {
-       handleError(error)
+        handleError(error);
       } finally {
         setLoading(false);
       }
@@ -83,14 +83,13 @@ const FormMedia = () => {
   const handleEdit = async (evt: React.FormEvent) => {
     evt.preventDefault();
     if (validateData()) {
-      console.log(getDataToSubmit());
       try {
         setLoading(true);
         await editMedia(+id!, getDataToSubmit());
-        snackbar.success("Data berhasil ditambahkan");
+        snackbar.success("Data berhasil diperbarui");
         navigate("/admin/media");
       } catch (error) {
-       handleError(error)
+        handleError(error);
       } finally {
         setLoading(false);
       }

@@ -2,7 +2,7 @@ import { coreAPI } from "../api";
 
 import { AxiosPromise } from "axios";
 import { APIResponse } from "../types/apiResponse";
-import { GetMediaResponse, Media, MediaParams } from "../types/entities/media";
+import { GetMediaResponse, GetSingleMediaResponse, Media, MediaParams } from "../types/entities/media";
 
 export const getMediaList = (
   params?: string
@@ -23,7 +23,7 @@ export const editMedia = (
   return coreAPI.put(`/media/${id}`, params);
 };
 
-export const getMediaById = (id: number): AxiosPromise<APIResponse<Media>> => {
+export const getMediaById = (id: number): AxiosPromise<APIResponse<GetSingleMediaResponse>> => {
   return coreAPI.get(`/media/${id}`);
 };
 

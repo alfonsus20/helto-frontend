@@ -10,6 +10,10 @@ export type GetMediaResponse = {
   media: Media[];
 };
 
+export type GetSingleMediaResponse = {
+  media: Media;
+};
+
 export type MediaParams = {
   link: string;
   description: string;
