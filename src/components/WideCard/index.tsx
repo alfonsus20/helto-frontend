@@ -22,7 +22,7 @@ const WideCard = ({
 }: WideCardProps) => {
   return (
     <div
-      className={classNames("flex items-center cursor-pointer", className, {
+      className={classNames("flex items-center cursor-pointer gap-x-2", className, {
         "shadow-none": shadow === "none",
         "shadow-md": shadow === "md",
       })}

@@ -1,12 +1,62 @@
+import { useState } from "react";
+import classNames from "classnames";
+
 import Header from "../../components/Header";
 import WideCard from "../../components/WideCard";
 import Carousel from "./components/Carousel";
-import { UserGroupIcon, ViewGridIcon } from "@heroicons/react/solid";
+import NewsModal from "../../components/NewsModal";
 import ProgramCarousel from "./components/ProgramCarousel";
+import { UserGroupIcon, ViewGridIcon } from "@heroicons/react/solid";
 
 import LandingPageBg from "../../images/landing-page.webp";
 
+import useEffectOnce from "../../hooks/useEffectOnce";
+import useError from "../../hooks/useError";
+import { useModalContext } from "../../context/ModalContext";
+
+import { getNewsList } from "../../models/news";
+
+import { NewsSingle } from "../../types/entities/news";
+
+import { getImageURL } from "../../utils/helper";
+
 const Home = () => {
+  const [newsList, setNewsList] = useState<Array<NewsSingle>>([]);
+  const [isFetchingNews, setIsFetchingNews] = useState<boolean>(false);
+
+  const { handleError } = useError();
+  const { openModal } = useModalContext();
+
+  const fetchNewsList = async () => {
+    try {
+      setIsFetchingNews(true);
+      const { data } = await getNewsList("?offset=0&limit=4");
+      if (data.data) {
+        setNewsList(data.data.news);
+      }
+    } catch (error) {
+      handleError(error);
+    } finally {
+      setIsFetchingNews(false);
+    }
+  };
+
+  const handleViewNewsDetail = (newsId: number) => {
+    const foundNews = newsList.find((news) => news.id === newsId)!;
+    const modalDOM = (
+      <NewsModal
+        title={foundNews.title}
+        content={foundNews.content}
+        imageURL={getImageURL(foundNews.image)}
+      />
+    );
+    openModal(modalDOM, "2xl");
+  };
+
+  useEffectOnce(() => {
+    fetchNewsList();
+  });
+
   return (
     <div>
       <section
@@ -80,40 +130,53 @@ const Home = () => {
       </section>
       <section className="px-8 py-14 max-w-5xl mx-auto">
         <Header brownText="Berita" blackText="Terkini" />
-        <div className="mt-6 flex gap-x-10">
-          <div className="w-1/2 hidden md:block">
-            <img
-              src="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/Mask group (3).png"
-              alt="berita"
-              className="rounded-lg w-full h-60 object-cover mb-2"
-            />
-            <div className="bg-yellow-500 text-xs rounded-full px-3 py-1 mb-2 max-w-min text-white">
-              Terbaru
+        <div className={classNames("mt-6 flex gap-x-10")}>
+          {isFetchingNews || newsList.length === 0 ? (
+            <div className="w-1/2 hidden md:block animate-pulse">
+              <div className="rounded-lg w-full h-60 bg-slate-200"></div>
+              <div className="h-4 bg-slate-200 w-[20%] my-2 rounded"></div>
+              <div className="h-4 bg-slate-200 my-2 rounded"></div>
+              <div className="space-y-2">
+                <div className="h-3 rounded bg-slate-200"></div>
+                <div className="h-3 rounded bg-slate-200"></div>
+                <div className="h-3 rounded bg-slate-200"></div>
+              </div>
             </div>
-            <h3 className="font-bold text-brown-700 mb-2 text-lg">
-              Dampak Suhu Dingin bagi Petani Kentang di Bandung
-            </h3>
-            <p className="line-clamp-3">
-              Suhu dingin membuat kabut tebal masih menyelimuti sejumlah wilayah
-              di Kabupaten Bandung, Jawa Barat. Suhu dingin, ...
-            </p>
-          </div>
+          ) : (
+            <div
+              className="w-1/2 hidden md:block"
+              onClick={() => handleViewNewsDetail(newsList[0].id)}
+            >
+              <div className="rounded-lg w-full h-60">
+                <img
+                  src={getImageURL(newsList[0].image)}
+                  alt="berita"
+                  className="object-cover mb-2 w-full h-full"
+                />
+              </div>
+              <div className="bg-yellow-500 text-xs rounded-full px-3 py-1 my-2 max-w-min text-white">
+                Terbaru
+              </div>
+              <h3 className="font-bold text-brown-700 mb-2 text-lg">
+                {newsList[0].title}
+              </h3>
+              <p className="line-clamp-3">{newsList[0].content}</p>
+            </div>
+          )}
           <div className="w-full md:w-1/2 flex flex-col gap-4">
-            <WideCard
-              imageUrl="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/Mask group.png"
-              title="McDonald’s Setop Jual Kentang Large Mulai Hari Ini"
-              content="Hal ini menyusul gelombang krisis kentang goreng McDonald's sampai di Indonesia..."
-            />
-            <WideCard
-              imageUrl="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/Mask group (1).png"
-              title="Penemuan Kentang Raksasa di Selandia Baru, Hasil DNA Bikin Sedih"
-              content="Kentang berukuran raksasa ini ditemukan pasangan suami istri petani asal Selandia Baru..."
-            />
-            <WideCard
-              imageUrl="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/Mask group (2).png"
-              title="Keripik Kulit Kentang di Padang Panjang yang Renyah dan Kaya Manfaat"
-              content="Pengusaha bidang olahan kentang berhasil membuat keripik kulit kentang. Pengusaha itu berada di Padang Panjang, Sumatera Barat."
-            />
+            {isFetchingNews
+              ? [...Array(3)].map((_, idx) => <WideCard loading key={idx} />)
+              : newsList
+                  .slice(1, 4)
+                  .map((news) => (
+                    <WideCard
+                      imageUrl={getImageURL(news.image)}
+                      title={news.title}
+                      content={news.content}
+                      key={news.id}
+                      onClick={() => handleViewNewsDetail(news.id)}
+                    />
+                  ))}
           </div>
         </div>
       </section>
