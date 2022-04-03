@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 
 import Input from "../../components/Input";
+import Button from "../../components/Button";
+import Select from "../../components/Select";
 import {
   LocationMarkerIcon,
   LockClosedIcon,
@@ -9,8 +11,6 @@ import {
   PhoneIcon,
   UserIcon,
 } from "@heroicons/react/outline";
-import Button from "../../components/Button";
-import Select from "../../components/Select";
 
 import Logo from "../../images/logo-white.png";
 import Background from "../../images/bg-daftar.webp";
@@ -18,12 +18,13 @@ import Background from "../../images/bg-daftar.webp";
 import useForm from "../../hooks/useForm";
 import useEffectOnce from "../../hooks/useEffectOnce";
 import useSnackbar from "../../hooks/useSnackbar";
+import useError from "../../hooks/useError";
 import { useUserContext } from "../../context/UserContext";
 
 import { getCities, getProvinces } from "../../models/location";
 
-import { AxiosError } from "axios";
 import { register } from "../../models/auth";
+
 import { RegisterParams } from "../../types/entities/auth";
 import { FormTemplate, SelectItem } from "../../types/form";
 
@@ -73,6 +74,7 @@ const Register = () => {
   } = useForm<RegisterParams>(emptyFormData);
   const snackbar = useSnackbar();
   const { loginUser } = useUserContext();
+  const { handleError } = useError();
 
   const getProvinceList = async () => {
     try {
@@ -110,7 +112,7 @@ const Register = () => {
         snackbar.success(data.message);
         loginUser(data.data?.token!, data.data?.user.id!);
       } catch (e) {
-        snackbar.error((e as AxiosError).response?.data.message);
+        handleError(e);
       } finally {
         setSubmitting(false);
       }

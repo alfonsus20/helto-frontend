@@ -1,21 +1,27 @@
 import React, { useState } from "react";
-import { AxiosError } from "axios";
 import { useDropzone } from "react-dropzone";
 import { useNavigate, useParams } from "react-router-dom";
+
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
 import TextArea from "../../../components/TextArea";
+
 import useEffectOnce from "../../../hooks/useEffectOnce";
 import useForm from "../../../hooks/useForm";
 import useSnackbar from "../../../hooks/useSnackbar";
+import useError from "../../../hooks/useError";
+import { useLoader } from "../../../context/LoaderContext";
+
 import {
   createTipsAndTrick,
   editTipsAndTrick,
   getTipsAndTrickById,
 } from "../../../models/tipsAndTrick";
-import { TipsAndTrickParams } from "../../../types/entities/tipsAndTrick";
+
 import { FormTemplate } from "../../../types/form";
-import { errorHandler, getImageURL } from "../../../utils/helper";
+import { TipsAndTrickParams } from "../../../types/entities/tipsAndTrick";
+
+import { getImageURL } from "../../../utils/helper";
 
 const emptyFormData: FormTemplate<TipsAndTrickParams> = {
   title: {
@@ -42,12 +48,12 @@ const FormTipsAndTrik = () => {
     getDataToSubmit,
     setFormData,
   } = useForm<TipsAndTrickParams>(emptyFormData);
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [isFetching, setIsFetching] = useState<boolean>(false);
   const [imageURL, setImageURL] = useState<string>("");
 
   const snackbar = useSnackbar();
   const navigate = useNavigate();
+  const { loading, setLoading } = useLoader();
+  const { handleError } = useError();
 
   const { open: uploadImage } = useDropzone({
     accept: "image/jpeg, image/png",
@@ -63,7 +69,7 @@ const FormTipsAndTrik = () => {
 
   const handleFetches = async () => {
     try {
-      setIsFetching(true);
+      setLoading(true);
       const { data } = await getTipsAndTrickById(Number(id));
       if (data.data) {
         setFormData({
@@ -74,9 +80,9 @@ const FormTipsAndTrik = () => {
       }
       setImageURL(data.data?.image!);
     } catch (error) {
-      errorHandler(error as AxiosError);
+      handleError(error);
     } finally {
-      setIsFetching(false);
+      setLoading(false);
     }
   };
 
@@ -84,7 +90,7 @@ const FormTipsAndTrik = () => {
     evt.preventDefault();
     if (!errors.title && !errors.content) {
       try {
-        setIsSubmitting(true);
+        setLoading(true);
         const dataToSubmit = getDataToSubmit();
         const formDataToSubmit = new FormData();
         formDataToSubmit.append("title", dataToSubmit.title);
@@ -96,9 +102,9 @@ const FormTipsAndTrik = () => {
         snackbar.success("Data berhasil diperbarui");
         navigate("/admin/tips-dan-trik");
       } catch (error) {
-        errorHandler(error as AxiosError);
+        handleError(error);
       } finally {
-        setIsSubmitting(false);
+        setLoading(false);
       }
     }
   };
@@ -107,7 +113,7 @@ const FormTipsAndTrik = () => {
     evt.preventDefault();
     if (validateData()) {
       try {
-        setIsSubmitting(true);
+        setLoading(true);
         const dataToSubmit = getDataToSubmit();
         const formDataToSubmit = new FormData();
         formDataToSubmit.append("title", dataToSubmit.title);
@@ -117,9 +123,9 @@ const FormTipsAndTrik = () => {
         snackbar.success("Data berhasil ditambahkan");
         navigate("/admin/tips-dan-trik");
       } catch (error) {
-        errorHandler(error as AxiosError);
+        handleError(error);
       } finally {
-        setIsSubmitting(false);
+        setLoading(false);
       }
     }
   };
@@ -185,7 +191,7 @@ const FormTipsAndTrik = () => {
           </div>
         </div>
         <div className="flex justify-end">
-          <Button appearance="edit" shape="rounded" disabled={isSubmitting}>
+          <Button appearance="edit" shape="rounded" disabled={loading}>
             SIMPAN
           </Button>
         </div>

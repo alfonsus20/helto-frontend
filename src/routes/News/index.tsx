@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import Header from "../../components/Header";
 import Card from "../../components/Card";
@@ -6,9 +7,6 @@ import AgendaCard from "../../components/AgendaCard";
 import NewsModal from "../../components/NewsModal";
 import VideoModal from "../../components/VideoModal";
 import { ChevronRightIcon } from "@heroicons/react/outline";
-
-import { Link } from "react-router-dom";
-import { AxiosError, AxiosPromise } from "axios";
 
 import { getNewsList } from "../../models/news";
 import { getAgendaList } from "../../models/agenda";
@@ -20,10 +18,12 @@ import { GetMediaResponse, Media } from "../../types/entities/media";
 import { Agenda } from "../../types/entities/agenda";
 
 import useEffectOnce from "../../hooks/useEffectOnce";
-import useSnackbar from "../../hooks/useSnackbar";
 import { useModalContext } from "../../context/ModalContext";
 
 import { getEmbedYoutubeURL, getImageURL } from "../../utils/helper";
+import useError from "../../hooks/useError";
+
+import { AxiosPromise } from "axios";
 
 const News = () => {
   const [isFetching, setIsFetching] = useState<boolean>(false);
@@ -31,8 +31,8 @@ const News = () => {
   const [mediaList, setMediaList] = useState<Array<Media>>([]);
   const [agendaList, setAgendaList] = useState<Array<Agenda>>([]);
 
-  const snackbar = useSnackbar();
   const { openModal } = useModalContext();
+  const { handleError } = useError();
 
   const fetchNews = async () => {
     try {
@@ -50,7 +50,7 @@ const News = () => {
       setAgendaList(res[1].data.data!);
       setMediaList(res[2].data.data?.media!);
     } catch (error) {
-      snackbar.error((error as AxiosError).response?.data.message);
+      handleError(error)
     } finally {
       setIsFetching(false);
     }

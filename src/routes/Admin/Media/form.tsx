@@ -1,16 +1,20 @@
-import { AxiosError } from "axios";
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
+
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
 import TextArea from "../../../components/TextArea";
+
 import useEffectOnce from "../../../hooks/useEffectOnce";
+import useError from "../../../hooks/useError";
 import useForm from "../../../hooks/useForm";
 import useSnackbar from "../../../hooks/useSnackbar";
+import { useLoader } from "../../../context/LoaderContext";
+
 import { createMedia, editMedia, getMediaById } from "../../../models/media";
+
 import { MediaParams } from "../../../types/entities/media";
 import { FormTemplate } from "../../../types/form";
-import { errorHandler } from "../../../utils/helper";
 
 const emptyFormData: FormTemplate<MediaParams> = {
   link: {
@@ -33,15 +37,15 @@ const FormMedia = () => {
     getDataToSubmit,
     setFormData,
   } = useForm<MediaParams>(emptyFormData);
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [isFetching, setIsFetching] = useState<boolean>(false);
 
   const snackbar = useSnackbar();
   const navigate = useNavigate();
+  const {handleError} = useError();
+  const {loading, setLoading} = useLoader();
 
   const handleFetches = async () => {
     try {
-      setIsFetching(true);
+      setLoading(true);
       const { data } = await getMediaById(+id!);
       if (data.data) {
         setFormData({
@@ -54,9 +58,9 @@ const FormMedia = () => {
         });
       }
     } catch (error) {
-      errorHandler(error as AxiosError);
+     handleError(error)
     } finally {
-      setIsFetching(false);
+      setLoading(false);
     }
   };
 
@@ -64,14 +68,14 @@ const FormMedia = () => {
     evt.preventDefault();
     if (validateData()) {
       try {
-        setIsSubmitting(true);
+        setLoading(true);
         await createMedia(getDataToSubmit());
         snackbar.success("Data berhasil ditambahkan");
         navigate("/admin/media");
       } catch (error) {
-        errorHandler(error as AxiosError);
+       handleError(error)
       } finally {
-        setIsSubmitting(false);
+        setLoading(false);
       }
     }
   };
@@ -81,14 +85,14 @@ const FormMedia = () => {
     if (validateData()) {
       console.log(getDataToSubmit());
       try {
-        setIsSubmitting(true);
+        setLoading(true);
         await editMedia(+id!, getDataToSubmit());
         snackbar.success("Data berhasil ditambahkan");
         navigate("/admin/media");
       } catch (error) {
-        errorHandler(error as AxiosError);
+       handleError(error)
       } finally {
-        setIsSubmitting(false);
+        setLoading(false);
       }
     }
   };
@@ -133,7 +137,7 @@ const FormMedia = () => {
           </div>
         </div>
         <div className="flex justify-end">
-          <Button appearance="edit" shape="rounded" disabled={isSubmitting}>
+          <Button appearance="edit" shape="rounded" disabled={loading}>
             SIMPAN
           </Button>
         </div>

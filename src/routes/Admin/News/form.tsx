@@ -1,17 +1,23 @@
 import React, { useState } from "react";
-import { AxiosError } from "axios";
 import { useDropzone } from "react-dropzone";
 import { useNavigate, useParams } from "react-router-dom";
+
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
 import TextArea from "../../../components/TextArea";
+
 import useEffectOnce from "../../../hooks/useEffectOnce";
 import useForm from "../../../hooks/useForm";
 import useSnackbar from "../../../hooks/useSnackbar";
+
 import { FormTemplate } from "../../../types/form";
-import { errorHandler, getImageURL } from "../../../utils/helper";
 import { NewsParams } from "../../../types/entities/news";
+
 import { createNews, editNews, getNewsById } from "../../../models/news";
+
+import {  getImageURL } from "../../../utils/helper";
+import { useLoader } from "../../../context/LoaderContext";
+import useError from "../../../hooks/useError";
 
 const emptyFormData: FormTemplate<NewsParams> = {
   title: {
@@ -38,12 +44,12 @@ const FormNews = () => {
     getDataToSubmit,
     setFormData,
   } = useForm<NewsParams>(emptyFormData);
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [isFetching, setIsFetching] = useState<boolean>(false);
   const [imageURL, setImageURL] = useState<string>("");
 
   const snackbar = useSnackbar();
   const navigate = useNavigate();
+  const {setLoading, loading} = useLoader();
+  const {handleError} = useError();
 
   const { open: uploadImage } = useDropzone({
     accept: "image/jpeg, image/png",
@@ -59,7 +65,7 @@ const FormNews = () => {
 
   const handleFetches = async () => {
     try {
-      setIsFetching(true);
+      setLoading(true);
       const { data } = await getNewsById(+id!);
       if (data.data) {
         setFormData({
@@ -70,9 +76,9 @@ const FormNews = () => {
       }
       setImageURL(data.data?.news.image!);
     } catch (error) {
-      errorHandler(error as AxiosError);
+      handleError(error)
     } finally {
-      setIsFetching(false);
+      setLoading(false);
     }
   };
 
@@ -80,7 +86,7 @@ const FormNews = () => {
     evt.preventDefault();
     if (validateData()) {
       try {
-        setIsSubmitting(true);
+        setLoading(true);
         const dataToSubmit = getDataToSubmit();
         const formDataToSubmit = new FormData();
         formDataToSubmit.append("title", dataToSubmit.title);
@@ -90,9 +96,9 @@ const FormNews = () => {
         snackbar.success("Data berhasil ditambahkan");
         navigate("/admin/berita");
       } catch (error) {
-        errorHandler(error as AxiosError);
+        handleError(error)
       } finally {
-        setIsSubmitting(false);
+        setLoading(false);
       }
     }
   };
@@ -101,7 +107,7 @@ const FormNews = () => {
     evt.preventDefault();
     if (!errors.title && !errors.content) {
       try {
-        setIsSubmitting(true);
+        setLoading(true);
         const dataToSubmit = getDataToSubmit();
         const formDataToSubmit = new FormData();
         formDataToSubmit.append("title", dataToSubmit.title);
@@ -113,9 +119,9 @@ const FormNews = () => {
         snackbar.success("Data berhasil diperbarui");
         navigate("/admin/berita");
       } catch (error) {
-        errorHandler(error as AxiosError);
+        handleError(error)
       } finally {
-        setIsSubmitting(false);
+        setLoading(false);
       }
     }
   };
@@ -181,7 +187,7 @@ const FormNews = () => {
           </div>
         </div>
         <div className="flex justify-end">
-          <Button appearance="edit" shape="rounded" disabled={isSubmitting}>
+          <Button appearance="edit" shape="rounded" disabled={loading}>
             SIMPAN
           </Button>
         </div>

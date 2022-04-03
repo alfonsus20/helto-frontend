@@ -1,20 +1,24 @@
-import { AxiosError } from "axios";
-import dayjs from "dayjs";
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import dayjs from "dayjs";
+
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
+
 import useEffectOnce from "../../../hooks/useEffectOnce";
+import useError from "../../../hooks/useError";
 import useForm from "../../../hooks/useForm";
 import useSnackbar from "../../../hooks/useSnackbar";
+
 import {
   createAgenda,
   editAgenda,
   getAgendaById,
 } from "../../../models/agenda";
+
 import { AgendaParams } from "../../../types/entities/agenda";
 import { FormTemplate } from "../../../types/form";
-import { errorHandler } from "../../../utils/helper";
+import { useLoader } from "../../../context/LoaderContext";
 
 const emptyFormData: FormTemplate<AgendaParams> = {
   name: {
@@ -29,6 +33,8 @@ const emptyFormData: FormTemplate<AgendaParams> = {
 };
 
 const FormAgenda = () => {
+  const snackbar = useSnackbar();
+  const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const {
     handleChange,
@@ -38,15 +44,12 @@ const FormAgenda = () => {
     getDataToSubmit,
     setFormData,
   } = useForm<AgendaParams>(emptyFormData);
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [isFetching, setIsFetching] = useState<boolean>(false);
-
-  const snackbar = useSnackbar();
-  const navigate = useNavigate();
+  const { handleError } = useError();
+  const { loading, setLoading } = useLoader();
 
   const handleFetches = async () => {
     try {
-      setIsFetching(true);
+      setLoading(true);
       const { data } = await getAgendaById(+id!);
       if (data.data) {
         console.log(data.data);
@@ -60,9 +63,9 @@ const FormAgenda = () => {
         });
       }
     } catch (error) {
-      errorHandler(error as AxiosError);
+      handleError(error);
     } finally {
-      setIsFetching(false);
+      setLoading(false);
     }
   };
 
@@ -70,14 +73,14 @@ const FormAgenda = () => {
     evt.preventDefault();
     if (validateData()) {
       try {
-        setIsSubmitting(true);
+        setLoading(true);
         await createAgenda(getDataToSubmit());
         snackbar.success("Data berhasil ditambahkan");
         navigate("/admin/agenda");
       } catch (error) {
-        errorHandler(error as AxiosError);
+        handleError(error);
       } finally {
-        setIsSubmitting(false);
+        setLoading(false);
       }
     }
   };
@@ -86,14 +89,14 @@ const FormAgenda = () => {
     evt.preventDefault();
     if (validateData()) {
       try {
-        setIsSubmitting(true);
+        setLoading(true);
         await editAgenda(+id!, getDataToSubmit());
         snackbar.success("Data berhasil diperbarui");
         navigate("/admin/agenda");
       } catch (error) {
-        errorHandler(error as AxiosError);
+        handleError(error);
       } finally {
-        setIsSubmitting(false);
+        setLoading(false);
       }
     }
   };
@@ -141,7 +144,7 @@ const FormAgenda = () => {
         </div>
 
         <div className="flex justify-end">
-          <Button appearance="edit" shape="rounded" disabled={isSubmitting}>
+          <Button appearance="edit" shape="rounded" disabled={loading}>
             SIMPAN
           </Button>
         </div>

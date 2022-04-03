@@ -1,15 +1,15 @@
+import { useLocation } from "react-router-dom";
+
 import Button from "../../components/Button";
 import CardCollapse from "../../components/CardCollapse";
 import Input from "../../components/Input";
 import Thread from "./components/Thread";
 import { HandIcon, KeyIcon } from "@heroicons/react/outline";
 
-import { useLocation } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
 
 const PostThread = () => {
   const { pathname } = useLocation();
-
   const { userInfo } = useUserContext();
 
   return (

@@ -1,5 +1,3 @@
-import { AxiosError } from "axios";
-import { Notyf } from "notyf";
 import { IMAGE_URL } from "./constants";
 
 export const getEmbedYoutubeURL = (url: string) => {
@@ -10,7 +8,3 @@ export const getEmbedYoutubeURL = (url: string) => {
 };
 
 export const getImageURL = (filename: string) => `${IMAGE_URL}/${filename}`;
-
-export const errorHandler = (error: AxiosError) => {
-  new Notyf().error(error.response?.data.message || "Terjadi Kesalahan");
-};

@@ -8,14 +8,13 @@ import Logo from "../../images/logo-white.png";
 
 import useForm from "../../hooks/useForm";
 import useSnackbar from "../../hooks/useSnackbar";
+import useError from "../../hooks/useError";
 import { useUserContext } from "../../context/UserContext";
 
 import { login } from "../../models/auth";
 
 import { LoginParams } from "../../types/entities/auth";
 import { FormTemplate } from "../../types/form";
-import { AxiosError } from "axios";
-
 
 const emptyFormData: FormTemplate<LoginParams> = {
   email: {
@@ -35,6 +34,7 @@ const Login = () => {
     useForm<LoginParams>(emptyFormData);
   const snackbar = useSnackbar();
   const { loginUser } = useUserContext();
+  const { handleError } = useError();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -46,7 +46,7 @@ const Login = () => {
         snackbar.success(data.message);
         loginUser(data.data?.token!, data.data?.user.id!);
       } catch (e) {
-        snackbar.error((e as AxiosError).response?.data.message);
+        handleError(e);
       } finally {
         setSubmitting(false);
       }

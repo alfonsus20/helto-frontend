@@ -7,13 +7,12 @@ import WideCard from "../../components/WideCard";
 import NewsModal from "../../components/NewsModal";
 import Search from "../../components/Search";
 
-import useSnackbar from "../../hooks/useSnackbar";
+import useError from "../../hooks/useError";
 import { useModalContext } from "../../context/ModalContext";
 
 import { getTipsAndTrickList } from "../../models/tipsAndTrick";
 
 import { TipsAndTrick } from "../../types/entities/tipsAndTrick";
-import { AxiosError } from "axios";
 
 import { getImageURL } from "../../utils/helper";
 
@@ -32,9 +31,9 @@ const TipsAndTrickList = () => {
   const [isFetchingTipsAndTrick, setIsFetchingTipsAndTrick] =
     useState<boolean>(false);
 
-  const snackbar = useSnackbar();
   const { openModal } = useModalContext();
   const { search } = useLocation();
+  const { handleError } = useError();
 
   const handleViewDetail = (tipsAndTrickId: number) => {
     const foundTipsAndTrick = tipsAndTrickList.find(
@@ -61,7 +60,7 @@ const TipsAndTrickList = () => {
         setTipsAndTrickList(data.data);
       }
     } catch (error) {
-      snackbar.error((error as AxiosError).response?.data.message);
+      handleError(error);
     } finally {
       setIsFetchingTipsAndTrick(false);
     }

@@ -1,12 +1,8 @@
-import { DuplicateIcon } from "@heroicons/react/outline";
 import {
   DocumentIcon,
-  GlobeIcon,
   HandIcon,
   SearchIcon,
-  StarIcon,
-  ThumbUpIcon,
-  UserGroupIcon,
+  UserGroupIcon,DuplicateIcon
 } from "@heroicons/react/solid";
 
 type Program = {

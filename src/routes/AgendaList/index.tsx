@@ -7,19 +7,18 @@ import Header from "../../components/Header";
 import Pagination from "../../components/Pagination";
 import Search from "../../components/Search";
 
-import useSnackbar from "../../hooks/useSnackbar";
+import useError from "../../hooks/useError";
 
 import { getAgendaList } from "../../models/agenda";
 
 import { Agenda } from "../../types/entities/agenda";
-import { AxiosError } from "axios";
 
 const AgendaList = () => {
   const [agendaList, setAgendaList] = useState<Agenda[]>([]);
   const [isFetchingAgenda, setIsFetchingAgenda] = useState<boolean>(false);
 
-  const snackbar = useSnackbar();
   const { search } = useLocation();
+  const {handleError} = useError();
 
   const fetchAgendaList = async () => {
     try {
@@ -32,7 +31,7 @@ const AgendaList = () => {
         setAgendaList(data.data);
       }
     } catch (error) {
-      snackbar.error((error as AxiosError).response?.data.message);
+      handleError(error);
     } finally {
       setIsFetchingAgenda(false);
     }

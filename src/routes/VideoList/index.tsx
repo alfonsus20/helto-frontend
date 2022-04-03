@@ -7,13 +7,12 @@ import Header from "../../components/Header";
 import VideoModal from "../../components/VideoModal";
 import Search from "../../components/Search";
 
+import useError from "../../hooks/useError";
 import { useModalContext } from "../../context/ModalContext";
-import useSnackbar from "../../hooks/useSnackbar";
 
 import { getMediaList } from "../../models/media";
 
 import { Media } from "../../types/entities/media";
-import { AxiosError } from "axios";
 
 import { getEmbedYoutubeURL } from "../../utils/helper";
 
@@ -21,9 +20,9 @@ const VideoList = () => {
   const [videoList, setVideoList] = useState<Media[]>([]);
   const [isFetchingVideo, setIsFetchingVideo] = useState<boolean>(false);
 
-  const snackbar = useSnackbar();
   const { openModal } = useModalContext();
   const { search } = useLocation();
+  const { handleError } = useError();
 
   const handleViewVideoDetail = (videoId: number) => {
     const foundVideo = videoList.find((video) => video.id === videoId)!;
@@ -47,7 +46,7 @@ const VideoList = () => {
         setVideoList(data.data.media);
       }
     } catch (error) {
-      snackbar.error((error as AxiosError).response?.data.message);
+      handleError(error);
     } finally {
       setIsFetchingVideo(false);
     }

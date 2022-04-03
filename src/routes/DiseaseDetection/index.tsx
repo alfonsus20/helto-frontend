@@ -1,11 +1,12 @@
 import { useState } from "react";
+import { useDropzone } from "react-dropzone";
 
 import Button from "../../components/Button";
 
 import UploadImage from "../../images/upload.png";
 
-import { useDropzone } from "react-dropzone";
 import useSnackbar from "../../hooks/useSnackbar";
+import useError from "../../hooks/useError";
 
 import { predictImage } from "../../models/predictImage";
 
@@ -17,7 +18,7 @@ const DiseaseDetection = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const snackbar = useSnackbar();
-
+  const {handleError} = useError();
   const { getRootProps, getInputProps, open, isDragActive, acceptedFiles } =
     useDropzone({
       accept: "image/jpeg, image/png",
@@ -38,7 +39,7 @@ const DiseaseDetection = () => {
           setResult(data.data);
         }
       } catch (e) {
-        snackbar.error((e as Error).message || "Terjadi Kesalahan");
+        handleError(e);
       } finally {
         setLoading(false);
       }

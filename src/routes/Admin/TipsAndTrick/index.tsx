@@ -1,14 +1,17 @@
-import React, { useState } from "react";
-import { AxiosError } from "axios";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
+
 import Table from "../../../components/Table";
-import useSnackbar from "../../../hooks/useSnackbar";
+
+import { useLoader } from "../../../context/LoaderContext";
+import useError from "../../../hooks/useError";
+
 import {
   deleteTipsAndTrick,
   getTipsAndTrickList,
 } from "../../../models/tipsAndTrick";
+
 import { TipsAndTrick } from "../../../types/entities/tipsAndTrick";
-import { useLoader } from "../../../context/LoaderContext";
 
 const AdminTipsAndTrick = () => {
   const [tipsAndTrickList, setTipsAndTrickList] = useState<Array<TipsAndTrick>>(
@@ -16,8 +19,8 @@ const AdminTipsAndTrick = () => {
   );
 
   const { search } = useLocation();
-  const snackbar = useSnackbar();
   const { setLoading } = useLoader();
+  const { handleError } = useError();
 
   const fetchTipsAndTrickList = async () => {
     try {
@@ -27,7 +30,7 @@ const AdminTipsAndTrick = () => {
         setTipsAndTrickList(data.data);
       }
     } catch (error) {
-      snackbar.error((error as AxiosError).response?.data.message);
+      handleError(error);
     } finally {
       setLoading(false);
     }

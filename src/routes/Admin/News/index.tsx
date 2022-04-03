@@ -1,10 +1,13 @@
-import React, { useState } from "react";
-import { AxiosError } from "axios";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
+
 import Table from "../../../components/Table";
+
+import useError from "../../../hooks/useError";
 import { useLoader } from "../../../context/LoaderContext";
-import useSnackbar from "../../../hooks/useSnackbar";
+
 import { deleteNews, getNewsList } from "../../../models/news";
+
 import { NewsSingle } from "../../../types/entities/news";
 
 const AdminNews = () => {
@@ -12,7 +15,7 @@ const AdminNews = () => {
   const { setLoading } = useLoader();
 
   const { search } = useLocation();
-  const snackbar = useSnackbar();
+  const { handleError } = useError();
 
   const fetchNewsList = async () => {
     try {
@@ -22,7 +25,7 @@ const AdminNews = () => {
         setNewsList(data.data.news);
       }
     } catch (error) {
-      snackbar.error((error as AxiosError).response?.data.message);
+      handleError(error);
     } finally {
       setLoading(false);
     }

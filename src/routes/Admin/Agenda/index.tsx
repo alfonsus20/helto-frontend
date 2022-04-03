@@ -1,18 +1,21 @@
-import React, { useState } from "react";
+import { useState } from "react";
+
 import Table from "../../../components/Table";
-import useSnackbar from "../../../hooks/useSnackbar";
-import { AxiosError } from "axios";
+
+import useError from "../../../hooks/useError";
 import { useLocation } from "react-router-dom";
-import { deleteAgenda, getAgendaList } from "../../../models/agenda";
-import { Agenda } from "../../../types/entities/agenda";
 import { useLoader } from "../../../context/LoaderContext";
+
+import { deleteAgenda, getAgendaList } from "../../../models/agenda";
+
+import { Agenda } from "../../../types/entities/agenda";
 
 const AdminNews = () => {
   const [agendaList, setAgendaList] = useState<Array<Agenda>>([]);
   const { setLoading } = useLoader();
 
   const { search } = useLocation();
-  const snackbar = useSnackbar();
+  const { handleError } = useError();
 
   const fetchAgendaList = async () => {
     try {
@@ -22,7 +25,7 @@ const AdminNews = () => {
         setAgendaList(data.data);
       }
     } catch (error) {
-      snackbar.error((error as AxiosError).response?.data.message);
+      handleError(error);
     } finally {
       setLoading(false);
     }

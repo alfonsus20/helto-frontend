@@ -7,22 +7,21 @@ import Header from "../../components/Header";
 import Search from "../../components/Search";
 import NewsModal from "../../components/NewsModal";
 
-import useSnackbar from "../../hooks/useSnackbar";
+import useError from "../../hooks/useError";
 import { useModalContext } from "../../context/ModalContext";
 
 import { getNewsList } from "../../models/news";
 
 import { NewsSingle } from "../../types/entities/news";
 import { getImageURL } from "../../utils/helper";
-import { AxiosError } from "axios";
 
 const NewsList = () => {
   const [newsList, setNewsList] = useState<NewsSingle[]>([]);
   const [isFetchingNews, setIsFetchingNews] = useState<boolean>(false);
 
-  const snackbar = useSnackbar();
   const { openModal } = useModalContext();
   const { search } = useLocation();
+  const { handleError } = useError();
 
   const handleViewNewsDetail = (newsId: number) => {
     const foundNews = newsList.find((news) => news.id === newsId)!;
@@ -47,7 +46,7 @@ const NewsList = () => {
         setNewsList(data.data.news);
       }
     } catch (error) {
-      snackbar.error((error as AxiosError).response?.data.message);
+      handleError(error);
     } finally {
       setIsFetchingNews(false);
     }

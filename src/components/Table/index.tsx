@@ -8,8 +8,9 @@ import Search from "../Search";
 import Modal from "../Modal";
 
 import useSnackbar from "../../hooks/useSnackbar";
+import useError from "../../hooks/useError";
 
-import { AxiosError, AxiosPromise } from "axios";
+import { AxiosPromise } from "axios";
 
 import { getImageURL } from "../../utils/helper";
 
@@ -43,8 +44,9 @@ const Table = <T extends Object>({
   const [selectedId, setSelectedId] = useState<number | null>(null);
 
   const navigate = useNavigate();
-  const { pathname } = useLocation();
   const snackbar = useSnackbar();
+  const {handleError} =  useError();
+  const { pathname } = useLocation();
 
   const handleDelete = async (id: number) => {
     try {
@@ -53,7 +55,7 @@ const Table = <T extends Object>({
       snackbar.success("Data berhasil dihapus");
       fetchFunc();
     } catch (error) {
-      snackbar.error((error as AxiosError).response?.data.message);
+      handleError(error);
     } finally {
       setIsDeleting(false);
       setIsModalShown(false);

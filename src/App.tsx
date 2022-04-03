@@ -1,11 +1,14 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, useLocation } from "react-router-dom";
+
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import MobileNavbar from "./components/Navbar/navbar.mobile";
+
 import { ModalWrapper } from "./context/ModalContext";
 import { SidebarWrapper } from "./context/SidebarContext";
 import { UserWrapper } from "./context/UserContext";
+
 import RouteList from "./routes";
 
 const ScrollToTop = () => {

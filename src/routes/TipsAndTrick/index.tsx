@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import classNames from "classnames";
 
 import { ChevronRightIcon } from "@heroicons/react/outline";
 import Header from "../../components/Header";
@@ -7,16 +8,14 @@ import WideCard from "../../components/WideCard";
 import NewsModal from "../../components/NewsModal";
 
 import useEffectOnce from "../../hooks/useEffectOnce";
-import useSnackbar from "../../hooks/useSnackbar";
+import useError from "../../hooks/useError";
 import { useModalContext } from "../../context/ModalContext";
 
 import { getTipsAndTrickList } from "../../models/tipsAndTrick";
 
 import { TipsAndTrick as TipsAndTrickEntity } from "../../types/entities/tipsAndTrick";
-import { AxiosError } from "axios";
 
 import { getImageURL } from "../../utils/helper";
-import classNames from "classnames";
 
 const wideCardSkeleton = [...Array(3)].map((_, idx) => (
   <WideCard loading key={idx} />
@@ -29,8 +28,8 @@ const TipsAndTrick = () => {
   const [isFetchingTipsAndTrick, setIsFetchingTipsAndTrick] =
     useState<boolean>(false);
 
-  const snackbar = useSnackbar();
   const { openModal } = useModalContext();
+  const { handleError } = useError();
 
   const fetchTipsAndTrickList = async () => {
     try {
@@ -40,7 +39,7 @@ const TipsAndTrick = () => {
         setTipsAndTrickList(data.data);
       }
     } catch (error) {
-      snackbar.error((error as AxiosError).response?.data.message);
+      handleError(error);
     } finally {
       setIsFetchingTipsAndTrick(false);
     }

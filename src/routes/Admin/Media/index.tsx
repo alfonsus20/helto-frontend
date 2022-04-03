@@ -1,18 +1,21 @@
-import React, { useState } from "react";
-import Table from "../../../components/Table";
-import useSnackbar from "../../../hooks/useSnackbar";
-import { AxiosError } from "axios";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Media } from "../../../types/entities/media";
-import { deleteMedia, getMediaList } from "../../../models/media";
+
+import Table from "../../../components/Table";
+
+import useError from "../../../hooks/useError";
 import { useLoader } from "../../../context/LoaderContext";
+
+import { deleteMedia, getMediaList } from "../../../models/media";
+
+import { Media } from "../../../types/entities/media";
 
 const AdminNews = () => {
   const [newsList, setMediaList] = useState<Array<Media>>([]);
 
   const { search } = useLocation();
-  const snackbar = useSnackbar();
   const { setLoading } = useLoader();
+  const { handleError } = useError();
 
   const fetchMediaList = async () => {
     try {
@@ -22,7 +25,7 @@ const AdminNews = () => {
         setMediaList(data.data.media);
       }
     } catch (error) {
-      snackbar.error((error as AxiosError).response?.data.message);
+      handleError(error);
     } finally {
       setLoading(false);
     }

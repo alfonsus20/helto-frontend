@@ -1,5 +1,3 @@
-import React from "react";
-
 export type CommonSize = "sm" | "md" | "lg" | "xl" | "2xl";
 
 export type CommonShape = "box" | "pill" | "rounded";
