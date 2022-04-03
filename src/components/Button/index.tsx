@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import classNames from "classnames";
 
-import  { CommonSize, CommonShape } from "../../theme";
+import { CommonSize, CommonShape } from "../../theme";
 
 import "./style.scss";
 
@@ -50,6 +50,7 @@ const Button = ({
             }
           : onClick
       }
+      disabled={disabled}
       className={classNames("btn", {
         "btn-primary": appearance === "primary",
         "btn-secondary": appearance === "secondary",

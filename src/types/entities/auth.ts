@@ -20,6 +20,9 @@ export type UserInfo = {
   phone: string;
   region: string;
   isAdmin: boolean;
+  thread?: {
+    key: string;
+  };
 };
 
 export type RegisterResponse = {

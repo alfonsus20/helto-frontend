@@ -9,7 +9,9 @@ function useForm<T>(formData: FormTemplate<T>) {
     [key in keyof FormTemplate<T>]: string;
   }>({} as { [key in keyof FormTemplate<T>]: string });
 
-  const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setData({
       ...data,
       [evt.target.name]: {

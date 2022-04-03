@@ -152,7 +152,7 @@ const Footer = () => {
         </div>
       </div>
       <footer className="text-center text-sm py-4 border-t-2 border-gray-300">
-        &copy; 2022 HelTo, All rights reserved
+        &copy; 2022 HelTho, All rights reserved
       </footer>
     </div>
   );
