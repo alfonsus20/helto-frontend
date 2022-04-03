@@ -15,6 +15,13 @@ export const getAllCommunityThreads = (
   return coreAPI.get(`/post/community?${params}`);
 };
 
+export const getAllPrivateThreads = (
+  key: string,
+  params?: string
+): AxiosPromise<APIResponse<{ posts: Array<Thread> }>> => {
+  return coreAPI.get(`/post/${key}?${params}`);
+};
+
 export const getCommunityThreadById = (
   id: number
 ): AxiosPromise<APIResponse<ThreadDetail>> => {
@@ -31,6 +38,13 @@ export const postNewThreadCommunity = (
   params: ThreadNewParams
 ): AxiosPromise<APIResponse<null>> => {
   return coreAPI.post(`/post/community`, params);
+};
+
+export const postNewPrivateThreadCommunity = (
+  key: string,
+  params: ThreadNewParams
+): AxiosPromise<APIResponse<null>> => {
+  return coreAPI.post(`/post/${key}`, params);
 };
 
 export const likeThreadCommunity = (

@@ -5,18 +5,18 @@ import dayjs from "dayjs";
 import "dayjs/locale/id";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useState } from "react";
-import Button from "../../../../components/Button";
-import Loader from "../../../../components/Loader";
-import TextArea from "../../../../components/TextArea";
-import { useUserContext } from "../../../../context/UserContext";
-import useError from "../../../../hooks/useError";
-import useSnackbar from "../../../../hooks/useSnackbar";
+import Button from "../Button";
+import Loader from "../Loader";
+import TextArea from "../TextArea";
+import { useUserContext } from "../../context/UserContext";
+import useError from "../../hooks/useError";
+import useSnackbar from "../../hooks/useSnackbar";
 import {
   getCommunityThreadById,
   likeThreadCommunity,
   replyToThreadCommunity,
-} from "../../../../models/thread";
-import { ThreadDetail } from "../../../../types/entities/thread";
+} from "../../models/thread";
+import { ThreadDetail } from "../../types/entities/thread";
 
 dayjs.extend(relativeTime);
 dayjs.locale("id");

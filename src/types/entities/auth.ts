@@ -23,6 +23,7 @@ export type UserInfo = {
   thread?: {
     key: string;
   };
+  joined: boolean;
 };
 
 export type RegisterResponse = {

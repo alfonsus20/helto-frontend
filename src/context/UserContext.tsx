@@ -1,4 +1,12 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
+import React, {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { AxiosError } from "axios";
 import { coreAPI } from "../api";
 import useSnackbar from "../hooks/useSnackbar";
@@ -12,6 +20,7 @@ type UserState = {
   loginUser: (token: string, userId: number) => void;
   logoutUser: () => void;
   fetchUserInfo: () => void;
+  setUserInfo: Dispatch<SetStateAction<UserInfo>>;
 };
 
 const defaultValue: UserState = {
@@ -19,6 +28,7 @@ const defaultValue: UserState = {
   loginUser: () => {},
   logoutUser: () => {},
   fetchUserInfo: () => {},
+  setUserInfo: () => {},
   userInfo: { isAdmin: localStorage.getItem("isAdmin") === "true" } as UserInfo,
 };
 
@@ -58,7 +68,6 @@ export const UserWrapper = ({ children }: { children: React.ReactNode }) => {
         localStorage.setItem("isAdmin", String(data.data.isAdmin));
         localStorage.setItem("userId", data.data.id.toString());
       }
-      console.log(data);
     } catch (e) {
       snackbar.error((e as AxiosError).response?.data.message);
     }
@@ -71,7 +80,7 @@ export const UserWrapper = ({ children }: { children: React.ReactNode }) => {
       coreAPI.defaults.headers.common["Authorization"] = token;
       setIsAuthenticated(true);
     }
-  },[]);
+  }, []);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -93,6 +102,7 @@ export const UserWrapper = ({ children }: { children: React.ReactNode }) => {
         logoutUser,
         userInfo,
         fetchUserInfo,
+        setUserInfo,
       }}
     >
       {children}

@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import CardCollapse from "../../components/CardCollapse";
 import Input from "../../components/Input";
-import Thread from "./components/Thread";
+import Thread from "../../components/Thread";
 import Modal from "../../components/Modal";
 import { HandIcon, KeyIcon } from "@heroicons/react/outline";
 
@@ -22,7 +22,6 @@ import {
 } from "../../models/thread";
 
 import { Thread as ThreadEntity } from "../../types/entities/thread";
-import { AxiosError } from "axios";
 
 const PostThread = () => {
   const [threadList, setThreadList] = useState<Array<ThreadEntity>>([]);
@@ -30,14 +29,12 @@ const PostThread = () => {
   const [isPostingNewThread, setIsPostingNewThread] = useState<boolean>(false);
   const [isJoiningColsultation, setIsJoiningConsultation] =
     useState<boolean>(false);
-  const [key, setKey] = useState<string>("");
   const [inputKey, setInputKey] = useState<string>("");
   const [isModalConsultationShown, showPopupJoinConsultation] =
     useState<boolean>(false);
-  const [hasEnrolled, setHasEnrolled] = useState<boolean>(false);
 
   const { pathname } = useLocation();
-  const { userInfo } = useUserContext();
+  const { userInfo, setUserInfo } = useUserContext();
   const { handleError } = useError();
   const snackbar = useSnackbar();
   const { openModal } = useModalContext();
@@ -68,21 +65,6 @@ const PostThread = () => {
     }
   };
 
-  const handleFetchKey = async () => {
-    try {
-      const { data } = await claimKey();
-      if (data.data) {
-        setKey(data.data);
-      }
-    } catch (error) {
-      if ((error as AxiosError).response?.data.code) {
-        setHasEnrolled(true);
-      } else {
-        handleError(error);
-      }
-    }
-  };
-
   const handleJoinConsultation = async (evt: React.FormEvent) => {
     evt.preventDefault();
     try {
@@ -90,9 +72,13 @@ const PostThread = () => {
       const { data } = await joinConsultation(inputKey);
       if (data.data) {
         snackbar.success("Berhasil bergabung");
-        navigate(`/konsultasi/${data.data.thread.key}`);
+        setUserInfo({
+          ...userInfo,
+          thread: { key: data.data.thread.key },
+          joined: true,
+        });
         showPopupJoinConsultation(false);
-        setHasEnrolled(true);
+        navigate(`/konsultasi`);
       }
     } catch (error) {
       handleError(error);
@@ -101,19 +87,25 @@ const PostThread = () => {
     }
   };
 
-  const handleClaimKey = () => {
-    openModal(
-      <div className="space-y-3">
-        <h1 className="font-bold text-2xl">Kode</h1>
-        <p className="text-center text-3xl">{key}</p>
-        <p>Harap salin kunci diatas untuk gabung pada grup konsultasi.</p>
-      </div>
-    );
+  const handleClaimKey = async () => {
+    try {
+      const { data } = await claimKey();
+      if (data.data) {
+        openModal(
+          <div className="space-y-3">
+            <h1 className="font-bold text-2xl">Kode</h1>
+            <p className="text-center text-3xl">{data.data}</p>
+            <p>Harap salin kunci diatas untuk gabung pada grup konsultasi.</p>
+          </div>
+        );
+      }
+    } catch (error) {
+      handleError(error);
+    }
   };
 
   useEffectOnce(() => {
     fetchThreadList();
-    handleFetchKey();
   });
 
   return (
@@ -140,9 +132,9 @@ const PostThread = () => {
           </div>
         </form>
       </Modal>
-      <div className="flex-none w-80 hidden xl:flex flex-col">
+      <div className="flex-none w-80 hidden xl:flex flex-col min-h-[600px]">
         <h1 className="text-2xl font-semibold text-center pb-2 border-b-[1px] border-black mb-4">
-          Halaman {pathname === "/komunitas" ? "Komunitas" : "Konsultasi"}
+          Halaman Komunitas
         </h1>
         <div className="flex gap-x-2 mb-4">
           <div className="flex-shrink-0">
@@ -156,9 +148,11 @@ const PostThread = () => {
             <Input
               appearance="tertiary"
               className="flex-1"
-              placeholder={`Apa yang Anda pikirkan, ${
-                userInfo.name?.split(" ")[0] || "Loading..."
-              }?`}
+              placeholder={
+                userInfo.name
+                  ? `Apa yang Anda pikirkan ${userInfo.name?.split(" ")[0]}?`
+                  : "Loading..."
+              }
               fontSize="xs"
               value={newThread}
               onChange={(e) => setNewThread(e.target.value)}
@@ -174,7 +168,7 @@ const PostThread = () => {
             </div>
           </div>
         </div>
-        {!hasEnrolled && (
+        {userInfo.name && !userInfo.joined && (
           <>
             <div className="shadow-md p-4 mb-4">
               <div className="flex gap-x-2">
@@ -244,9 +238,11 @@ const PostThread = () => {
             <Input
               appearance="primary"
               className="my-2"
-              placeholder={`Apa yang Anda pikirkan, ${
-                userInfo.name?.split(" ")[0] || "Loading..."
-              }?`}
+              placeholder={
+                userInfo.name
+                  ? `Apa yang Anda pikirkan ${userInfo.name?.split(" ")[0]}?`
+                  : "Loading..."
+              }
               fontSize="xs"
               value={newThread}
               onChange={(e) => setNewThread(e.target.value)}
@@ -262,7 +258,7 @@ const PostThread = () => {
             </div>
           </div>
         </div>
-        {!hasEnrolled && (
+        {userInfo.name && !userInfo.joined && (
           <div className="xl:hidden max-w-3xl mx-auto">
             <div className="shadow-md p-4 mb-4">
               <div className="flex gap-x-2">
@@ -303,20 +299,24 @@ const PostThread = () => {
             </div>
           </div>
         )}
-        <div>
-          {threadList.map((thread) => (
-            <Thread
-              id={thread.id}
-              key={thread.id}
-              userName={thread.author.username}
-              content={thread.content}
-              datetime={thread.createdAt}
-              likeCount={thread.likesCount}
-              commentCount={thread.replyCount}
-              createdAt={thread.createdAt}
-              liked={thread.likes.length === 1}
-            />
-          ))}
+        <div className="xl:shadow-lg py-4">
+          {threadList.length === 0 ? (
+            <div className="p-4">Belum ada postingan</div>
+          ) : (
+            threadList.map((thread) => (
+              <Thread
+                id={thread.id}
+                key={thread.id}
+                userName={thread.author.username}
+                content={thread.content}
+                datetime={thread.createdAt}
+                likeCount={thread.likesCount}
+                commentCount={thread.replyCount}
+                createdAt={thread.createdAt}
+                liked={thread.likes.length === 1}
+              />
+            ))
+          )}
         </div>
       </div>
       <div className="flex-none w-80 hidden xl:block">

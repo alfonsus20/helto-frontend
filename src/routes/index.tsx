@@ -12,6 +12,7 @@ import FormNews from "./Admin/News/form";
 import AdminTipsAndTrick from "./Admin/TipsAndTrick";
 import FormTipsAndTrik from "./Admin/TipsAndTrick/form";
 import AgendaList from "./AgendaList";
+import Consultation from "./Consultation";
 import DiseaseDetection from "./DiseaseDetection";
 import Home from "./Home";
 import Login from "./Login";
@@ -44,14 +45,11 @@ const RouteList = () => {
       <Route element={<ProtectedRoute />}>
         <Route path="/deteksi-penyakit" element={<DiseaseDetection />} />
         <Route path="/komunitas" element={<PostThread />} />
-        <Route path="/konsultasi" element={<PostThread />} />
-        <Route path="/konsultasi/:key" element={<PostThread />} />
+        <Route path="/konsultasi" element={<Consultation />} />
+        <Route path="/konsultasi/:key" element={<Consultation />} />
       </Route>
       <Route element={<AdminRoute />}>
-        <Route
-          path="/admin"
-          element={<Navigate to="/admin/tips-dan-trik" />}
-        />
+        <Route path="/admin" element={<Navigate to="/admin/tips-dan-trik" />} />
         <Route path="/admin/tips-dan-trik" element={<AdminTipsAndTrick />} />
         <Route
           path="/admin/tips-dan-trik/tambah"
