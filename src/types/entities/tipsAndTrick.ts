@@ -15,4 +15,5 @@ export type TipsAndTrickParams = {
 
 export type GetTipsAndTrickListResponse = {
   tipsAndTrick: TipsAndTrick[];
+  totalData: number;
 };

@@ -10,6 +10,7 @@ export type NewsSingle = {
 
 export type GetNewsResponse = {
   news: NewsSingle[];
+  totalData: number;
 };
 
 export type GetSingleNewsResponse = {

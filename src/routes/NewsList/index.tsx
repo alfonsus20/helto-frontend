@@ -14,10 +14,12 @@ import { getNewsList } from "../../models/news";
 
 import { NewsSingle } from "../../types/entities/news";
 import { getImageURL } from "../../utils/helper";
+import Pagination from "../../components/Pagination";
 
 const NewsList = () => {
   const [newsList, setNewsList] = useState<NewsSingle[]>([]);
   const [isFetchingNews, setIsFetchingNews] = useState<boolean>(false);
+  const [totalData, setTotalData] = useState<number>(0);
 
   const { openModal } = useModalContext();
   const { search } = useLocation();
@@ -40,10 +42,11 @@ const NewsList = () => {
       setIsFetchingNews(true);
       const urlParams = qs.parse(search);
       const { data } = await getNewsList(
-        `?${qs.stringify({ ...urlParams, offset: 0, limit: 10 })}`
+        `?${qs.stringify({ offset: 0, limit: 8, ...urlParams })}`
       );
       if (data.data) {
         setNewsList(data.data.news);
+        setTotalData(data.data.totalData);
       }
     } catch (error) {
       handleError(error);
@@ -64,7 +67,7 @@ const NewsList = () => {
         placeholder="Cari Berita Terbaru Hari Ini"
         fetchFunc={fetchNewsList}
       />
-      <div className="mt-4 grid grid-cols-12 gap-5">
+      <div className="mt-4 grid grid-cols-12 gap-5 mb-6">
         {isFetchingNews
           ? [...Array(8)].map((_, idx) => <Card loading key={idx} />)
           : newsList.map((news) => (
@@ -76,6 +79,7 @@ const NewsList = () => {
               />
             ))}
       </div>
+      <Pagination totalData={totalData} rowPerPage={8} />
     </div>
   );
 };

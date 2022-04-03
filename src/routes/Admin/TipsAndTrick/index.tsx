@@ -17,6 +17,7 @@ const AdminTipsAndTrick = () => {
   const [tipsAndTrickList, setTipsAndTrickList] = useState<Array<TipsAndTrick>>(
     []
   );
+  const [totalData, setTotalData] = useState<number>(0);
 
   const { search } = useLocation();
   const { setLoading } = useLoader();
@@ -28,6 +29,7 @@ const AdminTipsAndTrick = () => {
       const { data } = await getTipsAndTrickList(search);
       if (data.data) {
         setTipsAndTrickList(data.data.tipsAndTrick);
+        setTotalData(data.data.totalData);
       }
     } catch (error) {
       handleError(error);
@@ -53,6 +55,7 @@ const AdminTipsAndTrick = () => {
             createdAt: { type: "date" },
           }}
           data={tipsAndTrickList}
+          totalData={totalData}
         />
       </div>
     </div>

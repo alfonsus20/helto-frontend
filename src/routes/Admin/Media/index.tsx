@@ -12,6 +12,7 @@ import { Media } from "../../../types/entities/media";
 
 const AdminNews = () => {
   const [newsList, setMediaList] = useState<Array<Media>>([]);
+  const [totalData, setTotalData] = useState<number>(0);
 
   const { search } = useLocation();
   const { setLoading } = useLoader();
@@ -23,6 +24,7 @@ const AdminNews = () => {
       const { data } = await getMediaList(search);
       if (data.data) {
         setMediaList(data.data.media);
+        setTotalData(data.data.totalData);
       }
     } catch (error) {
       handleError(error);
@@ -47,6 +49,7 @@ const AdminNews = () => {
             createdAt: { type: "date" },
           }}
           data={newsList}
+          totalData={totalData}
         />
       </div>
     </div>

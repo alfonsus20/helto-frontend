@@ -15,8 +15,9 @@ import { getTipsAndTrickList } from "../../models/tipsAndTrick";
 import { TipsAndTrick } from "../../types/entities/tipsAndTrick";
 
 import { getImageURL } from "../../utils/helper";
+import Pagination from "../../components/Pagination";
 
-const wideCardSkeleton = [...Array(6)].map((_, idx) => (
+const wideCardSkeleton = [...Array(9)].map((_, idx) => (
   <WideCard
     loading
     key={idx}
@@ -30,6 +31,7 @@ const TipsAndTrickList = () => {
   );
   const [isFetchingTipsAndTrick, setIsFetchingTipsAndTrick] =
     useState<boolean>(false);
+  const [totalData, setTotalData] = useState<number>(0);
 
   const { openModal } = useModalContext();
   const { search } = useLocation();
@@ -58,6 +60,7 @@ const TipsAndTrickList = () => {
       );
       if (data.data) {
         setTipsAndTrickList(data.data.tipsAndTrick);
+        setTotalData(data.data.totalData);
       }
     } catch (error) {
       handleError(error);
@@ -78,7 +81,7 @@ const TipsAndTrickList = () => {
         placeholder="Cari Tips dan Trik Terbaru Hari Ini"
         fetchFunc={fetchTipsAndTrickList}
       />
-      <div className="mt-4 grid grid-cols-12 gap-5">
+      <div className="mt-4 grid grid-cols-12 gap-5 mb-6">
         {isFetchingTipsAndTrick
           ? wideCardSkeleton
           : tipsAndTrickList.map((tipsAndTrick) => (
@@ -93,6 +96,7 @@ const TipsAndTrickList = () => {
               />
             ))}
       </div>
+      <Pagination totalData={totalData} rowPerPage={9} />
     </div>
   );
 };

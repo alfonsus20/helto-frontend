@@ -12,8 +12,9 @@ import { Agenda } from "../../../types/entities/agenda";
 
 const AdminNews = () => {
   const [agendaList, setAgendaList] = useState<Array<Agenda>>([]);
-  const { setLoading } = useLoader();
+  const [totalData, setTotalData] = useState<number>(0);
 
+  const { setLoading } = useLoader();
   const { search } = useLocation();
   const { handleError } = useError();
 
@@ -23,6 +24,7 @@ const AdminNews = () => {
       const { data } = await getAgendaList(search);
       if (data.data) {
         setAgendaList(data.data.agenda);
+        setTotalData(data.data.totalData);
       }
     } catch (error) {
       handleError(error);
@@ -47,6 +49,7 @@ const AdminNews = () => {
           }}
           data={agendaList}
           searchPlaceholder="Cari Agenda Terkini"
+          totalData={totalData}
         />
       </div>
     </div>

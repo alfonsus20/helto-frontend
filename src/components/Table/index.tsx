@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import classNames from "classnames";
+import qs from "query-string";
 
 import Button from "../Button";
 import Search from "../Search";
@@ -13,6 +14,7 @@ import useError from "../../hooks/useError";
 import { AxiosPromise } from "axios";
 
 import { getImageURL } from "../../utils/helper";
+import Pagination from "../Pagination";
 
 type TableData<T extends Object> = {
   [key in keyof T]: {
@@ -30,6 +32,7 @@ type TableProps<T> = {
   })[];
   searchPlaceholder: string;
   fetchFunc: () => void;
+  totalData: number;
 };
 
 const Table = <T extends Object>({
@@ -38,6 +41,7 @@ const Table = <T extends Object>({
   fetchFunc,
   data,
   searchPlaceholder,
+  totalData,
 }: TableProps<T>) => {
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [isModalShown, setIsModalShown] = useState<boolean>(false);
@@ -45,8 +49,13 @@ const Table = <T extends Object>({
 
   const navigate = useNavigate();
   const snackbar = useSnackbar();
-  const {handleError} =  useError();
-  const { pathname } = useLocation();
+  const { handleError } = useError();
+  const { pathname, search } = useLocation();
+
+  const offset = useMemo(() => {
+    const offsetFromURL = qs.parse(search)["offset"];
+    return offsetFromURL ? +offsetFromURL : 0;
+  }, [search]);
 
   const handleDelete = async (id: number) => {
     try {
@@ -108,7 +117,7 @@ const Table = <T extends Object>({
           Tambah
         </Button>
       </div>
-      <div className="w-full overflow-x-auto">
+      <div className="w-full overflow-x-auto mb-6">
         <table className="w-full">
           <thead className="bg-[#F3F6F9]">
             <tr className="font-bold">
@@ -126,7 +135,7 @@ const Table = <T extends Object>({
           <tbody>
             {data.map((entryData, index) => (
               <tr key={entryData.id}>
-                <td className="px-3 py-4">{index + 1}</td>
+                <td className="px-3 py-4">{offset + index + 1}</td>
                 {Object.keys(body)
                   .filter((keyBody) => body[keyBody as keyof T].title)
                   .map((key, idx) => {
@@ -181,6 +190,7 @@ const Table = <T extends Object>({
           </tbody>
         </table>
       </div>
+      <Pagination totalData={totalData} rowPerPage={10} />
     </div>
   );
 };

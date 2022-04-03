@@ -15,10 +15,12 @@ import { getMediaList } from "../../models/media";
 import { Media } from "../../types/entities/media";
 
 import { getEmbedYoutubeURL } from "../../utils/helper";
+import Pagination from "../../components/Pagination";
 
 const VideoList = () => {
   const [videoList, setVideoList] = useState<Media[]>([]);
   const [isFetchingVideo, setIsFetchingVideo] = useState<boolean>(false);
+  const [totalData, setTotalData] = useState<number>(0);
 
   const { openModal } = useModalContext();
   const { search } = useLocation();
@@ -40,10 +42,11 @@ const VideoList = () => {
       setIsFetchingVideo(true);
       const urlParams = qs.parse(search);
       const { data } = await getMediaList(
-        `?${qs.stringify({ ...urlParams, offset: 0, limit: 10 })}`
+        `?${qs.stringify({ offset: 0, limit: 8, ...urlParams })}`
       );
       if (data.data) {
         setVideoList(data.data.media);
+        setTotalData(data.data.totalData);
       }
     } catch (error) {
       handleError(error);
@@ -64,8 +67,7 @@ const VideoList = () => {
         placeholder="Cari Media Terbaru Hari Ini"
         fetchFunc={fetchVideoList}
       />
-      <div className="mt-4 grid grid-cols-12 gap-5">{}</div>
-      <div className="mt-4 grid grid-cols-12 gap-5">
+      <div className="mt-4 grid grid-cols-12 gap-5 mb-6">
         {isFetchingVideo
           ? [...Array(8)].map((_, idx) => <Card loading key={idx} />)
           : videoList.map((video) => (
@@ -78,6 +80,7 @@ const VideoList = () => {
               />
             ))}
       </div>
+      <Pagination totalData={totalData} rowPerPage={8} />
     </div>
   );
 };

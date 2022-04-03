@@ -8,6 +8,7 @@ export type Media = {
 
 export type GetMediaResponse = {
   media: Media[];
+  totalData: number;
 };
 
 export type GetSingleMediaResponse = {

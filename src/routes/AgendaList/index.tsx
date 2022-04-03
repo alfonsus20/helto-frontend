@@ -26,7 +26,7 @@ const AgendaList = () => {
       setIsFetchingAgenda(true);
       const urlParams = qs.parse(search);
       const { data } = await getAgendaList(
-        `?${qs.stringify({ offset: 0, limit: 10, ...urlParams })}`
+        `?${qs.stringify({ offset: 0, limit: 9, ...urlParams })}`
       );
       if (data.data) {
         setAgendaList(data.data.agenda);
@@ -53,7 +53,7 @@ const AgendaList = () => {
       />
       <div className="mt-4 mb-6 grid grid-cols-12 gap-5">
         {isFetchingAgenda
-          ? [...Array(6)].map((_, idx) => <AgendaCard loading key={idx} />)
+          ? [...Array(9)].map((_, idx) => <AgendaCard loading key={idx} />)
           : agendaList.map((agenda) => (
               <AgendaCard
                 title={agenda.name}
@@ -62,7 +62,7 @@ const AgendaList = () => {
               />
             ))}
       </div>
-      <Pagination totalData={totalData} rowPerPage={10} />
+      <Pagination totalData={totalData} rowPerPage={9} />
     </div>
   );
 };

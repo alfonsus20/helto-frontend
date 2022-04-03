@@ -12,8 +12,9 @@ import { NewsSingle } from "../../../types/entities/news";
 
 const AdminNews = () => {
   const [newsList, setNewsList] = useState<Array<NewsSingle>>([]);
-  const { setLoading } = useLoader();
+  const [totalData, setTotalData] = useState<number>(0);
 
+  const { setLoading } = useLoader();
   const { search } = useLocation();
   const { handleError } = useError();
 
@@ -23,6 +24,7 @@ const AdminNews = () => {
       const { data } = await getNewsList(search);
       if (data.data) {
         setNewsList(data.data.news);
+        setTotalData(data.data.totalData);
       }
     } catch (error) {
       handleError(error);
@@ -49,6 +51,7 @@ const AdminNews = () => {
             authorId: { type: "date" },
           }}
           data={newsList}
+          totalData={totalData}
         />
       </div>
     </div>
