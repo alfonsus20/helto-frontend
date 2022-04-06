@@ -8,10 +8,18 @@
   }
 
   &__body {
-    @apply transition-all duration-500 max-h-[500px] overflow-hidden;
+    @apply transition-all duration-500 max-h-[100px] overflow-y-auto;
+
+    &::-webkit-scrollbar {
+      @apply w-2;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      @apply bg-gray-300 rounded-md;
+    }
 
     &.is-collapsed {
-      @apply transition-all duration-500 max-h-0;
+      @apply max-h-0 overflow-hidden;
     }
   }
 }

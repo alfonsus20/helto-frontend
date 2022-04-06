@@ -92,11 +92,11 @@ const Register = () => {
   const getCityList = async () => {
     try {
       const { data } = await getCities(selectedProvince.value);
-      const provinceData = data.kota_kabupaten.map((prov) => ({
+      const cityData = data.kota_kabupaten.map((prov) => ({
         label: prov.nama,
         value: prov.nama,
       }));
-      setCities(provinceData);
+      setCities(cityData);
     } catch (err) {
       console.log(err);
     }

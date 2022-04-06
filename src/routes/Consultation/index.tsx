@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import qs from "query-string";
 
 import Button from "../../components/Button";
 import CardCollapse from "../../components/CardCollapse";
 import Input from "../../components/Input";
-import { SkeletonThread } from "../../components/Skeleton";
 import Thread from "../../components/Thread";
+import { SkeletonThread } from "../../components/Skeleton";
 
 import { useUserContext } from "../../context/UserContext";
 import useError from "../../hooks/useError";
@@ -15,8 +16,10 @@ import {
   getAllPrivateThreads,
   postNewPrivateThreadCommunity,
 } from "../../models/thread";
+import { getCities, getProvinces } from "../../models/location";
 
 import { Thread as ThreadEntity } from "../../types/entities/thread";
+import { City, Province } from "../../types/entities/location";
 
 const skeletons = [...Array(6)].map((_, idx) => <SkeletonThread key={idx} />);
 
@@ -25,18 +28,26 @@ const Consultation = () => {
   const [newThread, setNewThread] = useState<string>("");
   const [isPostingNewThread, setIsPostingNewThread] = useState<boolean>(false);
   const [isFetchingThread, setIsFetchingThread] = useState<boolean>(false);
+  const [provinces, setProvinces] = useState<Array<Province>>([]);
+  const [cities, setCities] = useState<Array<City>>([]);
 
   const snackbar = useSnackbar();
   const { userInfo } = useUserContext();
   const { handleError } = useError();
   const navigate = useNavigate();
+  const { search, pathname } = useLocation();
+  const { region, provinceId } = qs.parse(search);
 
   const fetchThreadList = async () => {
     try {
       setIsFetchingThread(true);
       const { data } = await getAllPrivateThreads(
         userInfo.thread?.key!,
-        "offset=0&limit=10"
+        qs.stringify({
+          offset: 0,
+          limit: 20,
+          region: qs.parse(search)["region"],
+        })
       );
       if (data.data) {
         setThreadList(data.data.posts);
@@ -45,6 +56,25 @@ const Consultation = () => {
       handleError(error);
     } finally {
       setIsFetchingThread(false);
+    }
+  };
+
+  const getProvinceList = async () => {
+    try {
+      const { data } = await getProvinces();
+      setProvinces(data.provinsi);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getCityList = async () => {
+    try {
+      const selectedProvinceId = qs.parse(search)["provinceId"]?.toString();
+      const { data } = await getCities(selectedProvinceId || "");
+      setCities(data.kota_kabupaten);
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -68,6 +98,10 @@ const Consultation = () => {
     if (Object.keys(userInfo).length > 1) {
       if (userInfo.joined) {
         fetchThreadList();
+        getProvinceList();
+        if (region) {
+          getCityList();
+        }
       } else {
         snackbar.error("Claim key terlebih dahulu");
         navigate("/komunitas");
@@ -75,6 +109,18 @@ const Consultation = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userInfo]);
+
+  useEffect(() => {
+    getCityList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [provinceId]);
+
+  useEffect(() => {
+    if (userInfo.joined) {
+      fetchThreadList();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [region]);
 
   return (
     <div className="py-28 px-8 flex gap-x-6 max-w-screen-2xl mx-auto w-full">
@@ -183,7 +229,37 @@ const Consultation = () => {
         <h3 className="font-lg font-bold mb-2">
           Pilih Informasi berdasarkan Wilayah
         </h3>
-        <CardCollapse />
+        <CardCollapse
+          title="Provinsi"
+          onChange={(e) => {
+            navigate(
+              `${pathname}?${qs.stringify({ provinceId: e.target.value })}`
+            );
+          }}
+          choices={provinces.map((province) => ({
+            label: province.nama,
+            value: province.id.toString(),
+          }))}
+          name="provinsi"
+          value={provinceId?.toString() || ""}
+        />
+        <CardCollapse
+          title="Kota"
+          onChange={(e) => {
+            navigate(
+              `${pathname}?${qs.stringify({
+                ...qs.parse(search),
+                region: e.target.value,
+              })}`
+            );
+          }}
+          choices={cities.map((city) => ({
+            label: city.nama,
+            value: city.nama,
+          }))}
+          name="kota"
+          value={region?.toString() || ""}
+        />
       </div>
     </div>
   );

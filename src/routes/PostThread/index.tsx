@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import qs from "query-string";
 
 import Button from "../../components/Button";
 import CardCollapse from "../../components/CardCollapse";
 import Input from "../../components/Input";
 import Thread from "../../components/Thread";
 import Modal from "../../components/Modal";
+import { SkeletonThread } from "../../components/Skeleton";
 import { HandIcon, KeyIcon } from "@heroicons/react/outline";
 
 import { useUserContext } from "../../context/UserContext";
@@ -20,9 +22,10 @@ import {
   joinConsultation,
   postNewThreadCommunity,
 } from "../../models/thread";
+import { getCities, getProvinces } from "../../models/location";
 
 import { Thread as ThreadEntity } from "../../types/entities/thread";
-import { SkeletonThread } from "../../components/Skeleton";
+import { City, Province } from "../../types/entities/location";
 
 const skeletons = [...Array(6)].map((_, idx) => <SkeletonThread key={idx} />);
 
@@ -36,17 +39,27 @@ const PostThread = () => {
   const [isModalConsultationShown, showPopupJoinConsultation] =
     useState<boolean>(false);
   const [isFetchingThread, setIsFetchingThread] = useState<boolean>(false);
+  const [provinces, setProvinces] = useState<Array<Province>>([]);
+  const [cities, setCities] = useState<Array<City>>([]);
 
   const { userInfo, setUserInfo } = useUserContext();
   const { handleError } = useError();
   const snackbar = useSnackbar();
   const { openModal } = useModalContext();
   const navigate = useNavigate();
+  const { search, pathname } = useLocation();
+  const { region, provinceId } = qs.parse(search);
 
   const fetchThreadList = async () => {
     try {
       setIsFetchingThread(true);
-      const { data } = await getAllCommunityThreads("offset=0&limit=10");
+      const { data } = await getAllCommunityThreads(
+        qs.stringify({
+          offset: 0,
+          limit: 20,
+          region: qs.parse(search)["region"],
+        })
+      );
       if (data.data) {
         setThreadList(data.data.posts);
       }
@@ -54,6 +67,25 @@ const PostThread = () => {
       handleError(error);
     } finally {
       setIsFetchingThread(false);
+    }
+  };
+
+  const getProvinceList = async () => {
+    try {
+      const { data } = await getProvinces();
+      setProvinces(data.provinsi);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getCityList = async () => {
+    try {
+      const selectedProvinceId = qs.parse(search)["provinceId"]?.toString();
+      const { data } = await getCities(selectedProvinceId || "");
+      setCities(data.kota_kabupaten);
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -112,7 +144,21 @@ const PostThread = () => {
 
   useEffectOnce(() => {
     fetchThreadList();
+    getProvinceList();
+    if (region) {
+      getCityList();
+    }
   });
+
+  useEffect(() => {
+    getCityList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [provinceId]);
+
+  useEffect(() => {
+    fetchThreadList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [region]);
 
   return (
     <div className="py-28 px-8 flex gap-x-6 max-w-screen-2xl mx-auto w-full">
@@ -221,11 +267,11 @@ const PostThread = () => {
           </Button>
         </div>
       </div>
-      <div className="flex-1 xl:shadow-lg ">
+      <div className="flex-1 xl:shadow-lg max-w-4xl mx-auto">
         <h1 className="text-2xl font-semibold text-center pb-2 border-b-[1px] border-black mb-4 xl:hidden">
           Halaman Komunitas
         </h1>
-        <div className="flex gap-x-2 my-2 xl:hidden max-w-3xl mx-auto">
+        <div className="flex gap-x-2 my-2 xl:hidden">
           <div className="flex-shrink-0">
             <img
               src="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/shawn_mendes-rev1.jpg"
@@ -298,11 +344,11 @@ const PostThread = () => {
             </div>
           </div>
         )}
-        <div className="py-4">
+        <div className="py-4 min-h-full relative">
           {isFetchingThread ? (
             skeletons
           ) : threadList.length === 0 ? (
-            <div className="min-h-[200px] flex justify-center items-center">
+            <div className="flex justify-center items-center  absolute left-0 right-0 bottom-0 top-0">
               Belum ada postingan
             </div>
           ) : (
@@ -321,11 +367,41 @@ const PostThread = () => {
           )}
         </div>
       </div>
-      <div className="flex-none w-80 hidden xl:block">
-        <h3 className="font-lg font-bold mb-2">
+      <div className="flex-none w-80 hidden xl:block space-y-2">
+        <h3 className="font-lg font-bold">
           Pilih Informasi berdasarkan Wilayah
         </h3>
-        <CardCollapse />
+        <CardCollapse
+          title="Provinsi"
+          onChange={(e) => {
+            navigate(
+              `${pathname}?${qs.stringify({ provinceId: e.target.value })}`
+            );
+          }}
+          choices={provinces.map((province) => ({
+            label: province.nama,
+            value: province.id.toString(),
+          }))}
+          name="provinsi"
+          value={provinceId?.toString() || ""}
+        />
+        <CardCollapse
+          title="Kota"
+          onChange={(e) => {
+            navigate(
+              `${pathname}?${qs.stringify({
+                ...qs.parse(search),
+                region: e.target.value,
+              })}`
+            );
+          }}
+          choices={cities.map((city) => ({
+            label: city.nama,
+            value: city.nama,
+          }))}
+          name="kota"
+          value={region?.toString() || ""}
+        />
       </div>
     </div>
   );
