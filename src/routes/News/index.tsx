@@ -6,6 +6,7 @@ import Card from "../../components/Card";
 import AgendaCard from "../../components/AgendaCard";
 import NewsModal from "../../components/NewsModal";
 import VideoModal from "../../components/VideoModal";
+import { SkeletonAgenda } from "../../components/Skeleton";
 import { ChevronRightIcon } from "@heroicons/react/outline";
 
 import { getNewsList } from "../../models/news";
@@ -120,7 +121,7 @@ const News = () => {
         </div>
         <div className="mt-4 grid grid-cols-12 gap-5">
           {isFetching
-            ? [...Array(3)].map((_, idx) => <AgendaCard loading key={idx} />)
+            ? [...Array(3)].map((_, idx) => <SkeletonAgenda key={idx} />)
             : agendaList.map((agenda) => (
                 <AgendaCard
                   title={agenda.name}

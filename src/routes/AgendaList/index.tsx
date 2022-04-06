@@ -12,6 +12,9 @@ import useError from "../../hooks/useError";
 import { getAgendaList } from "../../models/agenda";
 
 import { Agenda } from "../../types/entities/agenda";
+import { SkeletonAgenda } from "../../components/Skeleton";
+
+const skeletons = [...Array(9)].map((_, idx) => <SkeletonAgenda key={idx} />);
 
 const AgendaList = () => {
   const [agendaList, setAgendaList] = useState<Agenda[]>([]);
@@ -53,7 +56,7 @@ const AgendaList = () => {
       />
       <div className="mt-4 mb-6 grid grid-cols-12 gap-5">
         {isFetchingAgenda
-          ? [...Array(9)].map((_, idx) => <AgendaCard loading key={idx} />)
+          ? skeletons
           : agendaList.map((agenda) => (
               <AgendaCard
                 title={agenda.name}

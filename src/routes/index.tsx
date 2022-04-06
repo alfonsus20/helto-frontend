@@ -46,7 +46,6 @@ const RouteList = () => {
         <Route path="/deteksi-penyakit" element={<DiseaseDetection />} />
         <Route path="/komunitas" element={<PostThread />} />
         <Route path="/konsultasi" element={<Consultation />} />
-        <Route path="/konsultasi/:key" element={<Consultation />} />
       </Route>
       <Route element={<AdminRoute />}>
         <Route path="/admin" element={<Navigate to="/admin/tips-dan-trik" />} />
