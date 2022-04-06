@@ -6,6 +6,7 @@ import Header from "../../components/Header";
 import WideCard from "../../components/WideCard";
 import NewsModal from "../../components/NewsModal";
 import Search from "../../components/Search";
+import { SkeletonWideCard } from "../../components/Skeleton";
 
 import useError from "../../hooks/useError";
 import { useModalContext } from "../../context/ModalContext";
@@ -18,8 +19,7 @@ import { getImageURL } from "../../utils/helper";
 import Pagination from "../../components/Pagination";
 
 const wideCardSkeleton = [...Array(9)].map((_, idx) => (
-  <WideCard
-    loading
+  <SkeletonWideCard
     key={idx}
     className="col-span-12 xs:col-span-6 lg:col-span-4"
   />

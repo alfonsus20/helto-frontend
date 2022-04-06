@@ -16,9 +16,10 @@ import { getTipsAndTrickList } from "../../models/tipsAndTrick";
 import { TipsAndTrick as TipsAndTrickEntity } from "../../types/entities/tipsAndTrick";
 
 import { getImageURL } from "../../utils/helper";
+import { SkeletonWideCard } from "../../components/Skeleton";
 
-const wideCardSkeleton = [...Array(3)].map((_, idx) => (
-  <WideCard loading key={idx} />
+const wideCardSkeleton = [...Array(4)].map((_, idx) => (
+  <SkeletonWideCard key={idx} />
 ));
 
 const TipsAndTrick = () => {
@@ -87,7 +88,8 @@ const TipsAndTrick = () => {
                 <img
                   src={getImageURL(tipsAndTrickList[0].image)}
                   alt="kentang"
-                  className="w-full h-60 xs:h-80 sm:h-full object-cover object-center"
+                  className="w-full h-60 xs:h-80 sm:h-full object-cover object-center cursor-pointer"
+                  onClick={() => handleViewDetail(tipsAndTrickList[0].id)}
                 />
                 <div className="bg-black bg-opacity-70 absolute bottom-0 w-full p-4 text-white">
                   <h3 className="text-xl font-bold mb-2">

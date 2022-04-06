@@ -6,6 +6,7 @@ import WideCard from "../../components/WideCard";
 import Carousel from "./components/Carousel";
 import NewsModal from "../../components/NewsModal";
 import ProgramCarousel from "./components/ProgramCarousel";
+import { SkeletonWideCard } from "../../components/Skeleton";
 import { UserGroupIcon, ViewGridIcon } from "@heroicons/react/solid";
 
 import LandingPageBg from "../../images/landing-page.webp";
@@ -165,7 +166,7 @@ const Home = () => {
           )}
           <div className="w-full md:w-1/2 flex flex-col gap-4">
             {isFetchingNews
-              ? [...Array(3)].map((_, idx) => <WideCard loading key={idx} />)
+              ? [...Array(3)].map((_, idx) => <SkeletonWideCard key={idx} />)
               : newsList
                   .slice(1, 4)
                   .map((news) => (
