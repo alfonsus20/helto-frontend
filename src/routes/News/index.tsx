@@ -6,7 +6,7 @@ import Card from "../../components/Card";
 import AgendaCard from "../../components/AgendaCard";
 import NewsModal from "../../components/NewsModal";
 import VideoModal from "../../components/VideoModal";
-import { SkeletonAgenda } from "../../components/Skeleton";
+import { SkeletonAgenda, SkeletonCard } from "../../components/Skeleton";
 import { ChevronRightIcon } from "@heroicons/react/outline";
 
 import { getNewsList } from "../../models/news";
@@ -98,7 +98,7 @@ const News = () => {
         </div>
         <div className="mt-4 grid grid-cols-12 gap-5">
           {isFetching
-            ? [...Array(4)].map((_, idx) => <Card loading key={idx} />)
+            ? [...Array(4)].map((_, idx) => <SkeletonCard key={idx} />)
             : newsList.map((news) => (
                 <Card
                   description={news.content}
@@ -143,7 +143,7 @@ const News = () => {
         </div>
         <div className="mt-4 grid grid-cols-12 gap-5">
           {isFetching
-            ? [...Array(4)].map((_, idx) => <Card loading key={idx} />)
+            ? [...Array(4)].map((_, idx) => <SkeletonCard key={idx} />)
             : mediaList.map((media) => (
                 <Card
                   description={media.description}

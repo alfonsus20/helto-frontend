@@ -6,6 +6,7 @@ import Card from "../../components/Card";
 import Header from "../../components/Header";
 import Search from "../../components/Search";
 import NewsModal from "../../components/NewsModal";
+import { SkeletonCard } from "../../components/Skeleton";
 
 import useError from "../../hooks/useError";
 import { useModalContext } from "../../context/ModalContext";
@@ -69,7 +70,7 @@ const NewsList = () => {
       />
       <div className="mt-4 grid grid-cols-12 gap-5 mb-6">
         {isFetchingNews
-          ? [...Array(8)].map((_, idx) => <Card loading key={idx} />)
+          ? [...Array(8)].map((_, idx) => <SkeletonCard key={idx} />)
           : newsList.map((news) => (
               <Card
                 description={news.title}
