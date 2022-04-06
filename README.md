@@ -3,20 +3,28 @@
 ## Installation Guide
 To install on your local machine, type
 
-`yarn`
+```
+yarn
+```
 
 or
 
-`npm install`
+```
+npm install
+```
 
 
 To run this project on your local machine, type
 
-`yarn start`
+```
+yarn start
+```
 
 or
 
-`npm start`
+```
+npm start
+```
 
 ## Tech Stack
 - React
