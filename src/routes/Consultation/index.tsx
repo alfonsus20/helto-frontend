@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import CardCollapse from "../../components/CardCollapse";
 import Input from "../../components/Input";
+import { SkeletonThread } from "../../components/Skeleton";
 import Thread from "../../components/Thread";
 
 import { useUserContext } from "../../context/UserContext";
@@ -17,10 +18,13 @@ import {
 
 import { Thread as ThreadEntity } from "../../types/entities/thread";
 
+const skeletons = [...Array(6)].map((_, idx) => <SkeletonThread key={idx} />);
+
 const Consultation = () => {
   const [threadList, setThreadList] = useState<Array<ThreadEntity>>([]);
   const [newThread, setNewThread] = useState<string>("");
   const [isPostingNewThread, setIsPostingNewThread] = useState<boolean>(false);
+  const [isFetchingThread, setIsFetchingThread] = useState<boolean>(false);
 
   const snackbar = useSnackbar();
   const { userInfo } = useUserContext();
@@ -29,15 +33,18 @@ const Consultation = () => {
 
   const fetchThreadList = async () => {
     try {
+      setIsFetchingThread(true);
       const { data } = await getAllPrivateThreads(
         userInfo.thread?.key!,
-        "offset=0&limit=100"
+        "offset=0&limit=10"
       );
       if (data.data) {
         setThreadList(data.data.posts);
       }
     } catch (error) {
       handleError(error);
+    } finally {
+      setIsFetchingThread(false);
     }
   };
 
@@ -66,6 +73,7 @@ const Consultation = () => {
         navigate("/komunitas");
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userInfo]);
 
   return (
@@ -149,8 +157,12 @@ const Consultation = () => {
           </div>
         </div>
         <div className="xl:shadow-lg py-4">
-          {threadList.length === 0 ? (
-            <div className="p-4">Belum ada postingan</div>
+          {isFetchingThread ? (
+            skeletons
+          ) : threadList.length === 0 ? (
+            <div className="min-h-[200px] flex justify-center items-center">
+              Belum ada postingan
+            </div>
           ) : (
             threadList.map((thread) => (
               <Thread
@@ -158,7 +170,6 @@ const Consultation = () => {
                 key={thread.id}
                 userName={thread.author.username}
                 content={thread.content}
-                datetime={thread.createdAt}
                 likeCount={thread.likesCount}
                 commentCount={thread.replyCount}
                 createdAt={thread.createdAt}

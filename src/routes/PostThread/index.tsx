@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Button from "../../components/Button";
 import CardCollapse from "../../components/CardCollapse";
@@ -22,6 +22,9 @@ import {
 } from "../../models/thread";
 
 import { Thread as ThreadEntity } from "../../types/entities/thread";
+import { SkeletonThread } from "../../components/Skeleton";
+
+const skeletons = [...Array(6)].map((_, idx) => <SkeletonThread key={idx} />);
 
 const PostThread = () => {
   const [threadList, setThreadList] = useState<Array<ThreadEntity>>([]);
@@ -32,8 +35,8 @@ const PostThread = () => {
   const [inputKey, setInputKey] = useState<string>("");
   const [isModalConsultationShown, showPopupJoinConsultation] =
     useState<boolean>(false);
+  const [isFetchingThread, setIsFetchingThread] = useState<boolean>(false);
 
-  const { pathname } = useLocation();
   const { userInfo, setUserInfo } = useUserContext();
   const { handleError } = useError();
   const snackbar = useSnackbar();
@@ -42,12 +45,15 @@ const PostThread = () => {
 
   const fetchThreadList = async () => {
     try {
-      const { data } = await getAllCommunityThreads("offset=0&limit=100");
+      setIsFetchingThread(true);
+      const { data } = await getAllCommunityThreads("offset=0&limit=10");
       if (data.data) {
         setThreadList(data.data.posts);
       }
     } catch (error) {
       handleError(error);
+    } finally {
+      setIsFetchingThread(false);
     }
   };
 
@@ -132,7 +138,7 @@ const PostThread = () => {
           </div>
         </form>
       </Modal>
-      <div className="flex-none w-80 hidden xl:flex flex-col min-h-[600px]">
+      <div className="flex-none w-80 hidden xl:flex flex-col">
         <h1 className="text-2xl font-semibold text-center pb-2 border-b-[1px] border-black mb-4">
           Halaman Komunitas
         </h1>
@@ -210,15 +216,8 @@ const PostThread = () => {
           </>
         )}
         <div className="flex justify-center mt-auto">
-          <Button
-            shape="rounded"
-            pathname={
-              pathname === "/konsultasi"
-                ? "komunitas"
-                : `konsultasi/${userInfo.thread?.key || ""}`
-            }
-          >
-            Halaman {pathname === "/konsultasi" ? "Komunitas" : "Konsultasi"}
+          <Button shape="rounded" pathname="konsultasi">
+            Halaman Konsultasi
           </Button>
         </div>
       </div>
@@ -299,9 +298,13 @@ const PostThread = () => {
             </div>
           </div>
         )}
-        <div className="xl:shadow-lg py-4">
-          {threadList.length === 0 ? (
-            <div className="p-4">Belum ada postingan</div>
+        <div className="py-4">
+          {isFetchingThread ? (
+            skeletons
+          ) : threadList.length === 0 ? (
+            <div className="min-h-[200px] flex justify-center items-center">
+              Belum ada postingan
+            </div>
           ) : (
             threadList.map((thread) => (
               <Thread
@@ -309,7 +312,6 @@ const PostThread = () => {
                 key={thread.id}
                 userName={thread.author.username}
                 content={thread.content}
-                datetime={thread.createdAt}
                 likeCount={thread.likesCount}
                 commentCount={thread.replyCount}
                 createdAt={thread.createdAt}

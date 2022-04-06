@@ -11,7 +11,7 @@ import {
 
 export const getAllCommunityThreads = (
   params?: string
-): AxiosPromise<APIResponse<{ posts: Array<Thread> }>> => {
+): AxiosPromise<APIResponse<{ posts: Array<Thread>; totalData: number }>> => {
   return coreAPI.get(`/post/community?${params}`);
 };
 

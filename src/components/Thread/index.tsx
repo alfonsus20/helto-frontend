@@ -25,7 +25,6 @@ type ThreadProps = {
   id: number;
   userName: string;
   content: string;
-  datetime: string;
   likeCount: number;
   commentCount: number;
   handleLike?: () => void;
@@ -39,7 +38,6 @@ const Thread = ({
   id,
   userName,
   content,
-  datetime,
   likeCount,
   commentCount,
   className,
