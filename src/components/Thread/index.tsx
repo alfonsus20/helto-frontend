@@ -106,7 +106,7 @@ const Thread = ({
   return (
     <div
       className={classNames(
-        "py-2 lg:px-8 flex gap-x-4 lg:gap-x-2 mx-auto max-w-3xl",
+        "py-2 xl:px-8 flex gap-x-4 lg:gap-x-2",
         className
       )}
     >
