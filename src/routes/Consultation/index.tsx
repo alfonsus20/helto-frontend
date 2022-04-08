@@ -1,31 +1,31 @@
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import qs from "query-string";
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import qs from 'query-string';
 
-import Button from "../../components/Button";
-import CardCollapse from "../../components/CardCollapse";
-import Input from "../../components/Input";
-import Thread from "../../components/Thread";
-import { SkeletonThread } from "../../components/Skeleton";
+import Button from '../../components/Button';
+import CardCollapse from '../../components/CardCollapse';
+import Input from '../../components/Input';
+import Thread from '../../components/Thread';
+import { SkeletonThread } from '../../components/Skeleton';
 
-import { useUserContext } from "../../context/UserContext";
-import useError from "../../hooks/useError";
-import useSnackbar from "../../hooks/useSnackbar";
+import { useUserContext } from '../../context/UserContext';
+import useError from '../../hooks/useError';
+import useSnackbar from '../../hooks/useSnackbar';
 
 import {
   getAllPrivateThreads,
   postNewPrivateThreadCommunity,
-} from "../../models/thread";
-import { getCities, getProvinces } from "../../models/location";
+} from '../../models/thread';
+import { getCities, getProvinces } from '../../models/location';
 
-import { Thread as ThreadEntity } from "../../types/entities/thread";
-import { City, Province } from "../../types/entities/location";
+import { Thread as ThreadEntity } from '../../types/entities/thread';
+import { City, Province } from '../../types/entities/location';
 
 const skeletons = [...Array(6)].map((_, idx) => <SkeletonThread key={idx} />);
 
 const Consultation = () => {
   const [threadList, setThreadList] = useState<Array<ThreadEntity>>([]);
-  const [newThread, setNewThread] = useState<string>("");
+  const [newThread, setNewThread] = useState<string>('');
   const [isPostingNewThread, setIsPostingNewThread] = useState<boolean>(false);
   const [isFetchingThread, setIsFetchingThread] = useState<boolean>(false);
   const [provinces, setProvinces] = useState<Array<Province>>([]);
@@ -46,7 +46,7 @@ const Consultation = () => {
         qs.stringify({
           offset: 0,
           limit: 20,
-          region: qs.parse(search)["region"],
+          region: qs.parse(search)['region'],
         })
       );
       if (data.data) {
@@ -70,8 +70,8 @@ const Consultation = () => {
 
   const getCityList = async () => {
     try {
-      const selectedProvinceId = qs.parse(search)["provinceId"]?.toString();
-      const { data } = await getCities(selectedProvinceId || "");
+      const selectedProvinceId = qs.parse(search)['provinceId']?.toString();
+      const { data } = await getCities(selectedProvinceId || '');
       setCities(data.kota_kabupaten);
     } catch (err) {
       console.log(err);
@@ -84,8 +84,8 @@ const Consultation = () => {
       await postNewPrivateThreadCommunity(userInfo.thread?.key!, {
         content: newThread,
       });
-      snackbar.success("Postingan berhasil diunggah");
-      setNewThread("");
+      snackbar.success('Postingan berhasil diunggah');
+      setNewThread('');
       fetchThreadList();
     } catch (error) {
       handleError(error);
@@ -103,8 +103,8 @@ const Consultation = () => {
           getCityList();
         }
       } else {
-        snackbar.error("Claim key terlebih dahulu");
-        navigate("/komunitas");
+        snackbar.error('Claim key terlebih dahulu');
+        navigate('/komunitas');
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -142,8 +142,8 @@ const Consultation = () => {
               className="flex-1"
               placeholder={
                 userInfo.name
-                  ? `Apa yang Anda pikirkan ${userInfo.name?.split(" ")[0]}?`
-                  : "Loading..."
+                  ? `Apa yang Anda pikirkan ${userInfo.name?.split(' ')[0]}?`
+                  : 'Loading...'
               }
               fontSize="xs"
               value={newThread}
@@ -166,7 +166,7 @@ const Consultation = () => {
           </Button>
         </div>
       </div>
-      <div className="flex-1">
+      <div className="flex-1 xl:shadow-lg max-w-4xl mx-auto">
         <h1 className="text-2xl font-semibold text-center pb-2 border-b-[1px] border-black mb-4 xl:hidden">
           Halaman Konsultasi
         </h1>
@@ -184,8 +184,8 @@ const Consultation = () => {
               className="my-2"
               placeholder={
                 userInfo.name
-                  ? `Apa yang Anda pikirkan ${userInfo.name?.split(" ")[0]}?`
-                  : "Loading..."
+                  ? `Apa yang Anda pikirkan ${userInfo.name?.split(' ')[0]}?`
+                  : 'Loading...'
               }
               fontSize="xs"
               value={newThread}
@@ -202,11 +202,55 @@ const Consultation = () => {
             </div>
           </div>
         </div>
-        <div className="xl:shadow-lg py-4">
+        <div className="xl:hidden">
+          <h3 className="font-lg font-bold">
+            Pilih Informasi berdasarkan Wilayah
+          </h3>
+          <div className="flex">
+            <div className="w-full">
+              <CardCollapse
+                title="Provinsi"
+                onChange={(e) => {
+                  navigate(
+                    `${pathname}?${qs.stringify({
+                      provinceId: e.target.value,
+                    })}`
+                  );
+                }}
+                choices={provinces.map((province) => ({
+                  label: province.nama,
+                  value: province.id.toString(),
+                }))}
+                name="provinsi"
+                value={provinceId?.toString() || ''}
+              />
+            </div>
+            <div className="w-full">
+              <CardCollapse
+                title="Kota"
+                onChange={(e) => {
+                  navigate(
+                    `${pathname}?${qs.stringify({
+                      ...qs.parse(search),
+                      region: e.target.value,
+                    })}`
+                  );
+                }}
+                choices={cities.map((city) => ({
+                  label: city.nama,
+                  value: city.nama,
+                }))}
+                name="kota"
+                value={region?.toString() || ''}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="py-4 min-h-full relative">
           {isFetchingThread ? (
             skeletons
           ) : threadList.length === 0 ? (
-            <div className="min-h-[200px] flex justify-center items-center">
+            <div className="flex justify-center items-center absolute left-0 right-0 bottom-0 top-0">
               Belum ada postingan
             </div>
           ) : (
@@ -241,7 +285,7 @@ const Consultation = () => {
             value: province.id.toString(),
           }))}
           name="provinsi"
-          value={provinceId?.toString() || ""}
+          value={provinceId?.toString() || ''}
         />
         <CardCollapse
           title="Kota"
@@ -258,7 +302,7 @@ const Consultation = () => {
             value: city.nama,
           }))}
           name="kota"
-          value={region?.toString() || ""}
+          value={region?.toString() || ''}
         />
       </div>
     </div>

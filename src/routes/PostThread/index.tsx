@@ -1,41 +1,41 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import qs from "query-string";
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import qs from 'query-string';
 
-import Button from "../../components/Button";
-import CardCollapse from "../../components/CardCollapse";
-import Input from "../../components/Input";
-import Thread from "../../components/Thread";
-import Modal from "../../components/Modal";
-import { SkeletonThread } from "../../components/Skeleton";
-import { HandIcon, KeyIcon } from "@heroicons/react/outline";
+import Button from '../../components/Button';
+import CardCollapse from '../../components/CardCollapse';
+import Input from '../../components/Input';
+import Thread from '../../components/Thread';
+import Modal from '../../components/Modal';
+import { SkeletonThread } from '../../components/Skeleton';
+import { HandIcon, KeyIcon } from '@heroicons/react/outline';
 
-import { useUserContext } from "../../context/UserContext";
-import { useModalContext } from "../../context/ModalContext";
-import useEffectOnce from "../../hooks/useEffectOnce";
-import useError from "../../hooks/useError";
-import useSnackbar from "../../hooks/useSnackbar";
+import { useUserContext } from '../../context/UserContext';
+import { useModalContext } from '../../context/ModalContext';
+import useEffectOnce from '../../hooks/useEffectOnce';
+import useError from '../../hooks/useError';
+import useSnackbar from '../../hooks/useSnackbar';
 
 import {
   claimKey,
   getAllCommunityThreads,
   joinConsultation,
   postNewThreadCommunity,
-} from "../../models/thread";
-import { getCities, getProvinces } from "../../models/location";
+} from '../../models/thread';
+import { getCities, getProvinces } from '../../models/location';
 
-import { Thread as ThreadEntity } from "../../types/entities/thread";
-import { City, Province } from "../../types/entities/location";
+import { Thread as ThreadEntity } from '../../types/entities/thread';
+import { City, Province } from '../../types/entities/location';
 
 const skeletons = [...Array(6)].map((_, idx) => <SkeletonThread key={idx} />);
 
 const PostThread = () => {
   const [threadList, setThreadList] = useState<Array<ThreadEntity>>([]);
-  const [newThread, setNewThread] = useState<string>("");
+  const [newThread, setNewThread] = useState<string>('');
   const [isPostingNewThread, setIsPostingNewThread] = useState<boolean>(false);
   const [isJoiningColsultation, setIsJoiningConsultation] =
     useState<boolean>(false);
-  const [inputKey, setInputKey] = useState<string>("");
+  const [inputKey, setInputKey] = useState<string>('');
   const [isModalConsultationShown, showPopupJoinConsultation] =
     useState<boolean>(false);
   const [isFetchingThread, setIsFetchingThread] = useState<boolean>(false);
@@ -57,7 +57,7 @@ const PostThread = () => {
         qs.stringify({
           offset: 0,
           limit: 20,
-          region: qs.parse(search)["region"],
+          region: qs.parse(search)['region'],
         })
       );
       if (data.data) {
@@ -81,8 +81,8 @@ const PostThread = () => {
 
   const getCityList = async () => {
     try {
-      const selectedProvinceId = qs.parse(search)["provinceId"]?.toString();
-      const { data } = await getCities(selectedProvinceId || "");
+      const selectedProvinceId = qs.parse(search)['provinceId']?.toString();
+      const { data } = await getCities(selectedProvinceId || '');
       setCities(data.kota_kabupaten);
     } catch (err) {
       console.log(err);
@@ -93,8 +93,8 @@ const PostThread = () => {
     try {
       setIsPostingNewThread(true);
       await postNewThreadCommunity({ content: newThread });
-      snackbar.success("Postingan berhasil diunggah");
-      setNewThread("");
+      snackbar.success('Postingan berhasil diunggah');
+      setNewThread('');
       fetchThreadList();
     } catch (error) {
       handleError(error);
@@ -109,7 +109,7 @@ const PostThread = () => {
       setIsJoiningConsultation(true);
       const { data } = await joinConsultation(inputKey);
       if (data.data) {
-        snackbar.success("Berhasil bergabung");
+        snackbar.success('Berhasil bergabung');
         setUserInfo({
           ...userInfo,
           thread: { key: data.data.thread.key },
@@ -202,8 +202,8 @@ const PostThread = () => {
               className="flex-1"
               placeholder={
                 userInfo.name
-                  ? `Apa yang Anda pikirkan ${userInfo.name?.split(" ")[0]}?`
-                  : "Loading..."
+                  ? `Apa yang Anda pikirkan ${userInfo.name?.split(' ')[0]}?`
+                  : 'Loading...'
               }
               fontSize="xs"
               value={newThread}
@@ -285,8 +285,8 @@ const PostThread = () => {
               className="my-2"
               placeholder={
                 userInfo.name
-                  ? `Apa yang Anda pikirkan ${userInfo.name?.split(" ")[0]}?`
-                  : "Loading..."
+                  ? `Apa yang Anda pikirkan ${userInfo.name?.split(' ')[0]}?`
+                  : 'Loading...'
               }
               fontSize="xs"
               value={newThread}
@@ -303,8 +303,52 @@ const PostThread = () => {
             </div>
           </div>
         </div>
+        <div className='xl:hidden'>
+          <h3 className="font-lg font-bold">
+            Pilih Informasi berdasarkan Wilayah
+          </h3>
+          <div className="flex">
+            <div className='w-full'>
+              <CardCollapse
+                title="Provinsi"
+                onChange={(e) => {
+                  navigate(
+                    `${pathname}?${qs.stringify({
+                      provinceId: e.target.value,
+                    })}`
+                  );
+                }}
+                choices={provinces.map((province) => ({
+                  label: province.nama,
+                  value: province.id.toString(),
+                }))}
+                name="provinsi"
+                value={provinceId?.toString() || ''}
+              />
+            </div>
+            <div className='w-full'>
+              <CardCollapse
+                title="Kota"
+                onChange={(e) => {
+                  navigate(
+                    `${pathname}?${qs.stringify({
+                      ...qs.parse(search),
+                      region: e.target.value,
+                    })}`
+                  );
+                }}
+                choices={cities.map((city) => ({
+                  label: city.nama,
+                  value: city.nama,
+                }))}
+                name="kota"
+                value={region?.toString() || ''}
+              />
+            </div>
+          </div>
+        </div>
         {userInfo.name && !userInfo.joined && (
-          <div className="xl:hidden max-w-3xl mx-auto">
+          <div className="xl:hidden mx-auto">
             <div className="shadow-md p-4 mb-4">
               <div className="flex gap-x-2">
                 <div className="flex-shrink-0 pt-1">
@@ -383,7 +427,7 @@ const PostThread = () => {
             value: province.id.toString(),
           }))}
           name="provinsi"
-          value={provinceId?.toString() || ""}
+          value={provinceId?.toString() || ''}
         />
         <CardCollapse
           title="Kota"
@@ -400,7 +444,7 @@ const PostThread = () => {
             value: city.nama,
           }))}
           name="kota"
-          value={region?.toString() || ""}
+          value={region?.toString() || ''}
         />
       </div>
     </div>

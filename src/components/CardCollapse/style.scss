@@ -1,7 +1,7 @@
 @tailwind components;
 
 .card-collapse {
-  @apply px-4 py-2 rounded-lg border-2 border-transparent shadow-md;
+  @apply px-4 py-2 rounded-lg border-2 border-transparent shadow-md w-full;
 
   &__title {
     @apply flex py-2 justify-between items-center cursor-pointer;
