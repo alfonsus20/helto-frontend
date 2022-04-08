@@ -411,7 +411,7 @@ const PostThread = () => {
           )}
         </div>
       </div>
-      <div className="flex-none w-80 hidden xl:block space-y-2">
+      <div className="flex-none w-80 hidden xl:block space-y-2 min-h-[600px]">
         <h3 className="font-lg font-bold">
           Pilih Informasi berdasarkan Wilayah
         </h3>
