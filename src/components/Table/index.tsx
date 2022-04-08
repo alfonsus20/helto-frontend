@@ -26,13 +26,14 @@ type TableData<T extends Object> = {
 
 type TableProps<T> = {
   body: TableData<T>;
-  deleteFunc: (id: number) => AxiosPromise;
+  deleteFunc?: (id: number) => AxiosPromise;
   data: (T & {
     id: number;
   })[];
   searchPlaceholder: string;
   fetchFunc: () => void;
   totalData: number;
+  noActions?: boolean;
 };
 
 const Table = <T extends Object>({
@@ -42,6 +43,7 @@ const Table = <T extends Object>({
   data,
   searchPlaceholder,
   totalData,
+  noActions = false,
 }: TableProps<T>) => {
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [isModalShown, setIsModalShown] = useState<boolean>(false);
@@ -60,7 +62,9 @@ const Table = <T extends Object>({
   const handleDelete = async (id: number) => {
     try {
       setIsDeleting(true);
-      await deleteFunc(id);
+      if (deleteFunc) {
+        await deleteFunc(id);
+      }
       snackbar.success("Data berhasil dihapus");
       fetchFunc();
     } catch (error) {
@@ -113,9 +117,14 @@ const Table = <T extends Object>({
           fetchFunc={fetchFunc}
           className="max-w-xs"
         />
-        <Button shape="rounded" onClick={() => navigate(`${pathname}/tambah`)}>
-          Tambah
-        </Button>
+        {!noActions && (
+          <Button
+            shape="rounded"
+            onClick={() => navigate(`${pathname}/tambah`)}
+          >
+            Tambah
+          </Button>
+        )}
       </div>
       <div className="w-full overflow-x-auto mb-6">
         <table className="w-full">
@@ -129,7 +138,7 @@ const Table = <T extends Object>({
                     {body[keyBody as keyof T].title}
                   </td>
                 ))}
-              <td className="px-3 py-4">Aksi</td>
+              {!noActions && <td className="px-3 py-4">Aksi</td>}
             </tr>
           </thead>
           <tbody>
@@ -169,22 +178,26 @@ const Table = <T extends Object>({
                       </td>
                     );
                   })}
-                <td className="flex gap-x-2">
-                  <Button
-                    appearance="edit"
-                    shape="rounded"
-                    onClick={() => navigate(`${pathname}/${entryData.id}/edit`)}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    appearance="delete"
-                    shape="rounded"
-                    onClick={() => showModal(entryData.id)}
-                  >
-                    Hapus
-                  </Button>
-                </td>
+                {!noActions && (
+                  <td className="flex gap-x-2">
+                    <Button
+                      appearance="edit"
+                      shape="rounded"
+                      onClick={() =>
+                        navigate(`${pathname}/${entryData.id}/edit`)
+                      }
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      appearance="delete"
+                      shape="rounded"
+                      onClick={() => showModal(entryData.id)}
+                    >
+                      Hapus
+                    </Button>
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>

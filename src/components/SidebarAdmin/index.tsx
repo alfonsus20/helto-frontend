@@ -1,14 +1,15 @@
 import { Link } from "react-router-dom";
 import HamburgerMenu from "react-hamburger-menu";
+import classNames from "classnames";
+
 import {
   CalendarIcon,
+  ChatAltIcon,
   LogoutIcon,
   NewspaperIcon,
   SearchIcon,
   VideoCameraIcon,
 } from "@heroicons/react/outline";
-import classNames from "classnames";
-
 import Logo from "../../images/logo.png";
 
 import { useSidebarContext } from "../../context/SidebarContext";
@@ -81,6 +82,16 @@ const SidebarAdmin = () => {
             <VideoCameraIcon className="w-5 h-5" />
           </div>
           <div className="flex-auto">Media</div>
+        </Link>
+        <Link
+          to="/admin/feedback"
+          className="flex p-4 gap-x-4 items-center  rounded-lg hover:bg-brown-500 hover:text-white"
+          onClick={toogleIsOpened}
+        >
+          <div className="flex-none">
+            <ChatAltIcon className="w-5 h-5" />
+          </div>
+          <div className="flex-auto">Feedback</div>
         </Link>
         <button
           className="flex p-4 gap-x-4 mt-auto items-center rounded-lg hover:bg-brown-500 hover:text-white mx-auto mb-4"

@@ -170,7 +170,7 @@ const Consultation = () => {
         <h1 className="text-2xl font-semibold text-center pb-2 border-b-[1px] border-black mb-4 xl:hidden">
           Halaman Konsultasi
         </h1>
-        <div className="flex gap-x-2 my-2 xl:hidden max-w-3xl mx-auto">
+        <div className="flex gap-x-2 my-2 xl:hidden">
           <div className="flex-shrink-0">
             <img
               src="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/shawn_mendes-rev1.jpg"

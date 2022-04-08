@@ -5,6 +5,7 @@ import AuthRoute from "../components/AuthRoute";
 import ProtectedRoute from "../components/ProtectedRoute";
 import AdminAgenda from "./Admin/Agenda";
 import FormAgenda from "./Admin/Agenda/form";
+import AdminFeedback from "./Admin/Feedback";
 import AdminMedia from "./Admin/Media";
 import FormMedia from "./Admin/Media/form";
 import AdminNews from "./Admin/News";
@@ -50,6 +51,7 @@ const RouteList = () => {
       <Route element={<AdminRoute />}>
         <Route path="/admin" element={<Navigate to="/admin/tips-dan-trik" />} />
         <Route path="/admin/tips-dan-trik" element={<AdminTipsAndTrick />} />
+        <Route path="/admin/feedback" element={<AdminFeedback />} />
         <Route
           path="/admin/tips-dan-trik/tambah"
           element={<FormTipsAndTrik />}
