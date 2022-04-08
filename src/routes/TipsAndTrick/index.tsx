@@ -79,7 +79,7 @@ const TipsAndTrick = () => {
         <div className="grid grid-cols-12 mx-auto max-w-7xl gap-4">
           <div
             className={classNames(
-              "col-span-12 sm:col-span-5 lg:col-span-4 relative min-h-[15rem] sm:min-h-[25rem]",
+              "col-span-12 sm:col-span-5 lg:col-span-4 relative min-h-[15rem] sm:min-h-[30rem]",
               { "animate-pulse bg-slate-200": isFetchingTipsAndTrick }
             )}
           >
@@ -88,7 +88,7 @@ const TipsAndTrick = () => {
                 <img
                   src={getImageURL(tipsAndTrickList[0].image)}
                   alt="kentang"
-                  className="w-full h-60 xs:h-80 sm:h-full object-cover object-center cursor-pointer"
+                  className="w-full h-80 sm:h-full object-cover object-center cursor-pointer"
                   onClick={() => handleViewDetail(tipsAndTrickList[0].id)}
                 />
                 <div className="bg-black bg-opacity-70 absolute bottom-0 w-full p-4 text-white">
