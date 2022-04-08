@@ -125,7 +125,7 @@ const News = () => {
             : agendaList.map((agenda) => (
                 <AgendaCard
                   title={agenda.name}
-                  datetime={agenda.UpdatedAt}
+                  datetime={agenda.date}
                   key={agenda.id}
                 />
               ))}

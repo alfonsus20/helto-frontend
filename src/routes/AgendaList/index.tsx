@@ -61,7 +61,7 @@ const AgendaList = () => {
               <AgendaCard
                 title={agenda.name}
                 key={agenda.id}
-                datetime={agenda.UpdatedAt}
+                datetime={agenda.date}
               />
             ))}
       </div>
