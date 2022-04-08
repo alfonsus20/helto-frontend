@@ -105,7 +105,10 @@ const DiseaseDetection = () => {
         ) : (
           <div>
             <h4>{result.variant}</h4>
-            <h4>{result.description}</h4>
+            <div
+              className="space-y-2"
+              dangerouslySetInnerHTML={{ __html: result.description }}
+            ></div>
           </div>
         )}
       </div>

@@ -246,7 +246,7 @@ const Consultation = () => {
             </div>
           </div>
         </div>
-        <div className="py-4 min-h-full relative">
+        <div className="py-4  min-h-[200px] md:min-h-full relative">
           {isFetchingThread ? (
             skeletons
           ) : threadList.length === 0 ? (
