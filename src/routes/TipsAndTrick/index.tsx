@@ -95,7 +95,7 @@ const TipsAndTrick = () => {
                   <h3 className="text-xl font-bold mb-2">
                     {tipsAndTrickList[0].title}
                   </h3>
-                  <p>{tipsAndTrickList[0].content}</p>
+                  <p className="line-clamp-3">{tipsAndTrickList[0].content}</p>
                 </div>
               </>
             )}
