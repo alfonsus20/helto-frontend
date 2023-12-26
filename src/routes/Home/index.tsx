@@ -10,6 +10,8 @@ import { SkeletonWideCard } from "../../components/Skeleton";
 import { UserGroupIcon, ViewGridIcon } from "@heroicons/react/solid";
 
 import LandingPageBg from "../../images/landing-page.webp";
+import TipsTrickImg from "../../images/tips_trick.png";
+
 
 import useEffectOnce from "../../hooks/useEffectOnce";
 import useError from "../../hooks/useError";
@@ -90,7 +92,7 @@ const Home = () => {
         <div className="flex flex-col sm:flex-row items-center">
           <div className="sm:w-[60%]">
             <img
-              src="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/tips-trik.webp"
+              src={TipsTrickImg}
               alt="tips n trik"
               className="w-[80%] sm:w-[90%] mx-auto"
             />
