@@ -5,6 +5,8 @@ import {
   UserGroupIcon,DuplicateIcon
 } from "@heroicons/react/solid";
 
+import defaultAvatar from '../images/default-avatar.png'
+
 type Program = {
   icon: React.ReactNode;
   iconBgColor: "pink" | "yellow" | "brown";
@@ -75,3 +77,5 @@ export const MONTHS = [
   "November",
   "Desember",
 ];
+
+export const DEFAULT_AVATAR = defaultAvatar

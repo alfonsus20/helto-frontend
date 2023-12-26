@@ -17,6 +17,7 @@ import {
   replyToThreadCommunity,
 } from "../../models/thread";
 import { ThreadDetail } from "../../types/entities/thread";
+import { DEFAULT_AVATAR } from "../../utils/constants";
 
 dayjs.extend(relativeTime);
 dayjs.locale("id");
@@ -112,7 +113,7 @@ const Thread = ({
     >
       <div className="flex-shrink-0">
         <img
-          src="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/shawn_mendes-rev1.jpg"
+          src={DEFAULT_AVATAR}
           alt="avatar"
           className="w-12 h-12 rounded-full"
         />
@@ -162,7 +163,7 @@ const Thread = ({
           <div className="flex gap-x-2">
             <div className="flex-shrink-0">
               <img
-                src="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/shawn_mendes-rev1.jpg"
+                src={DEFAULT_AVATAR}
                 alt="avatar"
                 className="w-10 h-10 rounded-full"
               />
@@ -209,7 +210,7 @@ const Thread = ({
                         <div className="flex gap-x-2">
                           <div className="flex-shrink-0">
                             <img
-                              src="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/shawn_mendes-rev1.jpg"
+                              src={DEFAULT_AVATAR}
                               alt="avatar"
                               className="w-8 h-8 rounded-full"
                             />

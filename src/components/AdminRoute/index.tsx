@@ -6,6 +6,7 @@ import SidebarAdmin from "../SidebarAdmin";
 import { useUserContext } from "../../context/UserContext";
 import { useSidebarContext } from "../../context/SidebarContext";
 import { LoaderWrapper } from "../../context/LoaderContext";
+import { DEFAULT_AVATAR } from "../../utils/constants";
 
 const AdminRoute = () => {
   const { userInfo, isAuthenticated } = useUserContext();
@@ -33,7 +34,7 @@ const AdminRoute = () => {
             <nav className="flex justify-end mb-4 items-center gap-x-2">
               <div>
                 <img
-                  src="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/shawn_mendes-rev1.jpg"
+                  src={DEFAULT_AVATAR}
                   alt="avatar"
                   className="w-12 h-12 rounded-full"
                 />

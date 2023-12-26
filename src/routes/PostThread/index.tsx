@@ -1,41 +1,42 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import qs from 'query-string';
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import qs from "query-string";
 
-import Button from '../../components/Button';
-import CardCollapse from '../../components/CardCollapse';
-import Input from '../../components/Input';
-import Thread from '../../components/Thread';
-import Modal from '../../components/Modal';
-import { SkeletonThread } from '../../components/Skeleton';
-import { HandIcon, KeyIcon } from '@heroicons/react/outline';
+import Button from "../../components/Button";
+import CardCollapse from "../../components/CardCollapse";
+import Input from "../../components/Input";
+import Thread from "../../components/Thread";
+import Modal from "../../components/Modal";
+import { SkeletonThread } from "../../components/Skeleton";
+import { HandIcon, KeyIcon } from "@heroicons/react/outline";
 
-import { useUserContext } from '../../context/UserContext';
-import { useModalContext } from '../../context/ModalContext';
-import useEffectOnce from '../../hooks/useEffectOnce';
-import useError from '../../hooks/useError';
-import useSnackbar from '../../hooks/useSnackbar';
+import { useUserContext } from "../../context/UserContext";
+import { useModalContext } from "../../context/ModalContext";
+import useEffectOnce from "../../hooks/useEffectOnce";
+import useError from "../../hooks/useError";
+import useSnackbar from "../../hooks/useSnackbar";
 
 import {
   claimKey,
   getAllCommunityThreads,
   joinConsultation,
   postNewThreadCommunity,
-} from '../../models/thread';
-import { getCities, getProvinces } from '../../models/location';
+} from "../../models/thread";
+import { getCities, getProvinces } from "../../models/location";
 
-import { Thread as ThreadEntity } from '../../types/entities/thread';
-import { City, Province } from '../../types/entities/location';
+import { Thread as ThreadEntity } from "../../types/entities/thread";
+import { City, Province } from "../../types/entities/location";
+import { DEFAULT_AVATAR } from "../../utils/constants";
 
 const skeletons = [...Array(6)].map((_, idx) => <SkeletonThread key={idx} />);
 
 const PostThread = () => {
   const [threadList, setThreadList] = useState<Array<ThreadEntity>>([]);
-  const [newThread, setNewThread] = useState<string>('');
+  const [newThread, setNewThread] = useState<string>("");
   const [isPostingNewThread, setIsPostingNewThread] = useState<boolean>(false);
   const [isJoiningColsultation, setIsJoiningConsultation] =
     useState<boolean>(false);
-  const [inputKey, setInputKey] = useState<string>('');
+  const [inputKey, setInputKey] = useState<string>("");
   const [isModalConsultationShown, showPopupJoinConsultation] =
     useState<boolean>(false);
   const [isFetchingThread, setIsFetchingThread] = useState<boolean>(false);
@@ -57,7 +58,7 @@ const PostThread = () => {
         qs.stringify({
           offset: 0,
           limit: 20,
-          region: qs.parse(search)['region'],
+          region: qs.parse(search)["region"],
         })
       );
       if (data.data) {
@@ -81,8 +82,8 @@ const PostThread = () => {
 
   const getCityList = async () => {
     try {
-      const selectedProvinceId = qs.parse(search)['provinceId']?.toString();
-      const { data } = await getCities(selectedProvinceId || '');
+      const selectedProvinceId = qs.parse(search)["provinceId"]?.toString();
+      const { data } = await getCities(selectedProvinceId || "");
       setCities(data.kota_kabupaten);
     } catch (err) {
       console.log(err);
@@ -93,8 +94,8 @@ const PostThread = () => {
     try {
       setIsPostingNewThread(true);
       await postNewThreadCommunity({ content: newThread });
-      snackbar.success('Postingan berhasil diunggah');
-      setNewThread('');
+      snackbar.success("Postingan berhasil diunggah");
+      setNewThread("");
       fetchThreadList();
     } catch (error) {
       handleError(error);
@@ -109,7 +110,7 @@ const PostThread = () => {
       setIsJoiningConsultation(true);
       const { data } = await joinConsultation(inputKey);
       if (data.data) {
-        snackbar.success('Berhasil bergabung');
+        snackbar.success("Berhasil bergabung");
         setUserInfo({
           ...userInfo,
           thread: { key: data.data.thread.key },
@@ -191,7 +192,7 @@ const PostThread = () => {
         <div className="flex gap-x-2 mb-4">
           <div className="flex-shrink-0">
             <img
-              src="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/shawn_mendes-rev1.jpg"
+              src={DEFAULT_AVATAR}
               alt="user"
               className="w-12 h-12 rounded-full"
             />
@@ -202,8 +203,8 @@ const PostThread = () => {
               className="flex-1"
               placeholder={
                 userInfo.name
-                  ? `Apa yang Anda pikirkan ${userInfo.name?.split(' ')[0]}?`
-                  : 'Loading...'
+                  ? `Apa yang Anda pikirkan ${userInfo.name?.split(" ")[0]}?`
+                  : "Loading..."
               }
               fontSize="xs"
               value={newThread}
@@ -274,7 +275,7 @@ const PostThread = () => {
         <div className="flex gap-x-2 my-2 xl:hidden">
           <div className="flex-shrink-0">
             <img
-              src="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/shawn_mendes-rev1.jpg"
+              src={DEFAULT_AVATAR}
               alt="user"
               className="w-12 h-12 rounded-full"
             />
@@ -285,8 +286,8 @@ const PostThread = () => {
               className="my-2"
               placeholder={
                 userInfo.name
-                  ? `Apa yang Anda pikirkan ${userInfo.name?.split(' ')[0]}?`
-                  : 'Loading...'
+                  ? `Apa yang Anda pikirkan ${userInfo.name?.split(" ")[0]}?`
+                  : "Loading..."
               }
               fontSize="xs"
               value={newThread}
@@ -303,12 +304,12 @@ const PostThread = () => {
             </div>
           </div>
         </div>
-        <div className='xl:hidden'>
+        <div className="xl:hidden">
           <h3 className="font-lg font-bold">
             Pilih Informasi berdasarkan Wilayah
           </h3>
           <div className="flex">
-            <div className='w-full'>
+            <div className="w-full">
               <CardCollapse
                 title="Provinsi"
                 onChange={(e) => {
@@ -323,10 +324,10 @@ const PostThread = () => {
                   value: province.id.toString(),
                 }))}
                 name="provinsi"
-                value={provinceId?.toString() || ''}
+                value={provinceId?.toString() || ""}
               />
             </div>
-            <div className='w-full'>
+            <div className="w-full">
               <CardCollapse
                 title="Kota"
                 onChange={(e) => {
@@ -342,7 +343,7 @@ const PostThread = () => {
                   value: city.nama,
                 }))}
                 name="kota"
-                value={region?.toString() || ''}
+                value={region?.toString() || ""}
               />
             </div>
           </div>
@@ -427,7 +428,7 @@ const PostThread = () => {
             value: province.id.toString(),
           }))}
           name="provinsi"
-          value={provinceId?.toString() || ''}
+          value={provinceId?.toString() || ""}
         />
         <CardCollapse
           title="Kota"
@@ -444,7 +445,7 @@ const PostThread = () => {
             value: city.nama,
           }))}
           name="kota"
-          value={region?.toString() || ''}
+          value={region?.toString() || ""}
         />
       </div>
     </div>

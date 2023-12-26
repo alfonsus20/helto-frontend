@@ -20,6 +20,7 @@ import { getCities, getProvinces } from '../../models/location';
 
 import { Thread as ThreadEntity } from '../../types/entities/thread';
 import { City, Province } from '../../types/entities/location';
+import { DEFAULT_AVATAR } from '../../utils/constants';
 
 const skeletons = [...Array(6)].map((_, idx) => <SkeletonThread key={idx} />);
 
@@ -131,7 +132,7 @@ const Consultation = () => {
         <div className="flex gap-x-2 mb-4">
           <div className="flex-shrink-0">
             <img
-              src="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/shawn_mendes-rev1.jpg"
+              src={DEFAULT_AVATAR}
               alt="user"
               className="w-12 h-12 rounded-full"
             />
@@ -173,7 +174,7 @@ const Consultation = () => {
         <div className="flex gap-x-2 my-2 xl:hidden">
           <div className="flex-shrink-0">
             <img
-              src="https://evflxrgbnrjjfuhiafhk.supabase.co/storage/v1/object/public/images/shawn_mendes-rev1.jpg"
+              src={DEFAULT_AVATAR}
               alt="user"
               className="w-12 h-12 rounded-full"
             />
